@@ -1,0 +1,44 @@
+hexadrone_ws/src/
+│
+├── 🧠 hexadrone_core/           <-- Pure logic & HAL (Hardware Abstraction Layer)
+│   ├── include/
+│   │   └── hexadrone_core/
+│           └── lib.hpp             <-- Helper vector funtions
+│           └── robot_ros.hpp       <-- ROS2 API wrapper for input and output
+│   ├── src/
+│   │   ├── brain.cpp               <-- Main controller logic
+│   ├── CMakeLists.txt              <-- ament_cmake (but with NO rclcpp dependencies!)
+│   └── package.xml                 
+│
+├── 🎮 hexadrone_controller/     <-- ROS2 wrapper (Communication layer)
+│   ├── include/
+│   │   └── hexadrone_controller/
+│   ├── src/
+│   │   └── teleop_node.cpp         <-- Reads the controller (/joy), calls Brain, sends to Webots
+│   ├── CMakeLists.txt              <-- Links rclcpp, sensor_msgs, and hexadrone_core
+│   └── package.xml
+│
+├── 🤖 hexadrone_description/    <-- Visual and physics
+│   ├── assets/                     <-- .stl files
+│   ├── config/                     <-- ros2_control.yaml
+│   ├── urdf/                       <-- robot.urdf
+│   ├── CMakeLists.txt
+│   └── package.xml
+│
+├── 🌍 hexadrone_webots/         <-- Simulation
+│   ├── launch/                     <-- launch.py
+│   ├── protos/                     <-- robot.proto (converted .urdf)
+│   ├── worlds/                     <-- hexaworld.wbt
+│   ├── CMakeLists.txt
+│   └── package.xml
+│
+└── ⚡️ hexadrone_esp32/          <-- PlatformIO Physical hardware layer (PlatformIO)
+    ├── platformio.ini              <-- Board & library configurations
+    ├── lib/
+    │   └── hexadrone_core/         <-- Symlink to ../../hexadrone_core/
+    └── src/
+        ├── config.h                <-- Pins, offsets, battery limits
+        ├── radio_manager.cpp/h     <-- Read ELRS
+        ├── servo_manager.cpp/h     <-- Control PCA9685
+        ├── power_manager.cpp/h     <-- Holybro PM02D + OLED display
+        └── main.cpp                <-- Main cycle

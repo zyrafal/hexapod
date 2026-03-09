@@ -1,0 +1,1676 @@
+#VRML_SIM R2025a utf8
+# license: Apache License 2.0
+# license url: http://www.apache.org/licenses/LICENSE-2.0
+# This is a proto file for Webots for the robot
+# Extracted from: ../robot.urdf
+
+PROTO robot [
+  field  SFVec3f     translation     0 0 0.13
+  field  SFRotation  rotation        0 0 1 0
+  field  SFString    name            "robot"  # Is `Robot.name`.
+  field  SFString    controller      "void"   # Is `Robot.controller`.
+  field  MFString    controllerArgs  []       # Is `Robot.controllerArgs`.
+  field  SFString    customData      ""       # Is `Robot.customData`.
+  field  SFBool      supervisor      FALSE    # Is `Robot.supervisor`.
+  field  SFBool      synchronization TRUE     # Is `Robot.synchronization`.
+  field  SFBool      selfCollision   FALSE    # Is `Robot.selfCollision`.
+]
+{
+  Robot {
+    translation IS translation
+    rotation IS rotation
+    controller IS controller
+    controllerArgs IS controllerArgs
+    customData IS customData
+    supervisor IS supervisor
+    synchronization IS synchronization
+    selfCollision IS selfCollision
+    children [
+      Pose {
+        rotation 1.000000 0.000000 -0.000000 1.570800
+        children [
+          Shape {
+            appearance DEF base_link_material PBRAppearance {
+              baseColor 0.235294 0.235294 0.235294
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF base_link Mesh {
+              url "../assets/base_link.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.110250 0.000000 0.026200
+        children [
+          Shape {
+            appearance DEF rm_coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF rm_coxa_servo Mesh {
+              url "../assets/rm_coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation 0.089894 -0.129894 0.026200
+        rotation 0.000000 0.000000 1.000000 2.356190
+        children [
+          Shape {
+            appearance DEF lf_coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF lf_coxa_servo Mesh {
+              url "../assets/lf_coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.089894 -0.129894 0.026200
+        rotation -0.923880 -0.382683 0.000001 3.141590
+        children [
+          Shape {
+            appearance DEF rf__coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF rf__coxa_servo Mesh {
+              url "../assets/rf__coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation 0.110250 0.000000 0.026200
+        rotation 0.000001 -1.000000 -0.000001 3.141593
+        children [
+          Shape {
+            appearance DEF lm_coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF lm_coxa_servo Mesh {
+              url "../assets/lm_coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation 0.089894 0.129894 0.026200
+        rotation -0.000000 0.000000 -1.000000 2.356190
+        children [
+          Shape {
+            appearance DEF lb_coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF lb_coxa_servo Mesh {
+              url "../assets/lb_coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.000000 0.000000 0.043800
+        rotation 0.000001 0.707108 0.707105 3.141591
+        children [
+          Shape {
+            appearance DEF cover_material PBRAppearance {
+              baseColor 0.235294 0.235294 0.235294
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF cover Mesh {
+              url "../assets/cover.stl"
+            }
+          }
+        ]
+      }
+      Pose {
+        translation -0.089894 0.129894 0.026200
+        rotation 0.923880 -0.382683 -0.000001 3.141590
+        children [
+          Shape {
+            appearance DEF rb_coxa_servo_material PBRAppearance {
+              baseColor 0.247059 0.247059 0.247059
+              roughness 1.000000
+              metalness 0
+            }
+            geometry DEF rb_coxa_servo Mesh {
+              url "../assets/rb_coxa_servo.stl"
+            }
+          }
+        ]
+      }
+      DEF LM_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor 0.120250 -0.000000 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "LM_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "LM_coxa_sensor"
+          }
+        ]
+        endPoint DEF lm_coxa Solid {
+          translation 0.120250 -0.000000 0.052300
+          rotation -0.000000 0.000000 -1.000000 3.141590
+          children [
+            Pose {
+              translation -0.054433 -0.001176 -0.041500
+              children [
+                Shape {
+                  appearance DEF lm_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF lm_coxa Mesh {
+                    url "../assets/lm_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF LM_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000003 -1.000000 -0.000004
+                anchor -0.068000 -0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "LM_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "LM_femur_sensor"
+                }
+              ]
+              endPoint DEF lm_femur_servo Solid {
+                translation -0.068000 -0.026300 -0.030500
+                rotation -0.000001 0.707108 -0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.072089 0.028953 -0.023700
+                    rotation 0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF lm_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lm_femur Mesh {
+                          url "../assets/lm_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    rotation 1.000000 0.000000 0.000000 3.141590
+                    children [
+                      Shape {
+                        appearance DEF lm_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lm_femur_servo Mesh {
+                          url "../assets/lm_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 0.028953 -0.023500
+                    rotation -0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF lm_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lm_tibia_servo Mesh {
+                          url "../assets/lm_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF LM_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000002 -0.000002 -1.000000
+                      anchor 0.078517 0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "LM_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "LM_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF lm_tibia Solid {
+                      translation 0.078517 0.036613 -0.049600
+                      rotation 0.906308 0.422618 0.000001 3.141590
+                      children [
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF lm_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lm_tibia Mesh {
+                                url "../assets/lm_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF lm_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lm_tip Mesh {
+                                url "../assets/lm_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "lm_tibia"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            children [
+                              USE lm_tibia
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 0.000000 -0.055500
+                            children [
+                              USE lm_tip
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 -0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585830e-05 3.791350e-05 4.439980e-05
+                          1.809010e-05 -3.120800e-08 -1.387350e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "lm_femur_servo"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.072089 0.028953 -0.023700
+                      rotation 0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE lm_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      rotation 1.000000 0.000000 0.000000 3.141590
+                      children [
+                        USE lm_femur_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 0.028953 -0.023500
+                      rotation -0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE lm_tibia_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017100e-05 1.578460e-04 1.722180e-04
+                    -5.820730e-05 -4.847480e-06 -2.268750e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "lm_coxa"
+          boundingObject Pose {
+            translation -0.054433 -0.001176 -0.041500
+            children [
+              USE lm_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              -7.550370e-07 -2.088810e-06 -8.615100e-07
+            ]
+          }
+        }
+      }
+      DEF RM_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor -0.120250 0.000000 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "RM_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "RM_coxa_sensor"
+          }
+        ]
+        endPoint DEF rm_coxa Solid {
+          translation -0.120250 0.000000 0.052300
+          children [
+            Pose {
+              translation -0.054433 0.001176 -0.041500
+              rotation 1.000000 -0.000000 0.000000 3.141590
+              children [
+                Shape {
+                  appearance DEF rm_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF rm_coxa Mesh {
+                    url "../assets/rm_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF RM_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis -0.000003 1.000000 -0.000004
+                anchor -0.068000 0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "RM_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "RM_femur_sensor"
+                }
+              ]
+              endPoint DEF rm_tibia_servo Solid {
+                translation -0.068000 0.026300 -0.030500
+                rotation 0.000001 -0.707108 -0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023500
+                    rotation -0.422617 -0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF rm_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rm_tibia_servo Mesh {
+                          url "../assets/rm_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023700
+                    rotation 0.422617 0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF rm_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rm_femur Mesh {
+                          url "../assets/rm_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    children [
+                      Shape {
+                        appearance DEF rm_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rm_femur_servo Mesh {
+                          url "../assets/rm_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF RM_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis -0.000002 -0.000002 -1.000000
+                      anchor 0.078517 -0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "RM_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "RM_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF rm_tip Solid {
+                      translation 0.078517 -0.036613 -0.049600
+                      rotation 0.906308 -0.422618 -0.000001 3.141590
+                      children [
+                        Pose {
+                          translation 0.000000 0.000000 -0.055500
+                          rotation -1.000000 0.000000 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF rm_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rm_tibia Mesh {
+                                url "../assets/rm_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          rotation 1.000000 0.000000 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF rm_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rm_tip Mesh {
+                                url "../assets/rm_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "rm_tip"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation 0.000000 0.000000 -0.055500
+                            rotation -1.000000 0.000000 -0.000000 3.141590
+                            children [
+                              USE rm_tibia
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            rotation 1.000000 0.000000 -0.000000 3.141590
+                            children [
+                              USE rm_tip
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585840e-05 3.791350e-05 4.439980e-05
+                          -1.809010e-05 -3.121800e-08 1.387380e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "rm_tibia_servo"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023500
+                      rotation -0.422617 -0.906308 0.000001 3.141592
+                      children [
+                        USE rm_tibia_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023700
+                      rotation 0.422617 0.906308 0.000001 3.141592
+                      children [
+                        USE rm_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      children [
+                        USE rm_femur_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 -0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017080e-05 1.578450e-04 1.722180e-04
+                    5.820710e-05 -4.847370e-06 2.268670e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "rm_coxa"
+          boundingObject Pose {
+            translation -0.054433 0.001176 -0.041500
+            rotation 1.000000 -0.000000 0.000000 3.141590
+            children [
+              USE rm_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 -0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              7.550300e-07 -2.088850e-06 8.614800e-07
+            ]
+          }
+        }
+      }
+      DEF RF_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor -0.096965 -0.136965 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "RF_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "RF_coxa_sensor"
+          }
+        ]
+        endPoint DEF rf_coxa Solid {
+          translation -0.096965 -0.136965 0.052300
+          rotation 0.000000 0.000000 1.000000 0.785398
+          children [
+            Pose {
+              translation -0.054433 -0.001176 -0.041500
+              children [
+                Shape {
+                  appearance DEF rf_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF rf_coxa Mesh {
+                    url "../assets/rf_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF RF_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000003 -1.000000 -0.000004
+                anchor -0.068000 -0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "RF_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "RF_femur_sensor"
+                }
+              ]
+              endPoint DEF rf_femur Solid {
+                translation -0.068000 -0.026300 -0.030500
+                rotation -0.000001 0.707108 -0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.072089 0.028953 -0.023700
+                    rotation -0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF rf_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rf_femur Mesh {
+                          url "../assets/rf_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 0.028953 -0.023500
+                    rotation -0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF rf_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rf_tibia_servo Mesh {
+                          url "../assets/rf_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    rotation 1.000000 0.000000 0.000000 3.141590
+                    children [
+                      Shape {
+                        appearance DEF rf_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rf_femur_servo Mesh {
+                          url "../assets/rf_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF RF_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis -0.000002 0.000002 -1.000000
+                      anchor 0.078517 0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "RF_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "RF_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF rf_tibia Solid {
+                      translation 0.078517 0.036613 -0.049600
+                      rotation -0.906308 -0.422618 0.000001 3.141590
+                      children [
+                        Pose {
+                          translation -0.000000 0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF rf_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rf_tip Mesh {
+                                url "../assets/rf_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF rf_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rf_tibia Mesh {
+                                url "../assets/rf_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "rf_tibia"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 0.000000 -0.055500
+                            children [
+                              USE rf_tip
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            children [
+                              USE rf_tibia
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 -0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585830e-05 3.791350e-05 4.439980e-05
+                          1.809010e-05 -3.120800e-08 -1.387350e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "rf_femur"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.072089 0.028953 -0.023700
+                      rotation -0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE rf_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 0.028953 -0.023500
+                      rotation -0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE rf_tibia_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      rotation 1.000000 0.000000 0.000000 3.141590
+                      children [
+                        USE rf_femur_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017100e-05 1.578460e-04 1.722180e-04
+                    -5.820730e-05 -4.847480e-06 -2.268750e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "rf_coxa"
+          boundingObject Pose {
+            translation -0.054433 -0.001176 -0.041500
+            children [
+              USE rf_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              -7.550370e-07 -2.088810e-06 -8.615100e-07
+            ]
+          }
+        }
+      }
+      DEF LF_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor 0.096965 -0.136965 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "LF_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "LF_coxa_sensor"
+          }
+        ]
+        endPoint DEF lf_coxa Solid {
+          translation 0.096965 -0.136965 0.052300
+          rotation 0.000000 0.000000 1.000000 2.356190
+          children [
+            Pose {
+              translation -0.054433 0.001176 -0.041500
+              rotation 1.000000 0.000000 0.000000 3.141590
+              children [
+                Shape {
+                  appearance DEF lf_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF lf_coxa Mesh {
+                    url "../assets/lf_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF LF_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis 0.000003 1.000000 -0.000004
+                anchor -0.068000 0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "LF_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "LF_femur_sensor"
+                }
+              ]
+              endPoint DEF lf_tibia_servo Solid {
+                translation -0.068000 0.026300 -0.030500
+                rotation 0.000001 0.707108 0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023700
+                    rotation 0.422617 0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF lf_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lf_femur Mesh {
+                          url "../assets/lf_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    children [
+                      Shape {
+                        appearance DEF lf_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lf_femur_servo Mesh {
+                          url "../assets/lf_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023500
+                    rotation -0.422617 -0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF lf_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lf_tibia_servo Mesh {
+                          url "../assets/lf_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF LF_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis -0.000002 -0.000002 -1.000000
+                      anchor 0.078517 -0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "LF_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "LF_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF lf_tibia Solid {
+                      translation 0.078517 -0.036613 -0.049600
+                      rotation 0.906308 -0.422618 -0.000001 3.141590
+                      children [
+                        Pose {
+                          translation 0.000000 0.000000 -0.055500
+                          rotation -1.000000 0.000000 -0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF lf_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lf_tibia Mesh {
+                                url "../assets/lf_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          rotation 1.000000 0.000000 0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF lf_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lf_tip Mesh {
+                                url "../assets/lf_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "lf_tibia"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation 0.000000 0.000000 -0.055500
+                            rotation -1.000000 0.000000 -0.000000 3.141590
+                            children [
+                              USE lf_tibia
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            rotation 1.000000 0.000000 0.000000 3.141590
+                            children [
+                              USE lf_tip
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585840e-05 3.791350e-05 4.439980e-05
+                          -1.809010e-05 -3.121800e-08 1.387380e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "lf_tibia_servo"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023700
+                      rotation 0.422617 0.906308 0.000001 3.141592
+                      children [
+                        USE lf_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      children [
+                        USE lf_femur_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023500
+                      rotation -0.422617 -0.906308 0.000001 3.141592
+                      children [
+                        USE lf_tibia_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 -0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017080e-05 1.578450e-04 1.722180e-04
+                    5.820710e-05 -4.847370e-06 2.268670e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "lf_coxa"
+          boundingObject Pose {
+            translation -0.054433 0.001176 -0.041500
+            rotation 1.000000 0.000000 0.000000 3.141590
+            children [
+              USE lf_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 -0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              7.550300e-07 -2.088850e-06 8.614800e-07
+            ]
+          }
+        }
+      }
+      DEF RB_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor -0.096965 0.136965 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "RB_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "RB_coxa_sensor"
+          }
+        ]
+        endPoint DEF rb_coxa Solid {
+          translation -0.096965 0.136965 0.052300
+          rotation 0.000000 0.000000 -1.000000 0.785398
+          children [
+            Pose {
+              translation -0.054433 -0.001176 -0.041500
+              children [
+                Shape {
+                  appearance DEF rb_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF rb_coxa Mesh {
+                    url "../assets/rb_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF RB_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis -0.000003 -1.000000 -0.000004
+                anchor -0.068000 -0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "RB_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "RB_femur_sensor"
+                }
+              ]
+              endPoint DEF rb_tibia_servo Solid {
+                translation -0.068000 -0.026300 -0.030500
+                rotation -0.000001 -0.707108 0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    rotation 1.000000 0.000000 0.000000 3.141590
+                    children [
+                      Shape {
+                        appearance DEF rb_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rb_femur_servo Mesh {
+                          url "../assets/rb_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 0.028953 -0.023700
+                    rotation 0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF rb_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rb_femur Mesh {
+                          url "../assets/rb_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 0.028953 -0.023500
+                    rotation -0.000000 0.000000 -1.000000 2.268930
+                    children [
+                      Shape {
+                        appearance DEF rb_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF rb_tibia_servo Mesh {
+                          url "../assets/rb_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF RB_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis 0.000002 -0.000002 -1.000000
+                      anchor 0.078517 0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "RB_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "RB_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF rb_tibia Solid {
+                      translation 0.078517 0.036613 -0.049600
+                      rotation 0.906308 0.422618 0.000001 3.141590
+                      children [
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF rb_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rb_tibia Mesh {
+                                url "../assets/rb_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation 0.000000 0.000000 -0.055500
+                          children [
+                            Shape {
+                              appearance DEF rb_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF rb_tip Mesh {
+                                url "../assets/rb_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "rb_tibia"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            children [
+                              USE rb_tibia
+                            ]
+                          }
+                          Pose {
+                            translation 0.000000 0.000000 -0.055500
+                            children [
+                              USE rb_tip
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 -0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585830e-05 3.791350e-05 4.439980e-05
+                          1.809010e-05 -3.120800e-08 -1.387350e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "rb_tibia_servo"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      rotation 1.000000 0.000000 0.000000 3.141590
+                      children [
+                        USE rb_femur_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 0.028953 -0.023700
+                      rotation 0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE rb_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 0.028953 -0.023500
+                      rotation -0.000000 0.000000 -1.000000 2.268930
+                      children [
+                        USE rb_tibia_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017100e-05 1.578460e-04 1.722180e-04
+                    -5.820730e-05 -4.847480e-06 -2.268750e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "rb_coxa"
+          boundingObject Pose {
+            translation -0.054433 -0.001176 -0.041500
+            children [
+              USE rb_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              -7.550370e-07 -2.088810e-06 -8.615100e-07
+            ]
+          }
+        }
+      }
+      DEF LB_coxa HingeJoint {
+        jointParameters HingeJointParameters {
+          axis 0.000000 0.000000 1.000000
+          anchor 0.096965 0.136965 0.052300
+        }
+        device [
+          RotationalMotor {
+            name "LB_coxa"
+            maxVelocity 10.0
+            minPosition -1.5708
+            maxPosition 1.5708
+            maxTorque 1.5
+          }
+          PositionSensor {
+            name "LB_coxa_sensor"
+          }
+        ]
+        endPoint DEF lb_coxa Solid {
+          translation 0.096965 0.136965 0.052300
+          rotation -0.000000 0.000000 -1.000000 2.356190
+          children [
+            Pose {
+              translation -0.054433 0.001176 -0.041500
+              rotation 1.000000 -0.000000 0.000000 3.141590
+              children [
+                Shape {
+                  appearance DEF lb_coxa_material PBRAppearance {
+                    roughness 1.000000
+                    metalness 0
+                  }
+                  geometry DEF lb_coxa Mesh {
+                    url "../assets/lb_coxa.stl"
+                  }
+                }
+              ]
+            }
+            DEF LB_femur HingeJoint {
+              jointParameters HingeJointParameters {
+                axis -0.000003 1.000000 -0.000004
+                anchor -0.068000 0.026300 -0.030500
+              }
+              device [
+                RotationalMotor {
+                  name "LB_femur"
+                  maxVelocity 10.0
+                  minPosition -1.5708
+                  maxPosition 1.5708
+                  maxTorque 1.5
+                }
+                PositionSensor {
+                  name "LB_femur_sensor"
+                }
+              ]
+              endPoint DEF lb_femur Solid {
+                translation -0.068000 0.026300 -0.030500
+                rotation 0.000001 -0.707108 -0.707105 3.141591
+                children [
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023500
+                    rotation -0.422617 -0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF lb_tibia_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lb_tibia_servo Mesh {
+                          url "../assets/lb_tibia_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.072089 -0.028953 -0.023700
+                    rotation 0.422617 0.906308 0.000001 3.141592
+                    children [
+                      Shape {
+                        appearance DEF lb_femur_material PBRAppearance {
+                          baseColor 0.062745 0.631373 0.929412
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lb_femur Mesh {
+                          url "../assets/lb_femur.stl"
+                        }
+                      }
+                    ]
+                  }
+                  Pose {
+                    translation 0.010000 0.000000 -0.026400
+                    children [
+                      Shape {
+                        appearance DEF lb_femur_servo_material PBRAppearance {
+                          baseColor 0.247059 0.247059 0.247059
+                          roughness 1.000000
+                          metalness 0
+                        }
+                        geometry DEF lb_femur_servo Mesh {
+                          url "../assets/lb_femur_servo.stl"
+                        }
+                      }
+                    ]
+                  }
+                  DEF LB_tibia HingeJoint {
+                    jointParameters HingeJointParameters {
+                      axis -0.000002 -0.000002 -1.000000
+                      anchor 0.078517 -0.036613 -0.049600
+                    }
+                    device [
+                      RotationalMotor {
+                        name "LB_tibia"
+                        maxVelocity 10.0
+                        minPosition -1.5708
+                        maxPosition 1.5708
+                        maxTorque 1.5
+                      }
+                      PositionSensor {
+                        name "LB_tibia_sensor"
+                      }
+                    ]
+                    endPoint DEF lb_tibia Solid {
+                      translation 0.078517 -0.036613 -0.049600
+                      rotation 0.906308 -0.422618 -0.000001 3.141590
+                      children [
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          rotation 1.000000 0.000000 0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF lb_tip_material PBRAppearance {
+                                baseColor 0.247059 0.247059 0.247059
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lb_tip Mesh {
+                                url "../assets/lb_tip.stl"
+                              }
+                            }
+                          ]
+                        }
+                        Pose {
+                          translation -0.000000 -0.000000 -0.055500
+                          rotation 1.000000 0.000000 0.000000 3.141590
+                          children [
+                            Shape {
+                              appearance DEF lb_tibia_material PBRAppearance {
+                                roughness 1.000000
+                                metalness 0
+                              }
+                              geometry DEF lb_tibia Mesh {
+                                url "../assets/lb_tibia.stl"
+                              }
+                            }
+                          ]
+                        }
+                      ]
+                      name "lb_tibia"
+                      boundingObject Group {
+                        children [
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            rotation 1.000000 0.000000 0.000000 3.141590
+                            children [
+                              USE lb_tip
+                            ]
+                          }
+                          Pose {
+                            translation -0.000000 -0.000000 -0.055500
+                            rotation 1.000000 0.000000 0.000000 3.141590
+                            children [
+                              USE lb_tibia
+                            ]
+                          }
+                        ]
+                      }
+                      physics Physics {
+                        density -1
+                        mass 0.047665
+                        centerOfMass [ 0.040919 0.014025 -0.025764 ]
+                        inertiaMatrix [
+                          3.585840e-05 3.791350e-05 4.439980e-05
+                          -1.809010e-05 -3.121800e-08 1.387380e-07
+                        ]
+                      }
+                    }
+                  }
+                ]
+                name "lb_femur"
+                boundingObject Group {
+                  children [
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023500
+                      rotation -0.422617 -0.906308 0.000001 3.141592
+                      children [
+                        USE lb_tibia_servo
+                      ]
+                    }
+                    Pose {
+                      translation 0.072089 -0.028953 -0.023700
+                      rotation 0.422617 0.906308 0.000001 3.141592
+                      children [
+                        USE lb_femur
+                      ]
+                    }
+                    Pose {
+                      translation 0.010000 0.000000 -0.026400
+                      children [
+                        USE lb_femur_servo
+                      ]
+                    }
+                  ]
+                }
+                physics Physics {
+                  density -1
+                  mass 0.143643
+                  centerOfMass [ 0.041664 -0.013145 -0.024954 ]
+                  inertiaMatrix [
+                    6.017080e-05 1.578450e-04 1.722180e-04
+                    5.820710e-05 -4.847370e-06 2.268670e-06
+                  ]
+                }
+              }
+            }
+          ]
+          name "lb_coxa"
+          boundingObject Pose {
+            translation -0.054433 0.001176 -0.041500
+            rotation 1.000000 -0.000000 0.000000 3.141590
+            children [
+              USE lb_coxa
+            ]
+          }
+          physics Physics {
+            density -1
+            mass 0.046094
+            centerOfMass [ -0.033931 -0.000825 -0.029076 ]
+            inertiaMatrix [
+              3.232370e-05 3.368270e-05 3.327030e-05
+              7.550300e-07 -2.088850e-06 8.614800e-07
+            ]
+          }
+        }
+      }
+    ]
+    name IS name
+    boundingObject Group {
+      children [
+        Pose {
+          rotation 1.000000 0.000000 -0.000000 1.570800
+          children [
+            USE base_link
+          ]
+        }
+        Pose {
+          translation -0.110250 0.000000 0.026200
+          children [
+            USE rm_coxa_servo
+          ]
+        }
+        Pose {
+          translation 0.089894 -0.129894 0.026200
+          rotation 0.000000 0.000000 1.000000 2.356190
+          children [
+            USE lf_coxa_servo
+          ]
+        }
+        Pose {
+          translation -0.089894 -0.129894 0.026200
+          rotation -0.923880 -0.382683 0.000001 3.141590
+          children [
+            USE rf__coxa_servo
+          ]
+        }
+        Pose {
+          translation 0.110250 0.000000 0.026200
+          rotation 0.000001 -1.000000 -0.000001 3.141593
+          children [
+            USE lm_coxa_servo
+          ]
+        }
+        Pose {
+          translation 0.089894 0.129894 0.026200
+          rotation -0.000000 0.000000 -1.000000 2.356190
+          children [
+            USE lb_coxa_servo
+          ]
+        }
+        Pose {
+          translation -0.000000 0.000000 0.043800
+          rotation 0.000001 0.707108 0.707105 3.141591
+          children [
+            USE cover
+          ]
+        }
+        Pose {
+          translation -0.089894 0.129894 0.026200
+          rotation 0.923880 -0.382683 -0.000001 3.141590
+          children [
+            USE rb_coxa_servo
+          ]
+        }
+      ]
+    }
+    physics Physics {
+      density -1
+      mass 1.579410
+      centerOfMass [ -0.000000 0.000000 0.031749 ]
+      inertiaMatrix [
+        1.383090e-02 9.927230e-03 2.197380e-02
+        7.421000e-09 2.200000e-11 -4.170000e-10
+      ]
+    }
+  }
+}

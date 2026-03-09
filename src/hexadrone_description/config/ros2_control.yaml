@@ -1,0 +1,32 @@
+controller_manager:
+  ros__parameters:
+    update_rate: 62
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    forward_position_controller:
+      type: position_controllers/JointGroupPositionController
+
+forward_position_controller:
+  ros__parameters:
+    joints:
+      - LM_coxa
+      - LM_femur
+      - LM_tibia
+      - RM_coxa
+      - RM_femur
+      - RM_tibia
+      - RF_coxa
+      - RF_femur
+      - RF_tibia
+      - LF_coxa
+      - LF_femur
+      - LF_tibia
+      - RB_coxa
+      - RB_femur
+      - RB_tibia
+      - LB_coxa
+      - LB_femur
+      - LB_tibia
+    interface_name: position

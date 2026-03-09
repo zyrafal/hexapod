@@ -1,0 +1,13 @@
+{
+    "configuration": "default",
+    "documentId": "659d4ebbaf97ca0e116d774e",
+    "documentMicroversion": "e2cb5a7ec1bfea29e613e807",
+    "elementId": "db275f2877fad6d01c5fd73a",
+    "fullConfiguration": "default",
+    "id": "MFQYz1gz7+xOl4sbM",
+    "isStandardContent": false,
+    "name": "RB_femur_servo <1>",
+    "partId": "JFj",
+    "suppressed": false,
+    "type": "Part"
+}

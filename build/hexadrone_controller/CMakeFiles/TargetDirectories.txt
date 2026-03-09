@@ -1,0 +1,9 @@
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/uninstall.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/hexadrone_controller_uninstall.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/test.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/edit_cache.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/rebuild_cache.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/list_install_components.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/install.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/install/local.dir
+/home/yehorderehus/hexadrone_ws/build/hexadrone_controller/CMakeFiles/install/strip.dir

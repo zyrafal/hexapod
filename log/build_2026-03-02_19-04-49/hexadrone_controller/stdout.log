@@ -1,0 +1,17 @@
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/package_run_dependencies/hexadrone_controller
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/parent_prefix_path/hexadrone_controller
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.bash
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.zsh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/packages/hexadrone_controller
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig.cmake
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig-version.cmake
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.xml

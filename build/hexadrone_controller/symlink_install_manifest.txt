@@ -1,0 +1,15 @@
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/package_run_dependencies/hexadrone_controller
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/parent_prefix_path/hexadrone_controller
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.sh
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.dsv
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.sh
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.dsv
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.bash
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.sh
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.zsh
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.dsv
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.dsv
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/packages/hexadrone_controller
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig.cmake
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig-version.cmake
+/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.xml

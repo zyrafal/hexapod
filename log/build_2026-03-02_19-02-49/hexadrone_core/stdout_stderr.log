@@ -1,0 +1,4 @@
+[0mCMake Error: The current CMakeCache.txt directory /home/Projects/hexadrone_ws/build/hexadrone_core/CMakeCache.txt is different than the directory /home/yehorderehus/hexadrone_ws/build/hexadrone_core where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt[0m
+[0mCMake Error: The source directory "/home/yehorderehus/hexadrone_ws/src/hexadrone_core" does not exist.
+Specify --help for usage, or press the help button on the CMake GUI.[0m
+gmake: *** [Makefile:226: cmake_check_build_system] Error 1

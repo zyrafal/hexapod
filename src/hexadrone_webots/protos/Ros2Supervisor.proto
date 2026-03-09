@@ -1,0 +1,13 @@
+#VRML_SIM R2025a utf8
+
+PROTO Ros2Supervisor [
+  field SFString name "Ros2Supervisor"
+  field SFString controller "<extern>"
+]
+{
+  Robot {
+    name IS name
+    controller IS controller
+    supervisor TRUE
+  }
+}

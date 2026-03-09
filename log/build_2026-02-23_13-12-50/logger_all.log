@@ -1,0 +1,375 @@
+[0.121s] DEBUG:colcon:Command line arguments: ['/usr/bin/colcon', 'build', '--symlink-install']
+[0.122s] DEBUG:colcon:Parsed command line arguments: Namespace(log_base=None, log_level=None, verb_name='build', build_base='build', install_base='install', merge_install=False, symlink_install=True, test_result_base=None, continue_on_error=False, executor='parallel', parallel_workers=8, event_handlers=None, ignore_user_meta=False, metas=['./colcon.meta'], base_paths=['.'], packages_ignore=None, packages_ignore_regex=None, paths=None, packages_up_to=None, packages_up_to_regex=None, packages_above=None, packages_above_and_dependencies=None, packages_above_depth=None, packages_select_by_dep=None, packages_skip_by_dep=None, packages_skip_up_to=None, packages_select_build_failed=False, packages_skip_build_finished=False, packages_select_test_failures=False, packages_skip_test_passed=False, packages_select=None, packages_skip=None, packages_select_regex=None, packages_skip_regex=None, packages_start=None, packages_end=None, allow_overriding=[], cmake_args=None, cmake_target=None, cmake_target_skip_unavailable=False, cmake_clean_cache=False, cmake_clean_first=False, cmake_force_configure=False, ament_cmake_args=None, catkin_cmake_args=None, catkin_skip_building_tests=False, verb_parser=<colcon_defaults.argument_parser.defaults.DefaultArgumentsDecorator object at 0x7ec8cede9970>, verb_extension=<colcon_core.verb.build.BuildVerb object at 0x7ec8cede97f0>, main=<bound method BuildVerb.main of <colcon_core.verb.build.BuildVerb object at 0x7ec8cede97f0>>)
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) check parameters
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) check parameters
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) check parameters
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) check parameters
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(colcon_meta) discover
+[0.161s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) discover
+[0.161s] INFO:colcon.colcon_core.package_discovery:Crawling recursively for packages in '/home/yehorderehus/hexadrone_ws'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ignore', 'ignore_ament_install']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ignore_ament_install'
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_pkg']
+[0.161s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_pkg'
+[0.162s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['colcon_meta']
+[0.162s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'colcon_meta'
+[0.162s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['ros']
+[0.162s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'ros'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['cmake', 'python']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'cmake'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extensions ['python_setup_py']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(.) by extension 'python_setup_py'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extensions ['ignore', 'ignore_ament_install']
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(build) by extension 'ignore'
+[0.185s] Level 1:colcon.colcon_core.package_identification:_identify(build) ignored
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extensions ['ignore', 'ignore_ament_install']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(install) by extension 'ignore'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(install) ignored
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extensions ['ignore', 'ignore_ament_install']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(log) by extension 'ignore'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(log) ignored
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ignore', 'ignore_ament_install']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ignore_ament_install'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_pkg']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_pkg'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['colcon_meta']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'colcon_meta'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['ros']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'ros'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['cmake', 'python']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'cmake'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extensions ['python_setup_py']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src) by extension 'python_setup_py'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extensions ['ignore', 'ignore_ament_install']
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extension 'ignore'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extension 'ignore_ament_install'
+[0.186s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extensions ['colcon_pkg']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extension 'colcon_pkg'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extensions ['colcon_meta']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extension 'colcon_meta'
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extensions ['ros']
+[0.187s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_controller) by extension 'ros'
+[0.190s] DEBUG:colcon.colcon_core.package_identification:Package 'src/hexadrone_controller' with type 'ros.ament_cmake' and name 'hexadrone_controller'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extensions ['ignore', 'ignore_ament_install']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extension 'ignore'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extension 'ignore_ament_install'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extensions ['colcon_pkg']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extension 'colcon_pkg'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extensions ['colcon_meta']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extension 'colcon_meta'
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extensions ['ros']
+[0.190s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_core) by extension 'ros'
+[0.190s] DEBUG:colcon.colcon_core.package_identification:Package 'src/hexadrone_core' with type 'ros.ament_cmake' and name 'hexadrone_core'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extension 'ignore_ament_install'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extensions ['colcon_pkg']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extension 'colcon_pkg'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extensions ['colcon_meta']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extension 'colcon_meta'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extensions ['ros']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_description) by extension 'ros'
+[0.191s] DEBUG:colcon.colcon_core.package_identification:Package 'src/hexadrone_description' with type 'ros.ament_cmake' and name 'hexadrone_description'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['ignore', 'ignore_ament_install']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'ignore'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'ignore_ament_install'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['colcon_pkg']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'colcon_pkg'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['colcon_meta']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'colcon_meta'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['ros']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'ros'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['cmake', 'python']
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'cmake'
+[0.191s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'python'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extensions ['python_setup_py']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32) by extension 'python_setup_py'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['ignore', 'ignore_ament_install']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'ignore'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'ignore_ament_install'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['colcon_pkg']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'colcon_pkg'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['colcon_meta']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'colcon_meta'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['ros']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'ros'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['cmake', 'python']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'cmake'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'python'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extensions ['python_setup_py']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/lib) by extension 'python_setup_py'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['ignore', 'ignore_ament_install']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'ignore'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'ignore_ament_install'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['colcon_pkg']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'colcon_pkg'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['colcon_meta']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'colcon_meta'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['ros']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'ros'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['cmake', 'python']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'cmake'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'python'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extensions ['python_setup_py']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_esp32/src) by extension 'python_setup_py'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extensions ['ignore', 'ignore_ament_install']
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extension 'ignore'
+[0.192s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extension 'ignore_ament_install'
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extensions ['colcon_pkg']
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extension 'colcon_pkg'
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extensions ['colcon_meta']
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extension 'colcon_meta'
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extensions ['ros']
+[0.193s] Level 1:colcon.colcon_core.package_identification:_identify(src/hexadrone_webots) by extension 'ros'
+[0.193s] DEBUG:colcon.colcon_core.package_identification:Package 'src/hexadrone_webots' with type 'ros.ament_cmake' and name 'hexadrone_webots'
+[0.193s] Level 1:colcon.colcon_core.package_discovery:discover_packages(recursive) using defaults
+[0.193s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) discover
+[0.193s] Level 1:colcon.colcon_core.package_discovery:discover_packages(ignore) using defaults
+[0.193s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) discover
+[0.193s] Level 1:colcon.colcon_core.package_discovery:discover_packages(path) using defaults
+[0.211s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) check parameters
+[0.212s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) discover
+[0.214s] DEBUG:colcon.colcon_installed_package_information.package_discovery:Found 358 installed packages in /opt/ros/jazzy
+[0.215s] Level 1:colcon.colcon_core.package_discovery:discover_packages(prefix_path) using defaults
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_controller' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'hexadrone_controller' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller', 'merge_install': False, 'path': '/home/yehorderehus/hexadrone_ws/src/hexadrone_controller', 'symlink_install': True, 'test_result_base': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_core' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'hexadrone_core' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/yehorderehus/hexadrone_ws/build/hexadrone_core', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/yehorderehus/hexadrone_ws/install/hexadrone_core', 'merge_install': False, 'path': '/home/yehorderehus/hexadrone_ws/src/hexadrone_core', 'symlink_install': True, 'test_result_base': None}
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_target' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_clean_cache' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_clean_first' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'cmake_force_configure' from command line to 'False'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'ament_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'catkin_cmake_args' from command line to 'None'
+[0.248s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_description' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.248s] DEBUG:colcon.colcon_core.verb:Building package 'hexadrone_description' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/yehorderehus/hexadrone_ws/build/hexadrone_description', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/yehorderehus/hexadrone_ws/install/hexadrone_description', 'merge_install': False, 'path': '/home/yehorderehus/hexadrone_ws/src/hexadrone_description', 'symlink_install': True, 'test_result_base': None}
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_target' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_target_skip_unavailable' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_clean_cache' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_clean_first' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'cmake_force_configure' from command line to 'False'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'ament_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'catkin_cmake_args' from command line to 'None'
+[0.249s] Level 5:colcon.colcon_core.verb:set package 'hexadrone_webots' build argument 'catkin_skip_building_tests' from command line to 'False'
+[0.249s] DEBUG:colcon.colcon_core.verb:Building package 'hexadrone_webots' with the following arguments: {'ament_cmake_args': None, 'build_base': '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots', 'catkin_cmake_args': None, 'catkin_skip_building_tests': False, 'cmake_args': None, 'cmake_clean_cache': False, 'cmake_clean_first': False, 'cmake_force_configure': False, 'cmake_target': None, 'cmake_target_skip_unavailable': False, 'install_base': '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots', 'merge_install': False, 'path': '/home/yehorderehus/hexadrone_ws/src/hexadrone_webots', 'symlink_install': True, 'test_result_base': None}
+[0.249s] INFO:colcon.colcon_core.executor:Executing jobs using 'parallel' executor
+[0.249s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete
+[0.250s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_description' with build type 'ament_cmake'
+[0.250s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_description'
+[0.253s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_core.shell.bat': Not used on non-Windows systems
+[0.253s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.253s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.256s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_controller' with build type 'ament_cmake'
+[0.256s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_controller'
+[0.256s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.256s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.258s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_core' with build type 'ament_cmake'
+[0.258s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_core'
+[0.258s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[0.258s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[0.262s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_description
+[0.265s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_controller
+[0.268s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_core -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_core
+[1.040s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_core -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_core
+[1.041s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_core -- -j8 -l8
+[1.042s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_controller -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_controller
+[1.042s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_controller -- -j8 -l8
+[1.043s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_description -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_description
+[1.044s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_description -- -j8 -l8
+[1.069s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_core -- -j8 -l8
+[1.076s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_core
+[1.076s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_description -- -j8 -l8
+[1.076s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_description
+[1.077s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_controller -- -j8 -l8
+[1.078s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_controller
+[1.173s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_core)
+[1.174s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_core
+[1.178s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core' for CMake module files
+[1.178s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core' for CMake config files
+[1.178s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_core', 'cmake_prefix_path')
+[1.179s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.ps1'
+[1.179s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.dsv'
+[1.180s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.sh'
+[1.181s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/bin'
+[1.181s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/lib/pkgconfig/hexadrone_core.pc'
+[1.181s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/lib/python3.12/site-packages'
+[1.181s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/bin'
+[1.181s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.ps1'
+[1.182s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.dsv'
+[1.182s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.sh'
+[1.183s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.bash'
+[1.183s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.zsh'
+[1.184s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/colcon-core/packages/hexadrone_core)
+[1.184s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_core)
+[1.184s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core' for CMake module files
+[1.185s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core' for CMake config files
+[1.185s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_core', 'cmake_prefix_path')
+[1.185s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.ps1'
+[1.185s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.dsv'
+[1.185s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/hook/cmake_prefix_path.sh'
+[1.186s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/bin'
+[1.186s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/lib/pkgconfig/hexadrone_core.pc'
+[1.186s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/lib/python3.12/site-packages'
+[1.186s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/bin'
+[1.186s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.ps1'
+[1.187s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.dsv'
+[1.187s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.sh'
+[1.187s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.bash'
+[1.188s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/hexadrone_core/package.zsh'
+[1.188s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_core/share/colcon-core/packages/hexadrone_core)
+[1.188s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_controller)
+[1.188s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller' for CMake module files
+[1.189s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_controller
+[1.189s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller' for CMake config files
+[1.189s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_controller', 'cmake_prefix_path')
+[1.189s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.ps1'
+[1.190s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.dsv'
+[1.191s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.sh'
+[1.191s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/bin'
+[1.191s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/lib/pkgconfig/hexadrone_controller.pc'
+[1.191s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/lib/python3.12/site-packages'
+[1.191s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/bin'
+[1.192s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.ps1'
+[1.192s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.dsv'
+[1.192s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.sh'
+[1.192s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.bash'
+[1.193s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.zsh'
+[1.193s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/colcon-core/packages/hexadrone_controller)
+[1.193s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_controller)
+[1.193s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller' for CMake module files
+[1.194s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller' for CMake config files
+[1.194s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_controller', 'cmake_prefix_path')
+[1.194s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.ps1'
+[1.194s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.dsv'
+[1.195s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/hook/cmake_prefix_path.sh'
+[1.195s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/bin'
+[1.195s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/lib/pkgconfig/hexadrone_controller.pc'
+[1.195s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/lib/python3.12/site-packages'
+[1.195s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/bin'
+[1.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.ps1'
+[1.196s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.dsv'
+[1.196s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.sh'
+[1.197s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.bash'
+[1.197s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.zsh'
+[1.197s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/colcon-core/packages/hexadrone_controller)
+[1.667s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_description)
+[1.668s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description' for CMake module files
+[1.668s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_description' returned '0': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_description
+[1.668s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description' for CMake config files
+[1.669s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_description', 'cmake_prefix_path')
+[1.669s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.ps1'
+[1.669s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.dsv'
+[1.669s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.sh'
+[1.670s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/bin'
+[1.670s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/lib/pkgconfig/hexadrone_description.pc'
+[1.670s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/lib/python3.12/site-packages'
+[1.670s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/bin'
+[1.670s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.ps1'
+[1.671s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.dsv'
+[1.671s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.sh'
+[1.671s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.bash'
+[1.671s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.zsh'
+[1.671s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/colcon-core/packages/hexadrone_description)
+[1.672s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_description)
+[1.672s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description' for CMake module files
+[1.672s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description' for CMake config files
+[1.672s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_description', 'cmake_prefix_path')
+[1.673s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.ps1'
+[1.673s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.dsv'
+[1.673s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/hook/cmake_prefix_path.sh'
+[1.673s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/bin'
+[1.673s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/lib/pkgconfig/hexadrone_description.pc'
+[1.673s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/lib/python3.12/site-packages'
+[1.674s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/bin'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.ps1'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.dsv'
+[1.674s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.sh'
+[1.675s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.bash'
+[1.675s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.zsh'
+[1.675s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/colcon-core/packages/hexadrone_description)
+[1.675s] INFO:colcon.colcon_ros.task.ament_cmake.build:Building ROS package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_webots' with build type 'ament_cmake'
+[1.675s] INFO:colcon.colcon_cmake.task.cmake.build:Building CMake package in '/home/yehorderehus/hexadrone_ws/src/hexadrone_webots'
+[1.675s] INFO:colcon.colcon_core.shell:Skip shell extension 'powershell' for command environment: Not usable outside of PowerShell
+[1.675s] DEBUG:colcon.colcon_core.shell:Skip shell extension 'dsv' for command environment
+[1.682s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_webots -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_webots
+[2.163s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots' returned '0': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake /home/yehorderehus/hexadrone_ws/src/hexadrone_webots -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/yehorderehus/hexadrone_ws/install/hexadrone_webots
+[2.164s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_webots -- -j8 -l8
+[2.189s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots' returned '0': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_webots -- -j8 -l8
+[2.189s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_webots
+[2.784s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_webots)
+[2.784s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots' for CMake module files
+[2.784s] DEBUG:colcon.colcon_core.event_handler.log_command:Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_webots' returned '0': AMENT_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:${AMENT_PREFIX_PATH} CMAKE_PREFIX_PATH=/home/yehorderehus/hexadrone_ws/install/hexadrone_description:/opt/ros/jazzy/opt/sdformat_vendor:/opt/ros/jazzy/opt/gz_math_vendor:/opt/ros/jazzy/opt/gz_utils_vendor:/opt/ros/jazzy/opt/gz_tools_vendor:/opt/ros/jazzy/opt/gz_cmake_vendor:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PS1=\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_webots
+[2.785s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots' for CMake config files
+[2.785s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_webots', 'cmake_prefix_path')
+[2.785s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.ps1'
+[2.786s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.dsv'
+[2.786s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.sh'
+[2.786s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/bin'
+[2.786s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/lib/pkgconfig/hexadrone_webots.pc'
+[2.786s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/lib/python3.12/site-packages'
+[2.786s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/bin'
+[2.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.ps1'
+[2.787s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.dsv'
+[2.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.sh'
+[2.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.bash'
+[2.787s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.zsh'
+[2.788s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/colcon-core/packages/hexadrone_webots)
+[2.788s] Level 1:colcon.colcon_core.environment:create_environment_scripts_only(hexadrone_webots)
+[2.788s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots' for CMake module files
+[2.788s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots' for CMake config files
+[2.789s] Level 1:colcon.colcon_core.shell:create_environment_hook('hexadrone_webots', 'cmake_prefix_path')
+[2.789s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.ps1'
+[2.789s] INFO:colcon.colcon_core.shell:Creating environment descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.dsv'
+[2.789s] INFO:colcon.colcon_core.shell:Creating environment hook '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/hook/cmake_prefix_path.sh'
+[2.790s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/bin'
+[2.790s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/lib/pkgconfig/hexadrone_webots.pc'
+[2.790s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/lib/python3.12/site-packages'
+[2.790s] Level 1:colcon.colcon_core.environment:checking '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/bin'
+[2.790s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.ps1'
+[2.791s] INFO:colcon.colcon_core.shell:Creating package descriptor '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.dsv'
+[2.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.sh'
+[2.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.bash'
+[2.791s] INFO:colcon.colcon_core.shell:Creating package script '/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/hexadrone_webots/package.zsh'
+[2.791s] Level 1:colcon.colcon_core.environment:create_file_with_runtime_dependencies(/home/yehorderehus/hexadrone_ws/install/hexadrone_webots/share/colcon-core/packages/hexadrone_webots)
+[2.792s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:closing loop
+[2.792s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:loop closed
+[2.792s] DEBUG:colcon.colcon_parallel_executor.executor.parallel:run_until_complete finished with '0'
+[2.792s] DEBUG:colcon.colcon_core.event_reactor:joining thread
+[2.804s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.notify_send': Could not find 'notify-send'
+[2.804s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.terminal_notifier': Not used on non-Darwin systems
+[2.804s] INFO:colcon.colcon_core.plugin_system:Skipping extension 'colcon_notification.desktop_notification.win32': Not used on non-Windows systems
+[2.804s] INFO:colcon.colcon_notification.desktop_notification:Sending desktop notification using 'notify2'
+[2.821s] DEBUG:colcon.colcon_core.event_reactor:joined thread
+[2.822s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/yehorderehus/hexadrone_ws/install/local_setup.ps1'
+[2.822s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/yehorderehus/hexadrone_ws/install/_local_setup_util_ps1.py'
+[2.823s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/yehorderehus/hexadrone_ws/install/setup.ps1'
+[2.824s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/yehorderehus/hexadrone_ws/install/local_setup.sh'
+[2.825s] INFO:colcon.colcon_core.shell:Creating prefix util module '/home/yehorderehus/hexadrone_ws/install/_local_setup_util_sh.py'
+[2.825s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/yehorderehus/hexadrone_ws/install/setup.sh'
+[2.826s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/yehorderehus/hexadrone_ws/install/local_setup.bash'
+[2.827s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/yehorderehus/hexadrone_ws/install/setup.bash'
+[2.827s] INFO:colcon.colcon_core.shell:Creating prefix script '/home/yehorderehus/hexadrone_ws/install/local_setup.zsh'
+[2.828s] INFO:colcon.colcon_core.shell:Creating prefix chain script '/home/yehorderehus/hexadrone_ws/install/setup.zsh'

@@ -1,0 +1,4 @@
+Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core': /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_core -- -j8 -l8
+Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core' returned '0': /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_core -- -j8 -l8
+Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core': /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_core
+Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_core' returned '0': /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_core

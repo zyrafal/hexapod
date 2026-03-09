@@ -1,0 +1,21 @@
+[0.006s] Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller': /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_controller -- -j8 -l8
+[0.032s] Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller' returned '0': /usr/bin/cmake --build /home/yehorderehus/hexadrone_ws/build/hexadrone_controller -- -j8 -l8
+[0.033s] Invoking command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller': /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_controller
+[0.037s] -- Install configuration: ""
+[0.037s] -- Execute custom install script
+[0.037s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/package_run_dependencies/hexadrone_controller
+[0.042s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/parent_prefix_path/hexadrone_controller
+[0.055s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.sh
+[0.059s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/ament_prefix_path.dsv
+[0.064s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.sh
+[0.069s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/environment/path.dsv
+[0.074s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.bash
+[0.079s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.sh
+[0.083s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.zsh
+[0.088s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/local_setup.dsv
+[0.093s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.dsv
+[0.098s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/ament_index/resource_index/packages/hexadrone_controller
+[0.104s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig.cmake
+[0.109s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/cmake/hexadrone_controllerConfig-version.cmake
+[0.113s] -- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_controller/share/hexadrone_controller/package.xml
+[0.126s] Invoked command in '/home/yehorderehus/hexadrone_ws/build/hexadrone_controller' returned '0': /usr/bin/cmake --install /home/yehorderehus/hexadrone_ws/build/hexadrone_controller

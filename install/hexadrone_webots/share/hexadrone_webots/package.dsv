@@ -1,0 +1,8 @@
+source;share/hexadrone_webots/hook/cmake_prefix_path.ps1
+source;share/hexadrone_webots/hook/cmake_prefix_path.dsv
+source;share/hexadrone_webots/hook/cmake_prefix_path.sh
+source;share/hexadrone_webots/local_setup.bash
+source;share/hexadrone_webots/local_setup.dsv
+source;share/hexadrone_webots/local_setup.ps1
+source;share/hexadrone_webots/local_setup.sh
+source;share/hexadrone_webots/local_setup.zsh

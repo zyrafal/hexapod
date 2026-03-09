@@ -1,0 +1,1056 @@
+<?xml version="1.0" ?>
+<!-- Generated using onshape-to-robot -->
+<!-- Onshape https://cad.onshape.com/documents/659d4ebbaf97ca0e116d774e/w/5d3d470965245fdb5056c3cb/e/41e2174bd92b98af7610bf8e -->
+<robot name="hexadrone_description">
+  <!-- Link base_link -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="-2.84e-10 6.073e-09 0.0317495" rpy="0 0 0"/>
+      <mass value="1.57941"/>
+      <inertia ixx="0.0138309" ixy="7.421e-09" ixz="2.2e-11" iyy="0.00992723" iyz="-4.17e-10" izz="0.0219738"/>
+    </inertial>
+    <!-- Part base_link -->
+    <visual>
+      <origin xyz="-0 0 0" rpy="1.5708 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/base_link.stl"/>
+      </geometry>
+      <material name="base_link_material">
+        <color rgba="0.235294 0.235294 0.235294 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 0 0" rpy="1.5708 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/base_link.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rm_coxa_servo -->
+    <visual>
+      <origin xyz="-0.11025 0 0.0262" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_coxa_servo.stl"/>
+      </geometry>
+      <material name="rm_coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.11025 0 0.0262" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_coxa_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lf_coxa_servo -->
+    <visual>
+      <origin xyz="0.0898943 -0.129894 0.0262" rpy="0 -0 2.35619"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_coxa_servo.stl"/>
+      </geometry>
+      <material name="lf_coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0898943 -0.129894 0.0262" rpy="0 -0 2.35619"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_coxa_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rf__coxa_servo -->
+    <visual>
+      <origin xyz="-0.0898943 -0.129894 0.0262" rpy="-3.14159 0 0.785398"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf__coxa_servo.stl"/>
+      </geometry>
+      <material name="rf__coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0898943 -0.129894 0.0262" rpy="-3.14159 0 0.785398"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf__coxa_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lm_coxa_servo -->
+    <visual>
+      <origin xyz="0.11025 0 0.0262" rpy="3.14159 -0 -3.14159"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_coxa_servo.stl"/>
+      </geometry>
+      <material name="lm_coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.11025 0 0.0262" rpy="3.14159 -0 -3.14159"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_coxa_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lb_coxa_servo -->
+    <visual>
+      <origin xyz="0.0898943 0.129894 0.0262" rpy="-0 -0 -2.35619"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_coxa_servo.stl"/>
+      </geometry>
+      <material name="lb_coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0898943 0.129894 0.0262" rpy="-0 -0 -2.35619"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_coxa_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part cover -->
+    <visual>
+      <origin xyz="-0 0 0.0438" rpy="1.5708 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/cover.stl"/>
+      </geometry>
+      <material name="cover_material">
+        <color rgba="0.235294 0.235294 0.235294 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 0 0.0438" rpy="1.5708 -0 3.14159"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/cover.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rb_coxa_servo -->
+    <visual>
+      <origin xyz="-0.0898943 0.129894 0.0262" rpy="3.14159 0 -0.785398"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_coxa_servo.stl"/>
+      </geometry>
+      <material name="rb_coxa_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0898943 0.129894 0.0262" rpy="3.14159 0 -0.785398"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_coxa_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lm_coxa -->
+  <link name="lm_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 0.000825246 -0.0290756" rpy="0 0 0"/>
+      <mass value="0.0460937"/>
+      <inertia ixx="3.23237e-05" ixy="-7.55037e-07" ixz="-2.08881e-06" iyy="3.36827e-05" iyz="-8.6151e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part lm_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_coxa.stl"/>
+      </geometry>
+      <material name="lm_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lm_femur_servo -->
+  <link name="lm_femur_servo">
+    <inertial>
+      <origin xyz="0.0416637 0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.0171e-05" ixy="-5.82073e-05" ixz="-4.84748e-06" iyy="0.000157846" iyz="-2.26875e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part lm_femur -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="-0 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_femur.stl"/>
+      </geometry>
+      <material name="lm_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="-0 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lm_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_femur_servo.stl"/>
+      </geometry>
+      <material name="lm_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_femur_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lm_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tibia_servo.stl"/>
+      </geometry>
+      <material name="lm_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lm_tibia -->
+  <link name="lm_tibia">
+    <inertial>
+      <origin xyz="0.0409193 -0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476647"/>
+      <inertia ixx="3.58583e-05" ixy="1.80901e-05" ixz="-3.1208e-08" iyy="3.79135e-05" iyz="-1.38735e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part lm_tibia -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="-0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tibia.stl"/>
+      </geometry>
+      <material name="lm_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="-0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tibia.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lm_tip -->
+    <visual>
+      <origin xyz="-0 0 -0.0555" rpy="1e-12 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tip.stl"/>
+      </geometry>
+      <material name="lm_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 0 -0.0555" rpy="1e-12 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lm_tip.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from lm_femur_servo to lm_tibia -->
+  <joint name="LM_tibia" type="revolute">
+    <origin xyz="0.0785173 0.0366132 -0.0496" rpy="3.14159 -0 0.872665"/>
+    <parent link="lm_femur_servo"/>
+    <child link="lm_tibia"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from lm_coxa to lm_femur_servo -->
+  <joint name="LM_femur" type="revolute">
+    <origin xyz="-0.068 -0.0263 -0.0305" rpy="-1.5708 -0 -3.14159"/>
+    <parent link="lm_coxa"/>
+    <child link="lm_femur_servo"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to lm_coxa -->
+  <joint name="LM_coxa" type="revolute">
+    <origin xyz="0.12025 -0 0.0523" rpy="-0 -0 -3.14159"/>
+    <parent link="base_link"/>
+    <child link="lm_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Link rm_coxa -->
+  <link name="rm_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 -0.000825297 -0.0290757" rpy="0 0 0"/>
+      <mass value="0.0460939"/>
+      <inertia ixx="3.23237e-05" ixy="7.5503e-07" ixz="-2.08885e-06" iyy="3.36827e-05" iyz="8.6148e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part rm_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_coxa.stl"/>
+      </geometry>
+      <material name="rm_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rm_tibia_servo -->
+  <link name="rm_tibia_servo">
+    <inertial>
+      <origin xyz="0.0416636 -0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.01708e-05" ixy="5.82071e-05" ixz="-4.84737e-06" iyy="0.000157845" iyz="2.26867e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part rm_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tibia_servo.stl"/>
+      </geometry>
+      <material name="rm_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rm_femur -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_femur.stl"/>
+      </geometry>
+      <material name="rm_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rm_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_femur_servo.stl"/>
+      </geometry>
+      <material name="rm_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_femur_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rm_tip -->
+  <link name="rm_tip">
+    <inertial>
+      <origin xyz="0.0409193 0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476648"/>
+      <inertia ixx="3.58584e-05" ixy="-1.80901e-05" ixz="-3.1218e-08" iyy="3.79135e-05" iyz="1.38738e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part rm_tibia -->
+    <visual>
+      <origin xyz="0 0 -0.0555" rpy="-3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tibia.stl"/>
+      </geometry>
+      <material name="rm_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.0555" rpy="-3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tibia.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rm_tip -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tip.stl"/>
+      </geometry>
+      <material name="rm_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rm_tip.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from rm_tibia_servo to rm_tip -->
+  <joint name="RM_tibia" type="revolute">
+    <origin xyz="0.0785173 -0.0366132 -0.0496" rpy="3.14159 0 -0.872665"/>
+    <parent link="rm_tibia_servo"/>
+    <child link="rm_tip"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from rm_coxa to rm_tibia_servo -->
+  <joint name="RM_femur" type="revolute">
+    <origin xyz="-0.068 0.0263 -0.0305" rpy="1.5708 0 -3.14159"/>
+    <parent link="rm_coxa"/>
+    <child link="rm_tibia_servo"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to rm_coxa -->
+  <joint name="RM_coxa" type="revolute">
+    <origin xyz="-0.12025 0 0.0523" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="rm_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Link rf_coxa -->
+  <link name="rf_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 0.000825246 -0.0290756" rpy="0 0 0"/>
+      <mass value="0.0460937"/>
+      <inertia ixx="3.23237e-05" ixy="-7.55037e-07" ixz="-2.08881e-06" iyy="3.36827e-05" iyz="-8.6151e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part rf_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_coxa.stl"/>
+      </geometry>
+      <material name="rf_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rf_femur -->
+  <link name="rf_femur">
+    <inertial>
+      <origin xyz="0.0416637 0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.0171e-05" ixy="-5.82073e-05" ixz="-4.84748e-06" iyy="0.000157846" iyz="-2.26875e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part rf_femur -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="-0 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_femur.stl"/>
+      </geometry>
+      <material name="rf_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="-0 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rf_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tibia_servo.stl"/>
+      </geometry>
+      <material name="rf_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 -0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rf_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_femur_servo.stl"/>
+      </geometry>
+      <material name="rf_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_femur_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rf_tibia -->
+  <link name="rf_tibia">
+    <inertial>
+      <origin xyz="0.0409193 -0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476647"/>
+      <inertia ixx="3.58583e-05" ixy="1.80901e-05" ixz="-3.1208e-08" iyy="3.79135e-05" iyz="-1.38735e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part rf_tip -->
+    <visual>
+      <origin xyz="-0 0 -0.0555" rpy="1e-12 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tip.stl"/>
+      </geometry>
+      <material name="rf_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 0 -0.0555" rpy="1e-12 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tip.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rf_tibia -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="-0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tibia.stl"/>
+      </geometry>
+      <material name="rf_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="-0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rf_tibia.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from rf_femur to rf_tibia -->
+  <joint name="RF_tibia" type="revolute">
+    <origin xyz="0.0785173 0.0366132 -0.0496" rpy="-3.14159 0 0.872665"/>
+    <parent link="rf_femur"/>
+    <child link="rf_tibia"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from rf_coxa to rf_femur -->
+  <joint name="RF_femur" type="revolute">
+    <origin xyz="-0.068 -0.0263 -0.0305" rpy="-1.5708 0 -3.14159"/>
+    <parent link="rf_coxa"/>
+    <child link="rf_femur"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to rf_coxa -->
+  <joint name="RF_coxa" type="revolute">
+    <origin xyz="-0.0969654 -0.136965 0.0523" rpy="0 0 0.785398"/>
+    <parent link="base_link"/>
+    <child link="rf_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Link lf_coxa -->
+  <link name="lf_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 -0.000825297 -0.0290757" rpy="0 0 0"/>
+      <mass value="0.0460939"/>
+      <inertia ixx="3.23237e-05" ixy="7.5503e-07" ixz="-2.08885e-06" iyy="3.36827e-05" iyz="8.6148e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part lf_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_coxa.stl"/>
+      </geometry>
+      <material name="lf_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lf_tibia_servo -->
+  <link name="lf_tibia_servo">
+    <inertial>
+      <origin xyz="0.0416636 -0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.01708e-05" ixy="5.82071e-05" ixz="-4.84737e-06" iyy="0.000157845" iyz="2.26867e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part lf_femur -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_femur.stl"/>
+      </geometry>
+      <material name="lf_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lf_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="-0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_femur_servo.stl"/>
+      </geometry>
+      <material name="lf_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="-0 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_femur_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lf_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 -0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tibia_servo.stl"/>
+      </geometry>
+      <material name="lf_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 -0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lf_tibia -->
+  <link name="lf_tibia">
+    <inertial>
+      <origin xyz="0.0409193 0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476648"/>
+      <inertia ixx="3.58584e-05" ixy="-1.80901e-05" ixz="-3.1218e-08" iyy="3.79135e-05" iyz="1.38738e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part lf_tibia -->
+    <visual>
+      <origin xyz="0 0 -0.0555" rpy="-3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tibia.stl"/>
+      </geometry>
+      <material name="lf_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.0555" rpy="-3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tibia.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lf_tip -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tip.stl"/>
+      </geometry>
+      <material name="lf_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 -0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lf_tip.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from lf_tibia_servo to lf_tibia -->
+  <joint name="LF_tibia" type="revolute">
+    <origin xyz="0.0785173 -0.0366132 -0.0496" rpy="3.14159 -0 -0.872665"/>
+    <parent link="lf_tibia_servo"/>
+    <child link="lf_tibia"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from lf_coxa to lf_tibia_servo -->
+  <joint name="LF_femur" type="revolute">
+    <origin xyz="-0.068 0.0263 -0.0305" rpy="1.5708 -0 3.14159"/>
+    <parent link="lf_coxa"/>
+    <child link="lf_tibia_servo"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to lf_coxa -->
+  <joint name="LF_coxa" type="revolute">
+    <origin xyz="0.0969654 -0.136965 0.0523" rpy="0 -0 2.35619"/>
+    <parent link="base_link"/>
+    <child link="lf_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Link rb_coxa -->
+  <link name="rb_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 0.000825246 -0.0290756" rpy="0 0 0"/>
+      <mass value="0.0460937"/>
+      <inertia ixx="3.23237e-05" ixy="-7.55037e-07" ixz="-2.08881e-06" iyy="3.36827e-05" iyz="-8.6151e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part rb_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_coxa.stl"/>
+      </geometry>
+      <material name="rb_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 -0.00117638 -0.0415" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rb_tibia_servo -->
+  <link name="rb_tibia_servo">
+    <inertial>
+      <origin xyz="0.0416637 0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.0171e-05" ixy="-5.82073e-05" ixz="-4.84748e-06" iyy="0.000157846" iyz="-2.26875e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part rb_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_femur_servo.stl"/>
+      </geometry>
+      <material name="rb_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_femur_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rb_femur -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="0 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_femur.stl"/>
+      </geometry>
+      <material name="rb_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0237" rpy="0 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rb_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tibia_servo.stl"/>
+      </geometry>
+      <material name="rb_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 0.0289528 -0.0235" rpy="-1e-12 0 -2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link rb_tibia -->
+  <link name="rb_tibia">
+    <inertial>
+      <origin xyz="0.0409193 -0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476647"/>
+      <inertia ixx="3.58583e-05" ixy="1.80901e-05" ixz="-3.1208e-08" iyy="3.79135e-05" iyz="-1.38735e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part rb_tibia -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tibia.stl"/>
+      </geometry>
+      <material name="rb_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="0 0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tibia.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part rb_tip -->
+    <visual>
+      <origin xyz="0 0 -0.0555" rpy="1e-12 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tip.stl"/>
+      </geometry>
+      <material name="rb_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 -0.0555" rpy="1e-12 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/rb_tip.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from rb_tibia_servo to rb_tibia -->
+  <joint name="RB_tibia" type="revolute">
+    <origin xyz="0.0785173 0.0366132 -0.0496" rpy="3.14159 -0 0.872665"/>
+    <parent link="rb_tibia_servo"/>
+    <child link="rb_tibia"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from rb_coxa to rb_tibia_servo -->
+  <joint name="RB_femur" type="revolute">
+    <origin xyz="-0.068 -0.0263 -0.0305" rpy="-1.5708 0 3.14159"/>
+    <parent link="rb_coxa"/>
+    <child link="rb_tibia_servo"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to rb_coxa -->
+  <joint name="RB_coxa" type="revolute">
+    <origin xyz="-0.0969654 0.136965 0.0523" rpy="-0 0 -0.785398"/>
+    <parent link="base_link"/>
+    <child link="rb_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Link lb_coxa -->
+  <link name="lb_coxa">
+    <inertial>
+      <origin xyz="-0.0339313 -0.000825297 -0.0290757" rpy="0 0 0"/>
+      <mass value="0.0460939"/>
+      <inertia ixx="3.23237e-05" ixy="7.5503e-07" ixz="-2.08885e-06" iyy="3.36827e-05" iyz="8.6148e-07" izz="3.32703e-05"/>
+    </inertial>
+    <!-- Part lb_coxa -->
+    <visual>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_coxa.stl"/>
+      </geometry>
+      <material name="lb_coxa_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0.0544334 0.00117638 -0.0415" rpy="3.14159 -0 -0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_coxa.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lb_femur -->
+  <link name="lb_femur">
+    <inertial>
+      <origin xyz="0.0416636 -0.0131447 -0.0249537" rpy="0 0 0"/>
+      <mass value="0.143643"/>
+      <inertia ixx="6.01708e-05" ixy="5.82071e-05" ixz="-4.84737e-06" iyy="0.000157845" iyz="2.26867e-06" izz="0.000172218"/>
+    </inertial>
+    <!-- Part lb_tibia_servo -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tibia_servo.stl"/>
+      </geometry>
+      <material name="lb_tibia_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0235" rpy="-3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tibia_servo.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lb_femur -->
+    <visual>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_femur.stl"/>
+      </geometry>
+      <material name="lb_femur_material">
+        <color rgba="0.0627451 0.631373 0.929412 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.0720894 -0.0289528 -0.0237" rpy="3.14159 0 2.26893"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_femur.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lb_femur_servo -->
+    <visual>
+      <origin xyz="0.01 0 -0.0264" rpy="-0 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_femur_servo.stl"/>
+      </geometry>
+      <material name="lb_femur_servo_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0.01 0 -0.0264" rpy="-0 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_femur_servo.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Link lb_tibia -->
+  <link name="lb_tibia">
+    <inertial>
+      <origin xyz="0.0409193 0.0140246 -0.0257643" rpy="0 0 0"/>
+      <mass value="0.0476648"/>
+      <inertia ixx="3.58584e-05" ixy="-1.80901e-05" ixz="-3.1218e-08" iyy="3.79135e-05" iyz="1.38738e-07" izz="4.43998e-05"/>
+    </inertial>
+    <!-- Part lb_tip -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tip.stl"/>
+      </geometry>
+      <material name="lb_tip_material">
+        <color rgba="0.247059 0.247059 0.247059 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tip.stl"/>
+      </geometry>
+    </collision>
+    <!-- Part lb_tibia -->
+    <visual>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tibia.stl"/>
+      </geometry>
+      <material name="lb_tibia_material">
+        <color rgba="1 1 1 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="-0 -0 -0.0555" rpy="3.14159 0 0"/>
+      <geometry>
+        <mesh filename="package://hexadrone_description/assets/lb_tibia.stl"/>
+      </geometry>
+    </collision>
+  </link>
+  <!-- Joint from lb_femur to lb_tibia -->
+  <joint name="LB_tibia" type="revolute">
+    <origin xyz="0.0785173 -0.0366132 -0.0496" rpy="3.14159 -0 -0.872665"/>
+    <parent link="lb_femur"/>
+    <child link="lb_tibia"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from lb_coxa to lb_femur -->
+  <joint name="LB_femur" type="revolute">
+    <origin xyz="-0.068 0.0263 -0.0305" rpy="1.5708 -0 -3.14159"/>
+    <parent link="lb_coxa"/>
+    <child link="lb_femur"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+  <!-- Joint from base_link to lb_coxa -->
+  <joint name="LB_coxa" type="revolute">
+    <origin xyz="0.0969654 0.136965 0.0523" rpy="-0 -0 -2.35619"/>
+    <parent link="base_link"/>
+    <child link="lb_coxa"/>
+    <axis xyz="0 0 1"/>
+    <limit effort="1.5" velocity="10" lower="-1.5708" upper="1.5708"/>
+    <joint_properties friction="0.5"/>
+  </joint>
+ <ros2_control name="WebotsControl" type="system">
+    <hardware>
+      <plugin>webots_ros2_control::Ros2ControlSystem</plugin>
+    </hardware>
+    
+    <joint name="LM_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LM_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LM_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+
+    <joint name="RM_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RM_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RM_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+
+    <joint name="RF_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RF_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RF_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+
+    <joint name="LF_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LF_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LF_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+
+    <joint name="RB_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RB_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="RB_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+
+    <joint name="LB_coxa"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LB_femur"><command_interface name="position"/><state_interface name="position"/></joint>
+    <joint name="LB_tibia"><command_interface name="position"/><state_interface name="position"/></joint>
+  </ros2_control>
+
+  <webots>
+    <plugin type="webots_ros2_control::Ros2Control" />
+  </webots>
+</robot>

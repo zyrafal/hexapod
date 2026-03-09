@@ -1,0 +1,132 @@
+-- The C compiler identification is GNU 13.3.0
+-- The CXX compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Found ament_cmake: 2.5.5 (/opt/ros/jazzy/share/ament_cmake/cmake)
+-- Found Python3: /usr/bin/python3 (found version "3.12.3") found components: Interpreter 
+-- Override CMake install command with custom implementation using symlinks instead of copying resources
+-- Found ament_lint_auto: 0.17.4 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+-- Added test 'flake8' to check Python code syntax and style conventions
+-- Configured 'flake8' exclude dirs and/or files: 
+-- Added test 'lint_cmake' to check CMake code style
+-- Added test 'pep257' to check Python code against some of the docstring style conventions in PEP 257
+-- Added test 'xmllint' to check XML markup files
+-- Configuring done (0.7s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/yehorderehus/hexadrone_ws/build/hexadrone_description
+-- Install configuration: ""
+-- Execute custom install script
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/urdf/robot.urdf
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/config/ros2_control.yaml
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/base_link.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/base_link.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/cover.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/cover.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lb_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lf_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/lm_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rb_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf__coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf__coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rf_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_coxa.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_coxa.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_coxa_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_coxa_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_femur.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_femur.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_femur_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_femur_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tibia.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tibia.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tibia_servo.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tibia_servo.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tip.part
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/rm_tip.stl
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/assets/simplify_meshes.py
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/ament_index/resource_index/package_run_dependencies/hexadrone_description
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/ament_index/resource_index/parent_prefix_path/hexadrone_description
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/environment/ament_prefix_path.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/environment/ament_prefix_path.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/environment/path.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/environment/path.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/local_setup.bash
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/local_setup.sh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/local_setup.zsh
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/local_setup.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.dsv
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/ament_index/resource_index/packages/hexadrone_description
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/cmake/hexadrone_descriptionConfig.cmake
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/cmake/hexadrone_descriptionConfig-version.cmake
+-- Symlinking: /home/yehorderehus/hexadrone_ws/install/hexadrone_description/share/hexadrone_description/package.xml

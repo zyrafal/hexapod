@@ -1,0 +1,56 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "../protos/Ros2Supervisor.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/RectangleArena.proto"
+EXTERNPROTO "../protos/robot.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/FifaSoccerBall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/robotstadium/protos/RobotstadiumSoccerField.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/floors/protos/UnevenTerrain.proto"
+
+WorldInfo {
+  basicTimeStep 16
+  contactProperties [
+    ContactProperties {
+      material1 "rubber"
+      coulombFriction [
+        1.5
+      ]
+      bounce 0.05
+    }
+  ]
+}
+Viewpoint {
+  orientation 0.1451931419660626 -0.06549402127880896 -0.9872332473649545 3.9794889796214084
+  position 2.563187569039963 -2.7466221550548022 1.208117209277086
+  follow "hexadrone_description"
+  followType "Pan and Tilt Shot"
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RectangleArena {
+  translation 0 -0.01 0
+  floorSize 5 5
+  wallThickness 1
+  wallHeight 0.15
+}
+UnevenTerrain {
+  translation 0 -8.32 -0.44
+  size 10 10 1
+  perlinNOctaves 8
+}
+Ros2Supervisor {
+}
+robot {
+  name "hexadrone_description"
+  controller "<extern>"
+}
+FifaSoccerBall {
+  translation 0.03 7.19 0.12
+}
+RobotstadiumSoccerField {
+  translation 0 7.2 0
+}
