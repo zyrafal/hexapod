@@ -16,10 +16,10 @@ class ServoManager
 {
 public:
     void begin();
-    void update(bool armSwitch, bool killTriggered, bool isConnected);
+    void update(bool armSwitch, bool killTriggered, bool isConnected); // TODO: Will be rewritten using Core IK
 
-    void startArming();
-    void startSoftDisarm();
+    void startArming();     // TODO: Will be rewritten using Core IK
+    void startSoftDisarm(); // TODO: Will be rewritten using Core IK
     void rapidKill();
 
 private:

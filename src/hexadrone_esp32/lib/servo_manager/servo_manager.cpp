@@ -13,12 +13,13 @@ void ServoManager::begin()
 
 void ServoManager::update(bool armSwitch, bool killTriggered, bool isConnected)
 {
-    // 1. Priority: Hardware Kill / Disarm
+    // 1. Priority: Hardware Kill
     if (killTriggered)
-        return;
-    if (killTriggered && _state != ServoState::KILLED)
     {
-        rapidKill();
+        if (_state != ServoState::KILLED)
+        {
+            rapidKill();
+        }
         return;
     }
 
@@ -79,8 +80,8 @@ void ServoManager::startSoftDisarm()
 void ServoManager::rapidKill()
 {
     _state = ServoState::KILLED;
-    digitalWrite(23, HIGH); // Pull OE HIGH (Physically disconnects all PWM)
-    Serial.println("[SERVOS] Kill-Switch executed. Servos down.");
+    digitalWrite(OE_CUSTOM, HIGH); // Pull OE HIGH (Physically disconnects all PWM)
+    Serial.println("[SERVOS] Kill-Switch executed. System reboot required.");
 }
 
 // Routes the 0-31 index to the correct physical board
@@ -98,6 +99,5 @@ void ServoManager::setRawPWM(int index, int pulse)
 
 int ServoManager::calculatePulse(float degrees)
 {
-    // Standard mapping: -90 to 90 -> SERVOMIN to SERVOMAX
     return map(degrees, -90, 90, SERVOMIN, SERVOMAX);
 }

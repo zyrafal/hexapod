@@ -1,54 +1,52 @@
 hexadrone_ws/src/
 │
-├── 🧠 hexadrone_core/           <-- Pure logic & HAL (Hardware Abstraction Layer)
+├── 🧠 hexadrone_core/             <-- THE BRAIN: Pure C++ (Portable between PC & ESP32)
 │   ├── include/
 │   │   └── hexadrone_core/
-│   │       └── lib.hpp             <-- Helper vector funtions
-│   │       └── ros.hpp             <-- ROS2 API wrapper for input and output
+│   │       ├── lib.hpp           // Math constants, 3D Vector structs, and float mapping
+│   │       ├── state_machine.hpp // Shared Enums: ServoState {ARMING, ARMED, DISARMING, KILLED}
+│   │       ├── kinematics.hpp    // IK solver: Calculates joint angles from XYZ foot coordinates
+│   │       ├── gait_engine.hpp   // Walking patterns: Elliptical paths and leg timing logic
+│   │       └── brain.hpp         // Master coordinator: Processes normalized inputs to drive IK
 │   ├── src/
-│   │   └── brain.cpp               <-- Main controller logic
-│   ├── CMakeLists.txt              <-- ament_cmake (but with NO rclcpp dependencies!)
-│   └── package.xml                 
+│   │   ├── kinematics.cpp        // Implementation of 3D Inverse Kinematics trigonometry
+│   │   ├── gait_engine.cpp       // Implementation of Swing/Stance phases for all 6 legs
+│   │   └── brain.cpp             // High-level decision making (e.g., Soft Cutoff triggers)
+│   ├── CMakeLists.txt            // Standard ament_cmake (Exported for ROS2, ignored by PIO)
+│   └── package.xml               // Minimal dependencies (Header-only or static library)
 │
-├── 🎮 hexadrone_controller/     <-- ROS2 wrapper (Communication layer)
+├── 🎮 hexadrone_controller/       <-- THE SIMULATOR INTERFACE: ROS2 Wrapper
 │   ├── include/
 │   │   └── hexadrone_controller/
+│   │       └── bridge_ops.hpp    // Translates ROS2 sensor_msgs/Joy to normalized Core data
 │   ├── src/
-│   │   └── teleop_node.cpp         <-- Reads the controller (/joy), calls Brain, sends to Webots
-│   ├── CMakeLists.txt              <-- Links rclcpp, sensor_msgs, and hexadrone_core
+│   │   └── teleop_node.cpp       // ROS2 Node: Subscribes to /joy, updates Brain, sends to Webots
+│   ├── CMakeLists.txt            // Links rclcpp, sensor_msgs, and hexadrone_core
 │   └── package.xml
 │
-├── 🤖 hexadrone_description/    <-- Visual and physics
-│   ├── assets/                     <-- .stl files
-│   ├── config/                     <-- ros2_control.yaml
-│   ├── urdf/                       <-- robot.urdf
+├── 🤖 hexadrone_description/      <-- THE BLUEPRINT: Robot URDF & Visual Assets
+│   ├── assets/                   // .stl mesh files for visualization
+│   ├── config/                   // ros2_control.yaml for joint controllers
+│   ├── urdf/                     // robot.urdf (The source of truth for leg segment lengths)
 │   ├── CMakeLists.txt
 │   └── package.xml
 │
-├── 🌍 hexadrone_webots/         <-- Simulation
-│   ├── launch/                     <-- launch.py
-│   ├── protos/                     <-- robot.proto (converted .urdf)
-│   ├── worlds/                     <-- hexaworld.wbt
+├── 🌍 hexadrone_webots/           <-- THE ENVIRONMENT: Simulation Worlds & Config
+│   ├── launch/                   // ROS2 launch.py to start simulation and controller nodes
+│   ├── protos/                   // Webots robot.proto (Generated from URDF)
+│   ├── worlds/                   // hexaworld.wbt (The virtual testing environment)
 │   ├── CMakeLists.txt
 │   └── package.xml
 │
-└── ⚡️ hexadrone_esp32/          <-- PlatformIO Physical hardware layer
-    ├── platformio.ini              <-- Pinned versions & lib_extra_dirs
+└── ⚡️ hexadrone_esp32/            <-- THE PHYSICAL HARDWARE: PlatformIO Layer
+    ├── platformio.ini            // Pinned versions and lib_extra_dirs pointing to ../core
     ├── include/
-    │   └── config.h                <-- Robot-specific constants/pins
+    │   └── config.h              // Hardware constants: Pins (SDA, SCL, OE) and I2C Addresses
     ├── lib/
-    │   ├── hexadrone_core/         <-- Symlink to ../../hexadrone_core/
-    │   ├── comms_manager/        <-- Folder for WiFi, OTA updates, & Web Server
-    │   │   ├── comms_manager.h
-    │   │   └── comms_manager.cpp
-    │   ├── radio_manager/          <-- Folder for RX/TX logic
-    │   │   ├── radio_manager.h
-    │   │   └── radio_manager.cpp
-    │   ├── servo_manager/          <-- Folder for PCA9685 logic
-    │   │   ├── servo_manager.h
-    │   │   └── servo_manager.cpp
-    │   └── power_manager/          <-- Folder for INA228 & LittleFS logic
-    │       ├── power_manager.h
-    │       └── power_manager.cpp
+    │   ├── hexadrone_core/       // Symlink to ../../hexadrone_core/
+    │   ├── comms_manager/        // WiFi, OTA Updates, and Async Web Server
+    │   ├── radio_manager/        // CRSF Decoder: Normalizes RadioMaster sticks to -1.0..1.0
+    │   ├── servo_manager/        // PCA9685 Interface: Only sends raw PWM signals
+    │   └── power_manager/        // INA228 Battery Monitor and LittleFS Blackbox Logging
     └── src/
-        └── main.cpp                <-- Clean "Conductor" code
+        └── main.cpp              // The Conductor: Feeds Radio -> Brain -> Servos

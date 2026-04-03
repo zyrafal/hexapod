@@ -40,8 +40,9 @@ void PowerManager::logToFile(PowerStats stats, int8_t rssi, int lq)
     {
         file.printf("%.1fV | %.1fV/c\n", stats.voltage, stats.avgCell);
         file.printf("%.1fA | %.1fW\n", stats.current, stats.power);
+        file.printf("%.0f mAh\n", stats.mah);
         file.printf("%ddBm | %d:100\n", (int)rssi, lq);
-        file.printf("%s | %.0f mAh\n", getTimestamp().c_str(), stats.mah);
+        file.printf("%s\n", getTimestamp().c_str());
         file.println("-----------------------");
         file.close();
     }

@@ -17,10 +17,10 @@ void setup()
     Serial.begin(DEBUG_BAUD);
     Wire.begin(SDA_CUSTOM, SCL_CUSTOM);
 
+    power.begin(); // Mount LittleFS and INA228 first
     comms.begin(WIFI_SSID, WIFI_PASS);
     radio.begin();
     servo.begin();
-    power.begin();
 
     Serial.println("Hexadrone Initialized.");
 }
