@@ -1,0 +1,21 @@
+# ROS 2 build files
+build/
+install/
+log/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Compiled C/C++
+*.o
+*.so
+*.a
+*.out
+
+# System files, editor files
+.vscode/
+.cache/
+*.swp
+*~

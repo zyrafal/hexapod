@@ -1,2 +1,0 @@
-Invoking command in '/home/Projects/hexadrone_ws/build/hexadrone_core': /usr/bin/cmake --build /home/Projects/hexadrone_ws/build/hexadrone_core -- -j8 -l8
-Invoked command in '/home/Projects/hexadrone_ws/build/hexadrone_core' returned '2': /usr/bin/cmake --build /home/Projects/hexadrone_ws/build/hexadrone_core -- -j8 -l8

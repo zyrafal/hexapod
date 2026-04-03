@@ -3,10 +3,10 @@ hexadrone_ws/src/
 ├── 🧠 hexadrone_core/           <-- Pure logic & HAL (Hardware Abstraction Layer)
 │   ├── include/
 │   │   └── hexadrone_core/
-│           └── lib.hpp             <-- Helper vector funtions
-│           └── robot_ros.hpp       <-- ROS2 API wrapper for input and output
+│   │       └── lib.hpp             <-- Helper vector funtions
+│   │       └── ros.hpp             <-- ROS2 API wrapper for input and output
 │   ├── src/
-│   │   ├── brain.cpp               <-- Main controller logic
+│   │   └── brain.cpp               <-- Main controller logic
 │   ├── CMakeLists.txt              <-- ament_cmake (but with NO rclcpp dependencies!)
 │   └── package.xml                 
 │
@@ -32,13 +32,23 @@ hexadrone_ws/src/
 │   ├── CMakeLists.txt
 │   └── package.xml
 │
-└── ⚡️ hexadrone_esp32/          <-- PlatformIO Physical hardware layer (PlatformIO)
-    ├── platformio.ini              <-- Board & library configurations
+└── ⚡️ hexadrone_esp32/          <-- PlatformIO Physical hardware layer
+    ├── platformio.ini              <-- Pinned versions & lib_extra_dirs
+    ├── include/
+    │   └── config.h                <-- Robot-specific constants/pins
     ├── lib/
-    │   └── hexadrone_core/         <-- Symlink to ../../hexadrone_core/
+    │   ├── hexadrone_core/         <-- Symlink to ../../hexadrone_core/
+    │   ├── comms_manager/        <-- Folder for WiFi, OTA updates, & Web Server
+    │   │   ├── comms_manager.h
+    │   │   └── comms_manager.cpp
+    │   ├── radio_manager/          <-- Folder for RX/TX logic
+    │   │   ├── radio_manager.h
+    │   │   └── radio_manager.cpp
+    │   ├── servo_manager/          <-- Folder for PCA9685 logic
+    │   │   ├── servo_manager.h
+    │   │   └── servo_manager.cpp
+    │   └── power_manager/          <-- Folder for INA228 & LittleFS logic
+    │       ├── power_manager.h
+    │       └── power_manager.cpp
     └── src/
-        ├── config.h                <-- Pins, offsets, battery limits
-        ├── radio_manager.cpp/h     <-- Read ELRS
-        ├── servo_manager.cpp/h     <-- Control PCA9685
-        ├── power_manager.cpp/h     <-- Holybro PM02D + OLED display
-        └── main.cpp                <-- Main cycle
+        └── main.cpp                <-- Clean "Conductor" code
