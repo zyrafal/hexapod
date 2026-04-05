@@ -1,6 +1,9 @@
-**First: Enter Distrobox**
+**First: Prepare terminal**
 ```bash
 distrobox enter noble_robotics
+source /opt/ros/jazzy/setup.bash
+cd ~/hexadrone_ws
+source install/setup.bash
 ```
 
 **Launch Webots in ROS2:**
@@ -8,7 +11,7 @@ distrobox enter noble_robotics
 ros2 launch hexadrone_webots launch.py
 ```
 
-**"Clean" launch:**
+**"Clean" Webots launch:**
 ```bash
 webots ~/hexadrone_ws/src/hexadrone_webots/worlds/hexaworld.wbt
 ```
@@ -22,7 +25,7 @@ source install/setup.bash
 ros2 launch hexadrone_webots launch.py
 ```
 
-**Launch Webots in ROS2 with "clean" build:**
+**Launch Webots in ROS2 with full rebuild:**
 ```bash
 source /opt/ros/jazzy/setup.bash
 cd ~/hexadrone_ws
@@ -32,62 +35,79 @@ source install/setup.bash
 ros2 launch hexadrone_webots launch.py
 ```
 
-**Prep before manually entering servo angles:**
-```bash
-source /opt/ros/jazzy/setup.bash
-cd ~/hexadrone_ws
-source install/setup.bash
-```
-
-**Reset servo angles:**
+**Standard posture:**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0]}"
 ```
 
-**Stand Up**
+**Arming/Disarming posture**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.0,  0.7,  0.5,   # LF
-  0.0, -0.7, -0.5,   # RF
-  0.0,  0.7,  0.5,   # LM
-  0.0, -0.7, -0.5,   # RM
-  0.0,  0.7,  0.5,   # LB
-  0.0, -0.7, -0.5    # RB
-]}"
-```
-
-**Stable Ready**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.3,  0.4,  0.3,   # LF
- -0.3, -0.4, -0.3,   # RF
-  0.0,  0.4,  0.3,   # LM
-  0.0, -0.4, -0.3,   # RM
- -0.3,  0.4,  0.3,   # LB
-  0.3, -0.4, -0.3    # RB
-]}"
-```
-
-**Stable Twist**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.5,  0.4,  0.4,   # LF
-  0.5, -0.4, -0.4,   # RF
-  0.5,  0.4,  0.4,   # LM
-  0.5, -0.4, -0.4,   # RM
-  0.5,  0.4,  0.4,   # LB
-  0.5, -0.4, -0.4    # RB
+  0.00, -0.70,  0.45,   # LM
+  0.00,  0.70, -0.45,   # RM
+  0.00, -0.70,  0.45,   # RF
+  0.00,  0.70, -0.45,   # LF
+  0.00, -0.70,  0.45,   # RB
+  0.00,  0.70, -0.45    # LB
 ]}"
 ```
 
 **Max Crouch**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.0, -1.4, -1.4,   # LF
-  0.0,  1.4,  1.4,   # RF
-  0.0, -1.4, -1.4,   # LM
-  0.0,  1.4,  1.4,   # RM
-  0.0, -1.4, -1.4,   # LB
-  0.0,  1.4,  1.4    # RB
+  0.00, -1.57, -1.57,   # LM
+  0.00,  1.57,  1.57,   # RM
+  0.00, -1.57, -1.57,   # RF
+  0.00,  1.57,  1.57,   # LF
+  0.00, -1.57, -1.57,   # RB
+  0.00,  1.57,  1.57    # LB
+]}"
+```
+
+**High Stance**
+```bash
+ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
+  0.00,  0.70,  0.60,   # LM
+  0.00, -0.70, -0.60,   # RM
+  0.00,  0.70,  0.60,   # RF
+  0.00, -0.70, -0.60,   # LF
+  0.00,  0.70,  0.60,   # RB
+  0.00, -0.70, -0.60    # LB
+]}"
+```
+
+**High Twist**
+```bash
+ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
+  0.26,  0.70,  0.60,   # LM
+  0.26, -0.70, -0.60,   # RM
+  0.26,  0.70,  0.60,   # RF
+  0.26, -0.70, -0.60,   # LF
+  0.26,  0.70,  0.60,   # RB
+  0.26, -0.70, -0.60    # LB
+]}"
+```
+
+**Walking High (Alpha)**
+```bash
+ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
+  0.26,  0.70,  0.60,   # LM (Swing: Forward/Lifted)
+  0.00, -0.45, -0.60,   # RM (Stance: Back/Down)
+  0.26,  0.70,  0.60,   # RF (Swing: Forward/Lifted)
+  0.00, -0.45, -0.60,   # LF (Stance: Back/Down)
+  0.26,  0.70,  0.60,   # RB (Swing: Forward/Lifted)
+  0.00, -0.45, -0.60    # LB (Stance: Back/Down)
+]}"
+```
+
+**Walking High (Beta)**
+```bash
+ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
+  0.00,  0.45,  0.60,   # LM (Passive: Neutral/Lifted)
+  0.26, -0.70, -0.60,   # RM (Active: Forward/Down)
+  0.00,  0.45,  0.60,   # RF (Passive: Neutral/Lifted)
+  0.26, -0.70, -0.60,   # LF (Active: Forward/Down)
+  0.00,  0.45,  0.60,   # RB (Passive: Neutral/Lifted)
+  0.26, -0.70, -0.60    # LB (Active: Forward/Down)
 ]}"
 ```
