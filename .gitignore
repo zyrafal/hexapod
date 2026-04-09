@@ -1,7 +1,7 @@
 # ROS 2 build files
-build/
-install/
-log/
+/build/
+/install/
+/log/
 
 # Python cache
 __pycache__/

@@ -17,6 +17,8 @@ services:
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - .:/root/hexadrone_ws:rw
+      - /root/hexadrone_ws/build
+      - /root/hexadrone_ws/install
       - .:/home/yehorderehus/hexadrone_ws:rw
     device_requests:
       - driver: nvidia
