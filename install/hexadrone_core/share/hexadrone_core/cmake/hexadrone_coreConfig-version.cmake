@@ -1,1 +1,0 @@
-/home/yehorderehus/hexadrone_ws/build/hexadrone_core/ament_cmake_core/hexadrone_coreConfig-version.cmake

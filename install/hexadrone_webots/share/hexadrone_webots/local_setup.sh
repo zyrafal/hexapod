@@ -1,1 +1,0 @@
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/ament_cmake_environment_hooks/local_setup.sh

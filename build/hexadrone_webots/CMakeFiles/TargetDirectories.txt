@@ -1,9 +1,0 @@
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/uninstall.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/hexadrone_webots_uninstall.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/test.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/edit_cache.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/rebuild_cache.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/list_install_components.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/install.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/install/local.dir
-/home/yehorderehus/hexadrone_ws/build/hexadrone_webots/CMakeFiles/install/strip.dir

@@ -5,6 +5,7 @@ log/
 
 # Python cache
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -15,7 +16,12 @@ __pycache__/
 *.out
 
 # System files, editor files
+.DS_Store
 .vscode/
 .cache/
 *.swp
 *~
+
+# CMake temporary files
+CMakeCache.txt
+CMakeFiles/

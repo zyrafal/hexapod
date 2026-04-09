@@ -1,4 +1,0 @@
-source;share/hexadrone_description/local_setup.bash
-source;share/hexadrone_description/local_setup.dsv
-source;share/hexadrone_description/local_setup.sh
-source;share/hexadrone_description/local_setup.zsh

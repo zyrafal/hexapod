@@ -1,4 +1,0 @@
-source;share/hexadrone_webots/local_setup.bash
-source;share/hexadrone_webots/local_setup.dsv
-source;share/hexadrone_webots/local_setup.sh
-source;share/hexadrone_webots/local_setup.zsh
