@@ -4,14 +4,14 @@ hexadrone_ws/src/
 │   ├── include/
 │   │   └── hexadrone_core/
 │   │       ├── lib.hpp           // Math constants, 3D Vector structs, and float mapping
-│   │       ├── state_machine.hpp // Shared Enums: ServoState {ARMING, ARMED, DISARMING, KILLED}
-│   │       ├── kinematics.hpp    // IK solver: Calculates joint angles from XYZ foot coordinates
+│   │       ├── state_machine.hpp // Shared Enums: ServoState {ARMED, DISARMED ...}
+│   │       ├── kinematics.hpp    // FK solver: Calculates joint angles
 │   │       ├── gait_engine.hpp   // Walking patterns: Elliptical paths and leg timing logic
-│   │       └── brain.hpp         // Master coordinator: Processes normalized inputs to drive IK
+│   │       └── brain.hpp         // Master coordinator: Processes normalized inputs to drive FK
 │   ├── src/
-│   │   ├── kinematics.cpp        // Implementation of 3D Inverse Kinematics trigonometry
-│   │   ├── gait_engine.cpp       // Implementation of Swing/Stance phases for all 6 legs
-│   │   └── brain.cpp             // High-level decision making (e.g., Soft Cutoff triggers)
+│   │   ├── kinematics.cpp        // Implementation of Forward Kinematics
+│   │   ├── gait_engine.cpp       // Implementation of Swing/Stance phases
+│   │   └── brain.cpp             // High-level decision making
 │   ├── CMakeLists.txt            // Standard ament_cmake (Exported for ROS2, ignored by PIO)
 │   └── package.xml               // Minimal dependencies (Header-only or static library)
 │
@@ -46,7 +46,7 @@ hexadrone_ws/src/
     │   ├── hexadrone_core/       // Symlink to ../../hexadrone_core/
     │   ├── comms_manager/        // WiFi, OTA Updates, and Async Web Server
     │   ├── radio_manager/        // CRSF Decoder: Normalizes RadioMaster sticks to -1.0..1.0
-    │   ├── servo_manager/        // PCA9685 Interface: Only sends raw PWM signals
+    │   ├── servo_manager/        // PCA9685 Interface: Sends raw PWM signals
     │   └── power_manager/        // INA228 Battery Monitor and LittleFS Blackbox Logging
     └── src/
         └── main.cpp              // The Conductor: Feeds Radio -> Brain -> Servos
