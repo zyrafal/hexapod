@@ -16,7 +16,7 @@ namespace Hexadrone
             // Sticks
             ci.roll = axes[0];     // CH1
             ci.pitch = axes[1];    // CH2
-            ci.velocity = (axes[2] + 1.0f) * 0.5f; // CH3: remap [-1, 1] → [0, 1]
+            ci.velocity = axes[2]; // CH3
             ci.yaw = axes[3];      // CH4
 
             // Switches (Using: > 0.5 is High, < -0.5 is Low)

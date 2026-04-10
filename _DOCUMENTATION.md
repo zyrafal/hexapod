@@ -73,7 +73,7 @@
 
 ### Power Diagram
 
-![alt text](power_diagram/hexadrone_power_diagram.png)
+![alt text](documentation_assets/hexadrone_power_diagram.png)
 
 ### Battery: 6S1P Partizan Li-ion
 

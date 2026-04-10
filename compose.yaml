@@ -3,7 +3,7 @@ services:
     build: .
     container_name: jazzy_webots_sim
     stop_grace_period: 0s
-    privileged: true  # Required for /dev/dri access
+    privileged: true
     network_mode: host
     ipc: host
     stdin_open: true
@@ -14,12 +14,12 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - XDG_RUNTIME_DIR=/tmp
-      - WEBOTS_OFFSCREEN_NO_GUI=0  # Set to 1 for headless/CI runs
+      - WEBOTS_OFFSCREEN_NO_GUI=0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - .:/root/hexadrone_ws:rw
-      - /root/hexadrone_ws/build    # Keep build artifacts inside the container
-      - /root/hexadrone_ws/install  # Keep install artifacts inside the container
+      - /root/hexadrone_ws/build
+      - /root/hexadrone_ws/install
       - ./.container_fish_history:/root/.local/share/fish/fish_history:rw
     device_requests:
       - driver: nvidia

@@ -1,107 +1,44 @@
-**First: Prepare terminal** 
-```bash
-distrobox enter noble_robotics -- bash -c "source /opt/ros/jazzy/setup.bash && cd ~/hexadrone_ws && exec bash"
-```
+# 🤖 Simulation Command Reference
 
-**Launch Webots in ROS2:**
-```bash
-ros2 launch hexadrone_webots launch.py
-```
+## 🚀 Environment Control
+Execute these from your host terminal to manage the containerized ROS 2 Jazzy environment.
 
-**Rebuild and launch Webots in ROS2:**
-```bash
-source /opt/ros/jazzy/setup.bash
-colcon build --symlink-install
-source install/setup.bash
-ros2 launch hexadrone_webots launch.py
-```
+| Target | Description |
+|---|---|
+| `make shell` | Start container, auto-build ROS 2 packages, and enter **fish** shell |
+| `webots` | **(Inside shell)** Alias to launch the Webots simulation with teleop nodes |
+| `make deploy` | Compile and upload firmware directly to the ESP32 hardware |
+| `make stop` | Kill all container processes and stop the simulation |
 
-**Launch Webots in ROS2 with full rebuild:**
-```bash
-source /opt/ros/jazzy/setup.bash
-rm -rf build/ install/ log/ && colcon build --symlink-install
-source install/setup.bash
-ros2 launch hexadrone_webots launch.py
-```
+---
 
-**"Clean" Webots launch:**
-```bash
-webots ~/hexadrone_ws/src/hexadrone_webots/worlds/hexaworld.wbt
-```
+## 🦾 Posture Aliases (Manual Testing)
+Run these from a **second host terminal tab** while the simulation is active to test joint mapping and power groups.
 
-**Standard posture:**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0, 0,0,0]}"
-```
+| Command | Action |
+|---|---|
+| `make posture-prone` | Safety position used for Arming/Disarming |
+| `make posture-standard` | Resets all 18 joints to kinematic zero (straight legs) |
+| `make posture-crouch` | Minimum chassis height (maximum leg compression) |
+| `make posture-high` | Maximum chassis elevation stance |
+| `make high-twist` | High stance with added horizontal Coxa swing |
+| `make walk-alpha` | Sets Group A (LF, RM, LB) to Swing phase |
+| `make walk-beta` | Sets Group B (RF, LM, RB) to Swing phase |
 
-**Arming/Disarming posture**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00,  0.70, -0.45,   # LF
-  0.00, -0.70,  0.45,   # LM
-  0.00,  0.70, -0.45,   # LB
-  0.00, -0.70,  0.45,   # RF
-  0.00,  0.70, -0.45,   # RM
-  0.00, -0.70,  0.45    # RB
-]}"
-```
+---
 
-**Max Crouch**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00,  1.57,  1.57,   # LF
-  0.00, -1.57, -1.57,   # LM
-  0.00,  1.57,  1.57,   # LB
-  0.00, -1.57, -1.57,   # RF
-  0.00,  1.57,  1.57,   # RM
-  0.00, -1.57, -1.57    # RB
-]}"
-```
+## 🕹️ Interactive Testing
+The robot can be controlled dynamically via keyboard or joystick through the `teleop_node`.
 
-**High Stance**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00, -0.70, -0.60,   # LF
-  0.00,  0.70,  0.60,   # LM
-  0.00, -0.70, -0.60,   # LB
-  0.00,  0.70,  0.60,   # RF
-  0.00, -0.70, -0.60,   # RM
-  0.00,  0.70,  0.60    # RB
-]}"
-```
+* **Keyboard:** Click the Webots window. Use **WASD** to walk/turn and keys **1, 2, 3** to change standing height.
+* **Joystick:** Connect a **RadioMaster Pocket** in Joystick mode. Mapping details are located in `_DOCUMENTATION.md`.
 
-**High Twist**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.26, -0.70, -0.60,   # LF
-  0.26,  0.70,  0.60,   # LM
-  0.26, -0.70, -0.60,   # LB
-  0.26,  0.70,  0.60,   # RF
-  0.26, -0.70, -0.60,   # RM
-  0.26,  0.70,  0.60    # RB
-]}"
-```
+---
 
-**Walking High (Alpha)**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00, -0.45, -0.60,   # LF
-  0.26,  0.70,  0.60,   # LM
-  0.00, -0.45, -0.60,   # LB
-  0.26,  0.70,  0.60,   # RF
-  0.00, -0.45, -0.60,   # RM
-  0.26,  0.70,  0.60    # RB
-]}"
-```
+## 📐 Joint Sequence Reference
+For manual `ros2 topic pub` debugging, use this interleaved joint order:
 
-**Walking High (Beta)**
-```bash
-ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.26, -0.70, -0.60,   # LF
-  0.00,  0.45,  0.60,   # LM
-  0.26, -0.70, -0.60,   # LB
-  0.00,  0.45,  0.60,   # RF
-  0.26, -0.70, -0.60,   # RM
-  0.00,  0.45,  0.60    # RB
-]}"
-```
+1.  **Group A (Power Group 1):** LF (0-2), RM (3-5), LB (6-8)
+2.  **Group B (Power Group 2):** RF (9-11), LM (12-14), RB (15-17)
+
+*Order per leg: Coxa, Femur, Tibia*.

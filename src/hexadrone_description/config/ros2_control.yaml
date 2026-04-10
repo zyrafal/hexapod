@@ -14,18 +14,18 @@ forward_position_controller:
       - LF_coxa
       - LF_femur
       - LF_tibia
-      - LM_coxa
-      - LM_femur
-      - LM_tibia
+      - RM_coxa
+      - RM_femur
+      - RM_tibia
       - LB_coxa
       - LB_femur
       - LB_tibia
       - RF_coxa
       - RF_femur
       - RF_tibia
-      - RM_coxa
-      - RM_femur
-      - RM_tibia
+      - LM_coxa
+      - LM_femur
+      - LM_tibia
       - RB_coxa
       - RB_femur
       - RB_tibia
