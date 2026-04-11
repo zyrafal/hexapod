@@ -37,10 +37,13 @@ RUN mkdir -p ~/.config/fish/functions && \
     cp /tmp/bass/functions/__bass.py ~/.config/fish/functions/ && \
     rm -rf /tmp/bass
 
-# Source ROS 2 and workspace on shell start
+# Source ROS 2 and workspace on shell start; add launch alias
 RUN mkdir -p ~/.config/fish && \
     echo "bass source /opt/ros/jazzy/setup.bash" >> ~/.config/fish/config.fish && \
-    echo "bass source ~/hexadrone_ws/install/setup.bash" >> ~/.config/fish/config.fish
+    echo "bass source ~/hexadrone_ws/install/setup.bash" >> ~/.config/fish/config.fish && \
+    echo "function webots; ros2 launch hexadrone_webots launch.py; end" >> ~/.config/fish/config.fish
+
+RUN mkdir -p /root/.local/share/fish
 
 WORKDIR /root/hexadrone_ws
 ENTRYPOINT ["/usr/bin/fish"]

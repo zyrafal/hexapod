@@ -1052,5 +1052,6 @@
 
   <webots>
     <plugin type="webots_ros2_control::Ros2Control" />
+    <plugin type="hexadrone_webots.keyboard_plugin.KeyboardPlugin" />
   </webots>
 </robot>

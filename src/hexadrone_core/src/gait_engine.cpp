@@ -10,29 +10,34 @@ namespace Hexadrone
     {
         std::vector<float> offsets(18, 0.0f);
 
-        // 1. Remap throttle: RadioMaster -1.0 (bottom) to 1.0 (top) -> 0.0 to 1.0
-        // Formula: (input + 1) / 2
-        float throttle = (velocity + 1.0f) * 0.5f;
+        // 1. Motion magnitude depends on input convention:
+        //    - DRIVE/REVERSE (radio): stick rests at -1.0 (bottom) → remap to 0..1
+        //    - NEUTRAL (keyboard/direct): 0.0 = stopped, magnitude = abs(velocity)
+        float motion_magnitude;
+        if (gear == GearState::GEAR_NEUTRAL)
+            motion_magnitude = std::abs(velocity);
+        else
+            motion_magnitude = (velocity + 1.0f) * 0.5f;
 
-        // 2. Threshold Check: If throttle is low and no yaw, reset phase and stay still
-        if (throttle < 0.05f && std::abs(yaw) < 0.05f)
+        // 2. Threshold Check: If motion is low and no yaw, reset phase and stay still
+        if (motion_magnitude < 0.05f && std::abs(yaw) < 0.05f)
         {
             phase = 0.0f;
             return offsets;
         }
 
-        // 3. Direction Logic: Determine propulsion sign based on Gear
+        // 3. Direction Logic: gear sets direction for radio; velocity sign for keyboard (neutral)
         float propulsion_factor = 0.0f;
         if (gear == GearState::GEAR_DRIVE)
-            propulsion_factor = throttle;
+            propulsion_factor = motion_magnitude;
         else if (gear == GearState::GEAR_REVERSE)
-            propulsion_factor = -throttle;
+            propulsion_factor = -motion_magnitude;
         else
-            return offsets; // Neutral = No movement
+            propulsion_factor = velocity; // neutral: sign = direction, magnitude = speed
 
         // 4. Advance Phase
         // The speed of the legs depends on how much "gas" or "yaw" is applied
-        float move_speed = std::max(throttle, std::abs(yaw));
+        float move_speed = std::max(motion_magnitude, std::abs(yaw));
         phase += dt * move_speed * step_frequency;
         
         if (phase > 1.0f) phase -= 1.0f;

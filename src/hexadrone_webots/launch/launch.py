@@ -48,6 +48,12 @@ def generate_launch_description():
         arguments=["forward_position_controller", "--controller-manager", "/controller_manager"],
     )
 
+    teleop_node = Node(
+        package='hexadrone_controller',
+        executable='teleop_node',
+        output='screen',
+    )
+
     return LaunchDescription([
         webots,
         ros2_supervisor,
@@ -55,6 +61,7 @@ def generate_launch_description():
         robot_state_publisher,
         joint_state_broadcaster_spawner,
         position_controller_spawner,
+        teleop_node,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,

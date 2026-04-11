@@ -17,4 +17,6 @@
   </export>
   <depend>webots_ros2_driver</depend>
   <depend>hexadrone_description</depend>
+  <depend>rclpy</depend>
+  <depend>sensor_msgs</depend>
 </package>

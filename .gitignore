@@ -34,3 +34,7 @@ cmake_install.cmake
 .cache/
 *.swp
 *~
+
+# Container state
+.container_bash_history
+.container_fish_history
