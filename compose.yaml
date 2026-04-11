@@ -2,27 +2,25 @@ services:
   ros2-webots:
     build: .
     container_name: jazzy_webots_sim
-    entrypoint: ["/bin/bash", "-c"]
-    command: ["source /opt/ros/jazzy/setup.bash && /bin/bash"]
-    privileged: true # Simplifies access to DRI devices (/dev/dri)
+    privileged: true  # Required for /dev/dri access
     network_mode: host
     ipc: host
+    stdin_open: true
+    tty: true
     environment:
       - DISPLAY=${DISPLAY}
       - QT_X11_NO_MITSHM=1
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - XDG_RUNTIME_DIR=/tmp
-      - WEBOTS_OFFSCREEN_NO_GUI=0 # Set to 1 for headless CI runs
+      - WEBOTS_OFFSCREEN_NO_GUI=0  # Set to 1 for headless/CI runs
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:rw
       - .:/root/hexadrone_ws:rw
-      - /root/hexadrone_ws/build
-      - /root/hexadrone_ws/install
-      - .:/home/yehorderehus/hexadrone_ws:rw
+      - /root/hexadrone_ws/build    # Keep build artifacts inside the container
+      - /root/hexadrone_ws/install  # Keep install artifacts inside the container
+      - ./.container_fish_history:/root/.local/share/fish/fish_history:rw
     device_requests:
       - driver: nvidia
         count: all
         capabilities: [gpu]
-    stdin_open: true
-    tty: true

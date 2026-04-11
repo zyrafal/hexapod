@@ -1,7 +1,11 @@
-# ROS 2 build files
+# ROS 2 build output
 /build/
 /install/
 /log/
+
+# PlatformIO build output
+.pio/
+.pioenvs/
 
 # Python cache
 __pycache__/
@@ -9,11 +13,20 @@ __pycache__/
 *.py[cod]
 *$py.class
 
-# Compiled C/C++
+# Compiled C/C++ artifacts
 *.o
 *.so
 *.a
 *.out
+*.elf
+*.bin
+*.hex
+*.map
+
+# CMake temporary files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
 
 # System files, editor files
 .DS_Store
@@ -21,7 +34,3 @@ __pycache__/
 .cache/
 *.swp
 *~
-
-# CMake temporary files
-CMakeCache.txt
-CMakeFiles/
