@@ -128,7 +128,7 @@ namespace Hexadrone
     void Brain::updateManual(const ControllerInput &input)
     {
         // Clamp selector 1-6 to index 0-5
-        int leg_idx = std::clamp(input.leg_selector - 1, 0, 5);
+        int leg_idx = std::max(0, std::min(input.leg_selector - 1, 5));
 
         // Fill the specific indices for the selected leg
         manual_offsets[leg_idx * 3 + 0] = input.trim_coxa;

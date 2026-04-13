@@ -12,7 +12,6 @@ namespace Hexadrone
     public:
         Kinematics();
 
-        float applySignLogic(int leg_index, int joint_index, float value);
         std::vector<float> finalizeAngles(const std::vector<float> &base,
                                           const std::vector<float> &gait,
                                           const std::vector<float> &manual);
@@ -24,12 +23,12 @@ namespace Hexadrone
         //              URDF axis group B (LF, LB, RM) = -1
         // Order: Coxa, Femur, Tibia
         const float legSignMap[6][3] = {
-            {-1.0, -1.0,  1.0}, // LF (left coxa,  Group B femur/tibia)
-            {-1.0,  1.0, -1.0}, // LM (left coxa,  Group A femur/tibia)
-            {-1.0, -1.0,  1.0}, // LB (left coxa,  Group B femur/tibia)
-            { 1.0,  1.0, -1.0}, // RF (right coxa, Group A femur/tibia)
-            { 1.0, -1.0,  1.0}, // RM (right coxa, Group B femur/tibia)
-            { 1.0,  1.0, -1.0}  // RB (right coxa, Group A femur/tibia)
+            {-1.0f, -1.0f,  1.0f}, // LF (left coxa,  Group B femur/tibia)
+            {-1.0f,  1.0f, -1.0f}, // LM (left coxa,  Group A femur/tibia)
+            {-1.0f, -1.0f,  1.0f}, // LB (left coxa,  Group B femur/tibia)
+            { 1.0f,  1.0f, -1.0f}, // RF (right coxa, Group A femur/tibia)
+            { 1.0f, -1.0f,  1.0f}, // RM (right coxa, Group B femur/tibia)
+            { 1.0f,  1.0f, -1.0f}  // RB (right coxa, Group A femur/tibia)
         };
 
         // Hardware bias: URDF joint zeros correspond to the old "standard" stance.

@@ -5,17 +5,6 @@ namespace Hexadrone
     Kinematics::Kinematics() {}
 
     /**
-     * @brief Applies hardware orientation logic to a raw joint value.
-     * @param leg_index 0-5
-     * @param joint_index 0-2 (Coxa, Femur, Tibia)
-     * @param value Raw radian offset
-     */
-    float Kinematics::applySignLogic(int leg_index, int joint_index, float value)
-    {
-        return value * legSignMap[leg_index][joint_index];
-    }
-
-    /**
      * @brief Merges the three motion layers into final servo commands.
      * @param base The persistent, smoothed posture layer (already signed).
      * @param gait The rhythmic walking layer (raw offsets).
@@ -35,7 +24,7 @@ namespace Hexadrone
                 int idx = (leg * 3) + joint;
 
                 float semantic = base[idx] + gait[idx] + manual[idx] + urdfBias[joint];
-                final_output[idx] = applySignLogic(leg, joint, semantic);
+                final_output[idx] = semantic * legSignMap[leg][joint];
             }
         }
 

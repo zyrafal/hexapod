@@ -1,0 +1,9 @@
+{
+  "name": "hexadrone_core",
+  "version": "0.1.0",
+  "description": "Portable hexapod core: kinematics, gait, state machine",
+  "build": {
+    "srcDir": "src",
+    "includeDir": "include"
+  }
+}

@@ -13,8 +13,6 @@ void CommsManager::begin(const char *ssid, const char *password)
             request->send(404, "text/plain", "---Log file not found.---");
         } });
 
-    _server.begin();
-
     ArduinoOTA.onStart([]()
                        { Serial.println("\n[OTA] Update Starting."); });
     ArduinoOTA.onEnd([]()
@@ -24,8 +22,6 @@ void CommsManager::begin(const char *ssid, const char *password)
     ArduinoOTA.onError([](ota_error_t error)
                        { Serial.printf("[OTA] Error[%u]\n", error); });
 
-    ArduinoOTA.begin();
-
     enableWiFi(_ssid, _password);
 }
 
@@ -33,8 +29,6 @@ void CommsManager::update()
 {
     if (!_wifiEnabled)
         return;
-
-    ArduinoOTA.handle();
 
     if (_state == CommsState::CONNECTING)
     {
@@ -47,6 +41,9 @@ void CommsManager::update()
         if (WiFi.status() == WL_CONNECTED)
         {
             _state = CommsState::CONNECTED;
+
+            _server.begin();
+            ArduinoOTA.begin();
 
             Serial.println("\n[COMMS] WiFi Connected Successfully.");
             Serial.print("[COMMS] ESP32 IP Address: ");
@@ -64,6 +61,8 @@ void CommsManager::update()
     }
     else if (_state == CommsState::CONNECTED)
     {
+        ArduinoOTA.handle();
+
         if (WiFi.status() != WL_CONNECTED)
         {
             Serial.println("\n[COMMS] WiFi Signal lost. Attempting to reconnect...");

@@ -21,7 +21,13 @@ void ServoManager::applyAngles(const std::vector<float> &angles_deg)
     int count = std::min((int)angles_deg.size(), TOTAL_SERVOS);
     for (int i = 0; i < count; i++)
     {
-        setRawPWM(i, degreesToTicks(angles_deg[i]));
+        int physLeg  = i / 3;
+        int joint    = i % 3;
+        int logicLeg = legRemap[physLeg];
+        float semantic   = angles_deg[logicLeg * 3 + joint];
+        float offset_deg = proneOffset[physLeg][joint] * (180.0f / M_PI);
+        float angle  = (semantic + offset_deg) * signMap[physLeg][joint];
+        setRawPWM(i, degreesToTicks(angle));
     }
 }
 

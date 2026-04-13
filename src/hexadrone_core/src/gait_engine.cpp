@@ -14,7 +14,8 @@ namespace Hexadrone
         float motion_magnitude = (gear == GearState::GEAR_NEUTRAL) ? 0.0f : velocity;
 
         // 2. Threshold Check: If no propulsion and no yaw, reset phase and stay still
-        if (motion_magnitude < 0.05f && std::abs(yaw) < 0.05f)
+        // if (motion_magnitude < 0.05f && std::abs(yaw) < 0.05f)
+        if (1)
         {
             phase = 0.0f;
             return offsets;
