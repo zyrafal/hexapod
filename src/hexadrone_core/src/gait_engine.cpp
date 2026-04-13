@@ -10,30 +10,22 @@ namespace Hexadrone
     {
         std::vector<float> offsets(18, 0.0f);
 
-        // 1. Motion magnitude depends on input convention:
-        //    - DRIVE/REVERSE (radio): stick rests at -1.0 (bottom) → remap to 0..1
-        //    - NEUTRAL (keyboard/direct): 0.0 = stopped, magnitude = abs(velocity)
-        float motion_magnitude;
-        if (gear == GearState::GEAR_NEUTRAL)
-            motion_magnitude = std::abs(velocity);
-        else
-            motion_magnitude = (velocity + 1.0f) * 0.5f;
+        // 1. Motion magnitude: velocity is [0, 1]; NEUTRAL = no propulsion
+        float motion_magnitude = (gear == GearState::GEAR_NEUTRAL) ? 0.0f : velocity;
 
-        // 2. Threshold Check: If motion is low and no yaw, reset phase and stay still
+        // 2. Threshold Check: If no propulsion and no yaw, reset phase and stay still
         if (motion_magnitude < 0.05f && std::abs(yaw) < 0.05f)
         {
             phase = 0.0f;
             return offsets;
         }
 
-        // 3. Direction Logic: gear sets direction for radio; velocity sign for keyboard (neutral)
+        // 3. Direction Logic: gear selects forward or reverse
         float propulsion_factor = 0.0f;
         if (gear == GearState::GEAR_DRIVE)
             propulsion_factor = motion_magnitude;
         else if (gear == GearState::GEAR_REVERSE)
             propulsion_factor = -motion_magnitude;
-        else
-            propulsion_factor = velocity; // neutral: sign = direction, magnitude = speed
 
         // 4. Advance Phase
         // The speed of the legs depends on how much "gas" or "yaw" is applied
@@ -61,18 +53,16 @@ namespace Hexadrone
             float h_wave = is_group_A ? h_wave_A : h_wave_B;
             float v_wave = is_group_A ? v_wave_A : v_wave_B;
 
-            // Joint 0: COXA (Propulsion + Turning)
-            // We multiply h_wave by propulsion_factor so the swing direction 
-            // respects the Gear (Drive vs Reverse).
-            offsets[i * 3 + 0] = (h_wave * propulsion_factor * stride_length) + 
-                                 (h_wave * yaw * stride_length);
+            // Joint 0: COXA (Propulsion + Turning) — output in degrees
+            offsets[i * 3 + 0] = (h_wave * propulsion_factor * stride_length) +
+                                  (h_wave * yaw * stride_length);
 
-            // Joint 1: FEMUR (Lift)
+            // Joint 1: FEMUR (Lift) — positive offset; sign map + urdfBias handle physical direction
             offsets[i * 3 + 1] = v_wave * lift_height;
 
-            // Joint 2: TIBIA (Counter-balance)
-            // Moves slightly inward when femur lifts to keep foot vertical
-            offsets[i * 3 + 2] = -v_wave * (lift_height * 0.5f);
+            // Joint 2: TIBIA (neutral — counter-balance removed: asymmetric sign groups
+            // caused it to splay in the wrong direction on half the legs)
+            offsets[i * 3 + 2] = 0.0f;
         }
 
         return offsets;

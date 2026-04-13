@@ -1,4 +1,7 @@
 #include "servo_manager.h"
+#include <Arduino.h>
+#include <math.h>
+#include <algorithm>
 
 void ServoManager::begin()
 {
@@ -11,93 +14,35 @@ void ServoManager::begin()
     _board2.setPWMFreq(60);
 }
 
-void ServoManager::update(bool armSwitch, bool killTriggered, bool isConnected)
+void ServoManager::applyAngles(const std::vector<float> &angles_deg)
 {
-    // 1. Priority: Hardware Kill
-    if (killTriggered)
-    {
-        if (_state != ServoState::KILLED)
-        {
-            rapidKill();
-        }
-        return;
-    }
+    if (_killed) return;
 
-    // 2. State Transitions based on ArmSwitch and Connection
-    if ((!isConnected || !armSwitch) && (_state == ServoState::ARMED || _state == ServoState::ARMING))
+    int count = std::min((int)angles_deg.size(), TOTAL_SERVOS);
+    for (int i = 0; i < count; i++)
     {
-        startSoftDisarm();
+        setRawPWM(i, degreesToTicks(angles_deg[i]));
     }
-    else if (isConnected && armSwitch && (_state == ServoState::DISARMED || _state == ServoState::DISARMING))
-    {
-        startArming();
-    }
-
-    // 3. Sequence Timer Logic
-    if (millis() - _lastStepTime >= SERVO_ARM_INTERVAL)
-    {
-        if (_state == ServoState::ARMING)
-        {
-            setRawPWM(_seqIndex, calculatePulse(0)); // Move to neutral
-            _seqIndex++;
-            if (_seqIndex >= TOTAL_SERVOS)
-            {
-                _state = ServoState::ARMED;
-                Serial.println("[SERVOS] All servos armed.");
-            }
-            _lastStepTime = millis();
-        }
-        else if (_state == ServoState::DISARMING)
-        {
-            setRawPWM(_seqIndex, 4096); // Relax
-            _seqIndex++;
-            if (_seqIndex >= TOTAL_SERVOS)
-            {
-                _state = ServoState::DISARMED;
-                Serial.println("[SERVOS] All servos disarmed.");
-            }
-            _lastStepTime = millis();
-        }
-    }
-}
-
-void ServoManager::startArming()
-{
-    _state = ServoState::ARMING;
-    _seqIndex = 0;
-    _lastStepTime = millis();
-    Serial.println("[SERVOS] Starting sequential arming...");
-}
-
-void ServoManager::startSoftDisarm()
-{
-    _state = ServoState::DISARMING;
-    _seqIndex = 0;
-    _lastStepTime = millis();
-    Serial.println("[SERVOS] Starting soft-disarming sequence...");
 }
 
 void ServoManager::rapidKill()
 {
-    _state = ServoState::KILLED;
-    digitalWrite(OE_CUSTOM, HIGH); // Pull OE HIGH (Physically disconnects all PWM)
-    Serial.println("[SERVOS] Kill-Switch executed. System reboot required.");
+    _killed = true;
+    digitalWrite(OE_CUSTOM, HIGH);
+    Serial.println("[SERVOS] Kill-switch executed. Hardware reset required.");
 }
 
-// Routes the 0-31 index to the correct physical board
 void ServoManager::setRawPWM(int index, int pulse)
 {
     if (index < 16)
-    {
         _board1.setPWM(index, 0, pulse);
-    }
     else
-    {
         _board2.setPWM(index - 16, 0, pulse);
-    }
 }
 
-int ServoManager::calculatePulse(float degrees)
+int ServoManager::degreesToTicks(float degrees)
 {
-    return map(degrees, -90, 90, SERVOMIN, SERVOMAX);
+    // Physical servo range: -90° to +90°
+    float clamped = std::max(-90.0f, std::min(90.0f, degrees));
+    return (int)(SERVOMIN + (SERVOMAX - SERVOMIN) * (clamped + 90.0f) / 180.0f);
 }

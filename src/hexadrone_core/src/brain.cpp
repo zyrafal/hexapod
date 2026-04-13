@@ -21,7 +21,7 @@ namespace Hexadrone
      * @param input Constant reference to the ControllerInput struct mapped from RadioMaster Pocket axes:
      * - CH1 (roll)        : Body Roll additive lean (Right Stick X)
      * - CH2 (pitch)       : Body Pitch additive lean (Right Stick Y)
-     * - CH3 (velocity)    : Forward/Backward velocity throttle (Left Stick Y)
+     * - CH3 (velocity)    : Forward/Backward velocity throttle [0, 1] (Left Stick Y, remapped by BridgeOps)
      * - CH4 (yaw)         : Z-axis rotation/turning (Left Stick X)
      * - CH5 (armed_switch): Toggle SA (1: ARMED | -1: DISARMED)
      * - CH7 (posture_switch): 3-Pos SB (1: High | 0: Standard | -1: Crouch)
@@ -31,7 +31,7 @@ namespace Hexadrone
      * - CH12 (trim_femur)   : Manual lift for selected leg
      * - CH13 (trim_tibia)   : Manual reach for selected leg
      * - CH14 (leg_selector) : Axis-stepped selector (1 to 6) for manual control
-     * * @return std::vector<float> 18-element array of final servo angles (radians).
+     * * @return std::vector<float> 18-element array of final servo angles (degrees).
      */
     std::vector<float> Brain::update(float dt, const ControllerInput &input)
     {

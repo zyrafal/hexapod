@@ -1,6 +1,7 @@
 #ifndef HEXADRONE_KINEMATICS_HPP
 #define HEXADRONE_KINEMATICS_HPP
 
+#include "hexadrone_core/lib.hpp"
 #include "hexadrone_core/state_machine.hpp"
 #include <vector>
 
@@ -18,15 +19,27 @@ namespace Hexadrone
         std::vector<float> getBasePosture(PostureState posture);
 
     private:
-        // 1.0 = Normal, -1.0 = Inverted
+        // Coxa:        Left legs = +1, Right legs = -1
+        // Femur/Tibia: URDF axis group A (LM, RF, RB) = +1
+        //              URDF axis group B (LF, LB, RM) = -1
         // Order: Coxa, Femur, Tibia
         const float legSignMap[6][3] = {
-            {1.0, 1.0, 1.0},   // LM (Left Middle - Positive Down)
-            {1.0, -1.0, -1.0}, // RM (Right Middle - Negative Down)
-            {1.0, -1.0, -1.0}, // RF (Right Front)
-            {1.0, 1.0, 1.0},   // LF (Left Front)
-            {1.0, -1.0, -1.0}, // RB (Right Back)
-            {1.0, 1.0, 1.0}    // LB (Left Back)
+            {-1.0, -1.0,  1.0}, // LF (left coxa,  Group B femur/tibia)
+            {-1.0,  1.0, -1.0}, // LM (left coxa,  Group A femur/tibia)
+            {-1.0, -1.0,  1.0}, // LB (left coxa,  Group B femur/tibia)
+            { 1.0,  1.0, -1.0}, // RF (right coxa, Group A femur/tibia)
+            { 1.0, -1.0,  1.0}, // RM (right coxa, Group B femur/tibia)
+            { 1.0,  1.0, -1.0}  // RB (right coxa, Group A femur/tibia)
+        };
+
+        // Hardware bias: URDF joint zeros correspond to the old "standard" stance.
+        // Added before the sign map to translate PRONE-relative degrees into the
+        // URDF's physical coordinate system. Derived exactly from PRONE_*_RAD.
+        // THE PRONE-RELATIVE COORDINATE SYSTEM SHOULD NEVER BE CHANGED
+        const float urdfBias[3] = {
+            0.0,
+            -0.7 * hexadrone::core::RAD_TO_DEG_F,
+            -0.45 * hexadrone::core::RAD_TO_DEG_F
         };
     };
 }

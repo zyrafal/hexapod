@@ -1,4 +1,4 @@
-.PHONY: build shell stop
+.PHONY: build shell stop deploy
 
 build:
 	touch .container_fish_history
@@ -12,3 +12,6 @@ shell:
 
 stop:
 	podman-compose down -t0
+
+deploy:
+	cd src/hexadrone_esp32 && pio run --target upload

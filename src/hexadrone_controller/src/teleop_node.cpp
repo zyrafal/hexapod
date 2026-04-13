@@ -41,14 +41,15 @@ private:
         last_time_ = current_time;
 
         // B. Process: Send input through the Brain's layered logic
-        // returns std::vector<float>
-        std::vector<float> angles = brain_.update(dt, last_input_);
+        // returns std::vector<float> of joint angles in degrees
+        std::vector<float> angles_deg = brain_.update(dt, last_input_);
 
-        // C. Publish: Convert to ROS message format
+        // C. Convert degrees → radians for forward_position_controller
         std_msgs::msg::Float64MultiArray out;
-        
-        // D. Assign float vector to double vector (out.data)
-        out.data.assign(angles.begin(), angles.end());
+        out.data.resize(angles_deg.size());
+        constexpr double DEG_TO_RAD = M_PI / 180.0;
+        for (size_t i = 0; i < angles_deg.size(); ++i)
+            out.data[i] = angles_deg[i] * DEG_TO_RAD;
         
         pub_->publish(out);
     }

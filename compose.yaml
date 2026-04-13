@@ -2,6 +2,7 @@ services:
   ros2-webots:
     build: .
     container_name: jazzy_webots_sim
+    stop_grace_period: 0s
     privileged: true  # Required for /dev/dri access
     network_mode: host
     ipc: host

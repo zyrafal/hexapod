@@ -17,10 +17,10 @@ namespace Hexadrone
     private:
         float phase = 0.0f; // 0.0 to 1.0
 
-        // Gait Tuning Constants
-        const float stride_length = 0.4f;  // How far the legs wiggle
-        const float lift_height = 0.3f;    // How high they lift
-        const float step_frequency = 2.0f; // Multiplier for phase speed
+        // Gait Tuning Constants (degrees)
+        const float stride_length  = 11.5f; // Coxa sweep amplitude. Smaller = less lateral arc = less sliding.
+        const float lift_height    = 26.0f; // Femur lift amplitude. Must clear ground during swing.
+        const float step_frequency = 1.5f;  // Phase advance speed multiplier (dimensionless).
     };
 }
 

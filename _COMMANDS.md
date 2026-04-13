@@ -37,71 +37,71 @@ ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64
 **Arming/Disarming posture**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00, -0.70,  0.45,   # LM
-  0.00,  0.70, -0.45,   # RM
-  0.00, -0.70,  0.45,   # RF
   0.00,  0.70, -0.45,   # LF
-  0.00, -0.70,  0.45,   # RB
-  0.00,  0.70, -0.45    # LB
+  0.00, -0.70,  0.45,   # LM
+  0.00,  0.70, -0.45,   # LB
+  0.00, -0.70,  0.45,   # RF
+  0.00,  0.70, -0.45,   # RM
+  0.00, -0.70,  0.45    # RB
 ]}"
 ```
 
 **Max Crouch**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00, -1.57, -1.57,   # LM
-  0.00,  1.57,  1.57,   # RM
-  0.00, -1.57, -1.57,   # RF
   0.00,  1.57,  1.57,   # LF
-  0.00, -1.57, -1.57,   # RB
-  0.00,  1.57,  1.57    # LB
+  0.00, -1.57, -1.57,   # LM
+  0.00,  1.57,  1.57,   # LB
+  0.00, -1.57, -1.57,   # RF
+  0.00,  1.57,  1.57,   # RM
+  0.00, -1.57, -1.57    # RB
 ]}"
 ```
 
 **High Stance**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00,  0.70,  0.60,   # LM
-  0.00, -0.70, -0.60,   # RM
-  0.00,  0.70,  0.60,   # RF
   0.00, -0.70, -0.60,   # LF
-  0.00,  0.70,  0.60,   # RB
-  0.00, -0.70, -0.60    # LB
+  0.00,  0.70,  0.60,   # LM
+  0.00, -0.70, -0.60,   # LB
+  0.00,  0.70,  0.60,   # RF
+  0.00, -0.70, -0.60,   # RM
+  0.00,  0.70,  0.60    # RB
 ]}"
 ```
 
 **High Twist**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.26,  0.70,  0.60,   # LM
-  0.26, -0.70, -0.60,   # RM
-  0.26,  0.70,  0.60,   # RF
   0.26, -0.70, -0.60,   # LF
-  0.26,  0.70,  0.60,   # RB
-  0.26, -0.70, -0.60    # LB
+  0.26,  0.70,  0.60,   # LM
+  0.26, -0.70, -0.60,   # LB
+  0.26,  0.70,  0.60,   # RF
+  0.26, -0.70, -0.60,   # RM
+  0.26,  0.70,  0.60    # RB
 ]}"
 ```
 
 **Walking High (Alpha)**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.26,  0.70,  0.60,   # LM
-  0.00, -0.45, -0.60,   # RM
-  0.26,  0.70,  0.60,   # RF
   0.00, -0.45, -0.60,   # LF
-  0.26,  0.70,  0.60,   # RB
-  0.00, -0.45, -0.60    # LB
+  0.26,  0.70,  0.60,   # LM
+  0.00, -0.45, -0.60,   # LB
+  0.26,  0.70,  0.60,   # RF
+  0.00, -0.45, -0.60,   # RM
+  0.26,  0.70,  0.60    # RB
 ]}"
 ```
 
 **Walking High (Beta)**
 ```bash
 ros2 topic pub --once /forward_position_controller/commands std_msgs/msg/Float64MultiArray "{data: [
-  0.00,  0.45,  0.60,   # LM
-  0.26, -0.70, -0.60,   # RM
-  0.00,  0.45,  0.60,   # RF
   0.26, -0.70, -0.60,   # LF
-  0.00,  0.45,  0.60,   # RB
-  0.26, -0.70, -0.60    # LB
+  0.00,  0.45,  0.60,   # LM
+  0.26, -0.70, -0.60,   # LB
+  0.00,  0.45,  0.60,   # RF
+  0.26, -0.70, -0.60,   # RM
+  0.00,  0.45,  0.60    # RB
 ]}"
 ```

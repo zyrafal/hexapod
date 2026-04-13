@@ -11,22 +11,22 @@ controller_manager:
 forward_position_controller:
   ros__parameters:
     joints:
-      - LM_coxa
-      - LM_femur
-      - LM_tibia
-      - RM_coxa
-      - RM_femur
-      - RM_tibia
-      - RF_coxa
-      - RF_femur
-      - RF_tibia
       - LF_coxa
       - LF_femur
       - LF_tibia
-      - RB_coxa
-      - RB_femur
-      - RB_tibia
+      - LM_coxa
+      - LM_femur
+      - LM_tibia
       - LB_coxa
       - LB_femur
       - LB_tibia
+      - RF_coxa
+      - RF_femur
+      - RF_tibia
+      - RM_coxa
+      - RM_femur
+      - RM_tibia
+      - RB_coxa
+      - RB_femur
+      - RB_tibia
     interface_name: position
