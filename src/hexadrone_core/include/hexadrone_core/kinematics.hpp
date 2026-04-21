@@ -15,30 +15,22 @@ namespace Hexadrone
         std::vector<float> finalizeAngles(const std::vector<float> &base,
                                           const std::vector<float> &gait,
                                           const std::vector<float> &manual);
+        
         std::vector<float> getBasePosture(PostureState posture);
 
     private:
-        // Coxa:        Left legs = +1, Right legs = -1
-        // Femur/Tibia: URDF axis group A (LM, RF, RB) = +1
-        //              URDF axis group B (LF, LB, RM) = -1
-        // Order: Coxa, Femur, Tibia
+        /**
+         * @brief Multipliers to handle physical motor orientation.
+         * Indices must strictly follow the interleaved power-group sequence:
+         * 0:LF, 1:RM, 2:LB (Group A) | 3:RF, 4:LM, 5:RB (Group B)
+         */
         const float legSignMap[6][3] = {
-            {-1.0f, -1.0f,  1.0f}, // LF (left coxa,  Group B femur/tibia)
-            {-1.0f,  1.0f, -1.0f}, // LM (left coxa,  Group A femur/tibia)
-            {-1.0f, -1.0f,  1.0f}, // LB (left coxa,  Group B femur/tibia)
-            { 1.0f,  1.0f, -1.0f}, // RF (right coxa, Group A femur/tibia)
-            { 1.0f, -1.0f,  1.0f}, // RM (right coxa, Group B femur/tibia)
-            { 1.0f,  1.0f, -1.0f}  // RB (right coxa, Group A femur/tibia)
-        };
-
-        // Hardware bias: URDF joint zeros correspond to the old "standard" stance.
-        // Added before the sign map to translate PRONE-relative degrees into the
-        // URDF's physical coordinate system. Derived exactly from PRONE_*_RAD.
-        // THE PRONE-RELATIVE COORDINATE SYSTEM SHOULD NEVER BE CHANGED
-        const float urdfBias[3] = {
-            0.0,
-            -0.7 * hexadrone::core::RAD_TO_DEG_F,
-            -0.45 * hexadrone::core::RAD_TO_DEG_F
+            {-1.0f, -1.0f,  1.0f}, // 0: LF (Group A)
+            { 1.0f, -1.0f,  1.0f}, // 1: RM (Group A)
+            {-1.0f, -1.0f,  1.0f}, // 2: LB (Group A)
+            { 1.0f,  1.0f, -1.0f}, // 3: RF (Group B)
+            {-1.0f,  1.0f, -1.0f}, // 4: LM (Group B)
+            { 1.0f,  1.0f, -1.0f}  // 5: RB (Group B)
         };
     };
 }

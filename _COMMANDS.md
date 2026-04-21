@@ -1,7 +1,7 @@
 # 🤖 Simulation Command Reference
 
 ## 🚀 Environment Control
-Execute these from your host terminal to manage the containerized ROS 2 Jazzy environment.
+Execute these from your host terminal to manage the containerized ROS 2 Jazzy environment using **Makefile**.
 
 | Target | Description |
 |---|---|
@@ -12,8 +12,8 @@ Execute these from your host terminal to manage the containerized ROS 2 Jazzy en
 
 ---
 
-## 🦾 Posture Aliases (Manual Testing)
-Run these from a **second host terminal tab** while the simulation is active to test joint mapping and power groups.
+## 🦾 Posture Aliases (Manual Debug)
+Run these from a **second host terminal tab** while the simulation is active to test joint mapping and power groups. **(might be immediately reset by an active brain cycle)**
 
 | Command | Action |
 |---|---|
@@ -27,14 +27,6 @@ Run these from a **second host terminal tab** while the simulation is active to 
 
 ---
 
-## 🕹️ Interactive Testing
-The robot can be controlled dynamically via keyboard or joystick through the `teleop_node`.
-
-* **Keyboard:** Click the Webots window. Use **WASD** to walk/turn and keys **1, 2, 3** to change standing height.
-* **Joystick:** Connect a **RadioMaster Pocket** in Joystick mode. Mapping details are located in `_DOCUMENTATION.md`.
-
----
-
 ## 📐 Joint Sequence Reference
 For manual `ros2 topic pub` debugging, use this interleaved joint order:
 
@@ -42,3 +34,13 @@ For manual `ros2 topic pub` debugging, use this interleaved joint order:
 2.  **Group B (Power Group 2):** RF (9-11), LM (12-14), RB (15-17)
 
 *Order per leg: Coxa, Femur, Tibia*.
+
+---
+
+## 🕹️ Interactive Testing
+The robot can be controlled dynamically via keyboard or joystick through the `teleop_node`.
+
+* **Keyboard:** Click the Webots window. Use **WASD** to walk/turn and keys **1, 2, 3** to change standing height.
+* **Joystick:** Connect a **RadioMaster Pocket** in Joystick mode. Mapping details are located in `_DOCUMENTATION.md`.
+
+---

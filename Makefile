@@ -17,7 +17,7 @@ stop:
 deploy:
 	cd src/hexadrone_esp32 && pio run --target upload
 
-# Posture Aliases
+# Posture Aliases (in radians)
 
 posture-prone:
 	podman exec jazzy_webots_sim bash -c "source /opt/ros/jazzy/setup.bash && \
