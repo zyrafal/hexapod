@@ -26,7 +26,10 @@ namespace Hexadrone
                 float semantic_offset = gait[idx] + manual[idx];
 
                 // 2. Add signed base to signed dynamic offset
-                final_output[idx] = base[idx] + (semantic_offset * legSignMap[leg][joint]);
+                float final_deg = base[idx] + (semantic_offset * legSignMap[leg][joint]);
+
+                // 3. Safety clamp to prevent servo/chassis damage
+                final_output[idx] = std::max(-90.0f, std::min(90.0f, final_deg));
             }
         }
 
@@ -78,5 +81,41 @@ namespace Hexadrone
             // Fallback: Safe Prone position to protect the chassis
             return this->getBasePosture(PostureState::POSTURE_PRONE);
         }
+    }
+
+    std::vector<float> Kinematics::getBodyOffsets(float pitch, float roll)
+    {
+        std::vector<float> offsets(18, 0.0f);
+
+        // 1. Deadzone: Prevent jitter from the spring-centered gimbal
+        float active_pitch = (std::abs(pitch) < 0.05f) ? 0.0f : pitch;
+        float active_roll = (std::abs(roll) < 0.05f) ? 0.0f : roll;
+
+        // 2. Map stick input [-1.0, 1.0] to max deflection degrees
+        float pitch_deg = active_pitch * MAX_BODY_LEAN;
+        float roll_deg = active_roll * MAX_BODY_LEAN;
+
+        // 3. Multiplier Maps based on physical leg layout
+        // Indices: 0:LF, 1:RM, 2:LB, 3:RF, 4:LM, 5:RB
+
+        // Pitch: Forward stick (+1.0) lowers the front legs and raises the back legs
+        const float pitch_mult[6] = { -1.0f,  0.0f, 1.0f,  -1.0f,  0.0f, 1.0f};
+
+        // Roll: Left stick (+1.0 inverted) lowers the left side and raises the right side
+        const float roll_mult[6] = {1.0f, -1.0f, 1.0f, -1.0f, 1.0f, -1.0f};
+
+        // 4. Distribute the lean
+        for (int leg = 0; leg < 6; ++leg)
+        {
+            // Apply primary body lean to the Femur (Joint 1)
+            float femur_lean = (pitch_deg * pitch_mult[leg]) + (roll_deg * roll_mult[leg]);
+
+            offsets[leg * 3 + 1] = femur_lean;
+
+            // Compensate with the Tibia (Joint 2) to prevent the feet from dragging inward
+            offsets[leg * 3 + 2] = -femur_lean * TIBIA_COMPENSATION;
+        }
+
+        return offsets;
     }
 }

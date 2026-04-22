@@ -17,8 +17,14 @@ namespace Hexadrone
                                           const std::vector<float> &manual);
         
         std::vector<float> getBasePosture(PostureState posture);
+        
+        std::vector<float> getBodyOffsets(float pitch, float roll);
 
     private:
+        // Lean Tuning Constants
+        static constexpr float MAX_BODY_LEAN = 45.0f;     // Max tilt in degrees
+        static constexpr float TIBIA_COMPENSATION = 0.5f; // Ratio to keep feet planted
+
         /**
          * @brief Multipliers to handle physical motor orientation.
          * Indices must strictly follow the interleaved power-group sequence:

@@ -1,26 +1,67 @@
-## 🤖 Hexadrone
+# 🤖 Hexadrone
 ![alt text](documentation_assets/preview.jpg)
+
+## 🏗️ Project Architecture
+
+The workspace is strictly divided to ensure the core mathematics remain perfectly portable between the high-level ROS 2 simulation and the low-level ESP32 microcontroller.
+
+* **🧠 `hexadrone_core/` (The Brain)**
+  * **Pure C++:** No ROS or ESP dependencies. Portable everywhere.
+  * **`brain.cpp`**: Master coordinator, state machine, and real-time mixing.
+  * **`kinematics.cpp`**: Forward Kinematics (FK) solver, dynamic body leaning, and servo safety clamping.
+  * **`gait_engine.cpp`**: Generates elliptical walking paths, tripod balancing, and differential yaw.
+* **🎮 `hexadrone_controller/` (The ROS 2 Wrapper)**
+  * **`bridge_ops.hpp`**: Stateless translator converting `sensor_msgs/Joy` to normalized Core data.
+  * **`teleop_node.cpp`**: Subscribes to `/joy`, ticks the Brain, and publishes to Webots.
+* **🤖 `hexadrone_description/` (The Blueprint)**
+  * Contains the `drone.urdf` (source of truth for dimensions), `.stl` visual meshes, and `ros2_control` configurations.
+* **🌍 `hexadrone_webots/` (The Virtual Environment)**
+  * Holds the Webots `hexaworld.wbt` testing ground, generated `.proto` nodes, and the ROS 2 `launch.py` scripts.
+* **⚡ `hexadrone_esp32/` (The Physical Hardware)**
+  * PlatformIO project that symlinks to `hexadrone_core`.
+  * Manages ESP32 specifics: WiFi/OTA (`comms_manager`), CRSF decoding (`radio_manager`), PCA9685 PWM (`servo_manager`), and INA228 Telemetry (`power_manager`).
+
+---
 
 ## 🕹️ Control Mapping (RadioMaster Pocket / ELRS)
 
 ![alt text](documentation_assets/pocket-switch-layout-873244715.jpg)
 
-| Channel  | Radio Input     | Function            | Logic / Range                                          |
-|----------|-----------------|---------------------|--------------------------------------------------------|
-| **CH1**  | Right Stick (X) | *Body Roll*         | Additive lean left/right ***(Not yet implemented)***   |
-| **CH2**  | Right Stick (Y) | *Body Pitch*        | Additive lean forward/back ***(Not yet implemented*)** |
-| **CH3**  | Left Stick (Y)  | **Velocity (Gas)**  | Movement speed (Magnitude of the gait)                 |
-| **CH4**  | Left Stick (X)  | **Yaw (Turn)**      | Rotation around the vertical Z-axis                    |
-| **CH5**  | Switch SA       | **ARM / Safety**    | High: Armed / Low: Disarmed + Soft Cutoff              |
-| **CH6**  | Switch SD       | *Auxiliary*         | Unassigned (Future expansion)                          |
-| **CH7**  | Switch SB       | **Standing Height** | 3-Pos: -1:Crouching (Low) / 0:Standard / 1:High Stance |
-| **CH8**  | Switch SC       | **Transmission**    | 3-Pos: -1:Forward / 0:Neutral (Manual) / 1:Backward    |
-| **CH9**  | Button SE       | **Kill-Switch**     | Immediate Hard cutoff (on condition, see below)        |
-| **CH10** | Knob S1         | *Auxiliary*         | Unassigned (Future expansion)                          |
-| **CH11** | Right Trim (X)  | **Manual Coxa**     | Horizontal swing for selected leg                      |
-| **CH12** | Right Trim (Y)  | **Manual Femur**    | Vertical lift for selected leg                         |
-| **CH13** | Left Trim (Y)   | **Manual Tibia**    | Extension/Reach for selected leg                       |
-| **CH14** | Left Trim (X)   | **Leg Selector**    | Cycle through Legs 1-6 for individual control          |
+| Channel  | Input           | Function            | Logic / Behavior                        |
+|----------|-----------------|---------------------|-----------------------------------------|
+| **CH1**  | Right Stick (X) | **Body Roll**       | Lean left/right                         |
+| **CH2**  | Right Stick (Y) | **Body Pitch**      | Lean forward/back                       |
+| **CH3**  | Left Stick (Y)  | **Velocity (Gas)**  | Magnitude of the walking gait           |
+| **CH4**  | Left Stick (X)  | **Yaw (Turn)**      | Rotation around the vertical Z-axis     |
+| **CH5**  | Switch SA       | **ARM / Safety**    | High: 1 (Armed) / Low: -1 (Disarmed)    |
+| **CH6**  | Switch SB       | **Standing Height** | 3-Pos: Crouch (-1) / Std (0) / High (1) |
+| **CH7**  | Switch SC       | **Transmission**    | 3-Pos: Fwd (-1) / Neutral (0) / Bwd (1) |
+| **CH8**  | Switch SD       | *Auxiliary*         | Unassigned / Expansion                  |
+| **CH9**  | Button SE       | **Kill-Switch**     | Immediate Hard Software Cutoff          |
+| **CH10** | Knob S1         | *Auxiliary*         | Unassigned / Expansion                  |
+| **CH11** | Right Trim (X)  | **Manual Coxa**     | Horizontal swing for selected leg       |
+| **CH12** | Right Trim (Y)  | **Manual Femur**    | Vertical lift for selected leg          |
+| **CH13** | Left Trim (Y)   | **Manual Tibia**    | Extension reach for selected leg        |
+| **CH14** | Left Trim (X)   | **Leg Selector**    | Cycle Legs 1-6 (Rising Edge Detect)     |
+
+### ROS 2 /joy Topic Index Map in bridge_ops.hpp
+
+| Index Type  | Index      | Physical Control | Range / Logic (In C++)                        |
+|-------------|------------|------------------|-----------------------------------------------|
+| **Axes**    | `[0]`      | Right Stick (X)  | -1.0 (Right) to 1.0 (Left) [Inverted]         |
+| **Axes**    | `[1]`      | Right Stick (Y)  | -1.0 (Down) to 1.0 (Up) [Inverted]            |
+| **Axes**    | `[2]`      | Left Stick (Y)   | -1.0 (Down) to 1.0 (Up) [Inverted]            |
+| **Axes**    | `[3]`      | Left Stick (X)   | -1.0 (Right) to 1.0 (Left) [Inverted]         |
+| **Axes**    | `[4]`      | Switch SB        | -1.0 (Up) / 0.0 (Mid) / 1.0 (Down) [Inverted] |
+| **Axes**    | `[5]`      | Knob S1          | -1.0 (Right) to 1.0 (Left) [Inverted]         |
+| **Buttons** | `[0]`      | Switch SA        | 0 (Low) / 1 (High)                            |
+| **Buttons** | `[1]`      | Button SE        | 0 (Off) / 1 (On)                              |
+| **Buttons** | `[2]`      | Switch SD        | 0 (Low) / 1 (High)                            |
+| **Buttons** | `[3, 4]`   | Right Trim (X)   | 3: -1 (Left) / 4: 1 (Right)                   |
+| **Buttons** | `[5, 6]`   | Right Trim (Y)   | 5: -1 (Down) / 6: 1 (Up)                      |
+| **Buttons** | `[7, 8]`   | Left Trim (Y)    | 7: -1 (Down) / 8: 1 (Up)                      |
+| **Buttons** | `[9, 10]`  | Left Trim (X)    | 9: Prev Leg / 10: Next Leg                    |
+| **Buttons** | `[11, 12]` | Switch SC        | 11: Forward (-1) / 12: Backward (1)           |
 
 ---
 
@@ -28,24 +69,24 @@
 
 #### 1. ARM / DISARM Logic (Switch SA)
 * **Armed State (Power On):**
-    * **Initialization:** The system sequentially powers the leg motors with a 100ms delay to prevent electrical power spikes, positioning the robot in a prone position defined by the kinematic engine.
-    * **Operational Posture:** Once all motors are active, the robot raises the chassis to the standing height set by Switch SB.
-* **Disarm State (Power Off):** Initiates the **Soft Cutoff** sequence, safely lowering the robot before cutting power.
-* **Radio Failsafe:** If the remote control signal is lost, the system automatically triggers the **Soft Cutoff** to ground the robot and wait for a reconnection.
+    * **Initialization:** The system sequentially powers the leg motors with a 100ms delay to prevent electrical power spikes, positioning the drone in a prone position defined by the kinematic engine.
+    * **Operational Posture:** Once all motors are active, the drone raises the chassis to the standing height set by Switch SB.
+* **Disarm State (Power Off):** Initiates the **Soft Cutoff** sequence, safely lowering the drone before cutting power.
+* **Radio Failsafe:** If the remote control signal is lost, the system automatically triggers the **Soft Cutoff** to ground the drone and wait for a reconnection.
 
 #### 2. Manual Leg Control (CH11 - CH14)
 * **Activation:** This mode is only available when the transmission (Switch SC) is in the Neutral position.
 * **Leg Selection (CH14):** Use the trim switch to cycle through and select one of the 6 legs.
-* **Joint Control:** Use the remaining trim switches to manually adjust the joints of the selected leg. This bypasses the automatic walking engine, making it useful for clearing mechanical jams or performing maintenance.
+* **Joint Control:** Use the remaining trim switches to manually adjust the joints of the selected leg. This bypasses the automatic walking engine, making it useful for clearing mechanical jams or performing maintenance. Resets when changing the transmission.
 
-#### 3. Emergency Kill-Switch (Button SE)
+#### 3. Emergency OE-Kill-Switch (Button SE)
 * **Emergency Override:** A direct hardware interrupt designed to stop all movement instantly.
 * **Execution:** Holding the button for **1 second** physically cuts the control signal to all motors.
 * **Safety Lockout:** Once triggered, the system enters a permanent locked state. Pressing the EN (Reset) button on the ESP32 is sufficient to clear the state.
 * **Context:** Reserved for critical emergencies like motor stalls, overheating, or loss of control.
 
 #### 4. Soft Cutoff
-* **Phase 1 (Lowering):** The kinematic engine commands the robot to take a prone posture.
+* **Phase 1 (Lowering):** The kinematic engine commands the drone to take a prone posture.
 * **Phase 2 (De-energizing):** Once in position, the system sequentially cuts power to the leg motors with a 100ms delay.
 * **Purpose:** This two-step process prevents harmful electrical current spikes and protects the metal gears in the legs from the mechanical shock of a sudden drop.
 
@@ -91,7 +132,7 @@
 - **Servos Supply:** 6.8V via 2x Step-down converters
 - **Efficiency:** 90% (Calculation factor: 1.1×)
 
-## 🔋 Robot Estimated Runtime
+## 🔋 drone Estimated Runtime
 
 | **Scenario** | **Mode Description** | **Total Power (W)** | **Runtime (Min)** | **Runtime (HH:MM)** |
 | :--- | :--- | :--- | :--- | :--- |
@@ -125,9 +166,9 @@ The **Cyclone ELRS Nano** receiver utilizes a bidirectional link to push critica
 ### 3. Wireless Debugging & Data Logging (Local Network)
 The Hexadrone features an internal `CommsManager` utilizing an ESP32 Async WebServer and LittleFS for untethered diagnostics. 
 
-* **Background Network:** On boot, the robot connects non-blockingly to a designated WiFi hotspot (e.g., a mobile phone) and broadcasts its IP via mDNS (`http://hexadrone.local`).
+* **Background Network:** On boot, the drone connects non-blockingly to a designated WiFi hotspot (e.g., a mobile phone) and broadcasts its IP via mDNS (`http://hexadrone.local`).
 * **Blackbox Logging:** `PowerManager` continuously writes telemetry (Voltage, Current, Watts, mAh, RSSI, and LQ) alongside internal `millis()` timestamps to the ESP32's flash memory. 
-* **Remote Retrieval:** While the robot is active, the operator can navigate to `http://hexadrone.local/log` on any connected device to instantly download the `log.txt` file for analysis without plugging in a USB cable.
+* **Remote Retrieval:** While the drone is active, the operator can navigate to `http://hexadrone.local/log` on any connected device to instantly download the `log.txt` file for analysis without plugging in a USB cable.
 * **OTA Firmware:** Supports Arduino Over-The-Air (OTA) updates, allowing complete firmware rewrites wirelessly.
 
 ## 🛠 Engineering Notes & Safety
@@ -137,28 +178,23 @@ The Hexadrone features an internal `CommsManager` utilizing an ESP32 Async WebSe
 - **Interleaved Fail-Safe Design:** The system utilizes two independent 300W step-down converters. Rather than a simple left/right split, the servos are wired in two interleaved groups to ensure static stability.
     - **Group A:** Left-Front (LF), Right-Middle (RM), Left-Back (LB)
     - **Group B:** Right-Front (RF), Left-Middle (LM), Right-Back (RB)
-- **Redundancy Logic:** By powering opposing legs from different converters, the robot maintains a stable **tripod of active legs** even if one step-down unit shuts down. This prevents a catastrophic collapse and allows the robot to remain standing or perform a controlled emergency descent.
+- **Redundancy Logic:** By powering opposing legs from different converters, the drone maintains a stable **tripod of active legs** even if one step-down unit shuts down. This prevents a catastrophic collapse and allows the drone to remain standing or perform a controlled emergency descent.
 - **Current Overhead:** Each group of 9 servos pulls a peak stall current of 10.8A (@ 6.8V). Accounting for 90% converter efficiency, the input draw per converter is ≈11.88A.
     - *Safety Margin:* Operating at 11.88A stays well within the **15A recommended limit**, providing a 20% buffer. This "under-clocking" significantly reduces the risk of thermal shutdown compared to a single-converter setup.
 
 ### 2. Electrical Protection Layers
 
-- **Inductive Spike Suppression:** 18 servos moving simultaneously create significant "back EMF" (voltage spikes). The **Flywoo TVS Filter** must be installed at the PDB main input to protect the ESP32 and PCA9685 logic.
-- **Decoupling Strategy:** Use Low ESR electrolytic capacitors (1000μF or higher) on both the 22.2V main rail and the 6.8V servo rails to prevent "brownouts" during high-torque bursts.
-- **Common Ground:** Ensure all ground planes (Battery, PDB, ESP32, and Servo Drivers) are tied to a single point to prevent ground loops and I2C communication errors.
+- **Inductive Spike Suppression:** 18 servos moving simultaneously create significant "back EMF" (voltage spikes). The **Flywoo TVS Filter** is installed at the batter7 output to protect the ESP32 and PCA9685 logic.
+- **Common Ground:** All ground planes (Battery, PDB, ESP32, and Servo Drivers) are tied to a single point to prevent ground loops and I2C communication errors.
 
 ### 3. Battery Management & Cutoff Logic
 
-- **Cell Safety:** The Partizan Li-ion pack (10C rating) is capable of 40A continuous discharge. While the robot's average draw is lower (≈5–10A), the BMS must be capable of handling 40A peaks.
-- **Telemetry Monitoring:** Use the Holybro PM02D to feed real-time voltage data to the ESP32 via I2C.
+- **Cell Safety:** The Partizan Li-ion pack (10C rating) is capable of 40A continuous discharge. While the drone's average draw is lower (≈5–10A), the BMS is capable of handling 40A peaks.
+- **Telemetry Monitoring:** The Holybro PM02D is used to feed real-time voltage data to the ESP32 via I2C.
 - **Firmware Thresholds:**
     - **Warning (< 21.0V | 3.5V/c for 2 seconds):**
     - **Soft Cutoff (< 20.4V | 3.4V/c for 5 seconds)**
     - **Immediate Hard Cutoff (< 18.0V / 3.0V per cell**)
-
-### 4. Geometry & Kinematics Constraints
-
-- **Singularity Protection:** Mathematical limits in the Kinematics code must prevent the Coxa, Tibia and Femur from reaching collinearity, which could cause mechanical locking or servo over-torque.
 
 ## 🚀 Future Roadmap & Design Iterations (V2.0)
 
@@ -190,5 +226,5 @@ The Hexadrone features an internal `CommsManager` utilizing an ESP32 Async WebSe
 
 ### 💡 Engineering Vision for V2.0
 
-> **The ultimate goal** is to move from a "controlled walker" to an "autonomous scout." Elevating the legs and reducing mass with carbon fiber will allow the robot to handle outdoor environments (grass, gravel) where V1.0 might struggle due to low clearance.
+> **The ultimate goal** is to move from a "controlled walker" to an "autonomous scout." Elevating the legs and reducing mass with carbon fiber will allow the drone to handle outdoor environments (grass, gravel) where V1.0 might struggle due to low clearance.
 >

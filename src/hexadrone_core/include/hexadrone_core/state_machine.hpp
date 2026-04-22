@@ -7,7 +7,7 @@ namespace Hexadrone
     {
         float roll;
         float pitch;
-        float velocity;
+        float throttle;
         float yaw;
 
         int armed_switch;
@@ -18,7 +18,8 @@ namespace Hexadrone
         float trim_coxa;
         float trim_femur;
         float trim_tibia;
-        int leg_selector;
+        bool btn_prev_leg;
+        bool btn_next_leg;
     };
 
     enum class DroneState

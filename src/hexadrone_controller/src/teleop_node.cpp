@@ -21,7 +21,7 @@ public:
         sub_ = this->create_subscription<sensor_msgs::msg::Joy>(
             "/joy", 10, [this](const sensor_msgs::msg::Joy::SharedPtr msg) {
                 // Use BridgeOps to translate raw axes into our ControllerInput struct
-                last_input_ = Hexadrone::BridgeOps::translate(msg->axes);
+                last_input_ = Hexadrone::BridgeOps::translate(msg->axes, msg->buttons);
             });
 
         // 3. Control Loop: 60Hz (approx 16.6ms)

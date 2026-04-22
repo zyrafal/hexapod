@@ -53,6 +53,16 @@ def generate_launch_description():
         executable='teleop_node',
         output='screen',
     )
+    
+    joy_node = Node(
+        package='joy',
+        executable='joy_node',
+        name='joy_node',
+        parameters=[{
+            'dev': '/dev/input/js0',  # Change js0 (Joystick device) if differs on your machine, in compose.yaml as well
+            'deadzone': 0.05
+        }]
+    )
 
     return LaunchDescription([
         webots,
@@ -62,6 +72,7 @@ def generate_launch_description():
         joint_state_broadcaster_spawner,
         position_controller_spawner,
         teleop_node,
+        joy_node,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,
