@@ -26,9 +26,7 @@ namespace Hexadrone
     {
         DRONE_DISARMED,
         DRONE_ARMED,
-        DRONE_OE_KILLED,
-        DRONE_ARMING,
-        DRONE_DISARMING
+        DRONE_OE_KILLED
     };
 
     enum class PostureState

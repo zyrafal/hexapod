@@ -5,12 +5,12 @@ void CommsManager::begin(const char *ssid, const char *password)
     _ssid = ssid;
     _password = password;
 
-    _server.on("/log", HTTP_GET, [](AsyncWebServerRequest *request)
+    _server.on("/blackbox", HTTP_GET, [](AsyncWebServerRequest *request)
                {
-        if (LittleFS.exists("/log.txt")) {
-            request->send(LittleFS, "/log.txt", "text/plain", true); 
+        if (LittleFS.exists("/blackbox.txt")) {
+            request->send(LittleFS, "/blackbox.txt", "text/plain", true); 
         } else {
-            request->send(404, "text/plain", "---Log file not found.---");
+            request->send(404, "text/plain", "---Blackbox file not found.---");
         } });
 
     ArduinoOTA.onStart([]()
@@ -21,12 +21,38 @@ void CommsManager::begin(const char *ssid, const char *password)
                           { Serial.printf("[OTA] Progress: %u%%\r", (progress / (total / 100))); });
     ArduinoOTA.onError([](ota_error_t error)
                        { Serial.printf("[OTA] Error[%u]\n", error); });
-
-    enableWiFi(_ssid, _password);
 }
 
-void CommsManager::update()
+void CommsManager::update(Hexadrone::DroneState currentState)
 {
+    // 1. STATE MACHINE ALERTS (Run regardless of WiFi status)
+
+    // Emergency Override!
+    if (currentState == Hexadrone::DroneState::DRONE_OE_KILLED)
+    {
+        if (!_wifiEnabled)
+        {
+            Blackbox.println("[COMMS] OE-KILL detected: Enabling WiFi for emergency diagnostics.");
+            enableWiFi(_ssid, _password);
+        }
+    }
+    // Normal State Changes
+    else if (currentState != _lastDroneState)
+    {
+        if (currentState == Hexadrone::DroneState::DRONE_ARMED)
+        {
+            Blackbox.println("[COMMS] System ARMED: Suppressing WiFi for Radio performance.");
+            disableWiFi();
+        }
+        else if (currentState == Hexadrone::DroneState::DRONE_DISARMED)
+        {
+            Blackbox.println("[COMMS] System DISARMED: Booting WiFi for Diagnostics.");
+            enableWiFi(_ssid, _password);
+        }
+        _lastDroneState = currentState;
+    }
+
+    // 2. NETWORK MANAGEMENT (Block this section if WiFi is supposed to be off)
     if (!_wifiEnabled)
         return;
 
@@ -34,29 +60,28 @@ void CommsManager::update()
     {
         if (millis() - _lastDotTime >= _dotInterval)
         {
-            Serial.print(".");
             _lastDotTime = millis();
+            Blackbox.print(".");
         }
 
         if (WiFi.status() == WL_CONNECTED)
         {
             _state = CommsState::CONNECTED;
 
-            _server.begin();
-            ArduinoOTA.begin();
+            if (!_serversStarted)
+            {
+                _server.begin();
+                ArduinoOTA.begin();
+                _serversStarted = true;
+            }
 
-            Serial.println("\n[COMMS] WiFi Connected Successfully.");
-            Serial.print("[COMMS] ESP32 IP Address: ");
-            Serial.println(WiFi.localIP());
+            Blackbox.println("\n[COMMS] WiFi Connected Successfully.");
+            Blackbox.printf("[COMMS] ESP32 IP Address: %s\n", WiFi.localIP().toString().c_str());
 
             if (MDNS.begin("hexadrone"))
-            {
-                Serial.println("[COMMS] mDNS started at: http://hexadrone.local");
-            }
+                Blackbox.println("[COMMS] mDNS started at: http://hexadrone.local");
             else
-            {
-                Serial.println("[COMMS] Error starting mDNS.");
-            }
+                Blackbox.println("[COMMS] Error starting mDNS.");
         }
     }
     else if (_state == CommsState::CONNECTED)
@@ -65,11 +90,26 @@ void CommsManager::update()
 
         if (WiFi.status() != WL_CONNECTED)
         {
-            Serial.println("\n[COMMS] WiFi Signal lost. Attempting to reconnect...");
             _state = CommsState::CONNECTING;
+            Blackbox.println("\n[COMMS] WiFi Signal lost. Attempting to reconnect...");
             WiFi.disconnect();
             WiFi.reconnect();
         }
+    }
+}
+
+void CommsManager::enableWiFi(const char *ssid, const char *password)
+{
+    if (!_wifiEnabled)
+    {
+        Blackbox.printf("[COMMS] Connecting to %s.", ssid);
+
+        WiFi.mode(WIFI_STA);
+        WiFi.begin(ssid, password);
+
+        _wifiEnabled = true;
+        _state = CommsState::CONNECTING;
+        _lastDotTime = millis();
     }
 }
 
@@ -79,23 +119,10 @@ void CommsManager::disableWiFi()
     {
         WiFi.disconnect(true);
         WiFi.mode(WIFI_OFF);
+
         _wifiEnabled = false;
         _state = CommsState::DISCONNECTED;
-        Serial.println("[COMMS] WiFi Disabled (Radio Safe Mode).");
-    }
-}
 
-void CommsManager::enableWiFi(const char *ssid, const char *password)
-{
-    if (!_wifiEnabled)
-    {
-        Serial.printf("[COMMS] Connecting to %s.", ssid);
-
-        WiFi.mode(WIFI_STA);
-        WiFi.begin(ssid, password);
-
-        _wifiEnabled = true;
-        _state = CommsState::CONNECTING;
-        _lastDotTime = millis();
+        Blackbox.println("[COMMS] WiFi Disabled (Radio Safe Mode).");
     }
 }

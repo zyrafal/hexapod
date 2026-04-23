@@ -1,60 +1,18 @@
 #include <Arduino.h>
 #include <Wire.h>
+#include <config.h>
+#include <logger.h>
 #include <comms_manager.h>
+#include <power_manager.h>
 #include <radio_manager.h>
 #include <servo_manager.h>
-#include <power_manager.h>
 #include <hexadrone_core/brain.hpp>
-#include <config.h>
 
 CommsManager comms;
+PowerManager power;
 RadioManager radio;
 ServoManager servo;
-PowerManager power;
 Hexadrone::Brain brain;
-
-// --- Radio translation ---
-
-// Normalize a raw CRSF channel value [988, 2012] to [-1.0, 1.0]
-static float normalizeStick(int raw)
-{
-    return (raw - 1500) / 512.0f;
-}
-
-// Normalize a 3-position switch channel to -1 / 0 / +1
-static int normalize3Pos(int raw)
-{
-    if (raw > 1700) return 1;
-    if (raw < 1300) return -1;
-    return 0;
-}
-
-// Build a ControllerInput from the current CRSF channel values.
-// Channel numbering matches the RadioMaster CRSF layout in brain.cpp.
-static Hexadrone::ControllerInput buildInput()
-{
-    Hexadrone::ControllerInput ci{};
-
-    ci.roll    = normalizeStick(radio.getChannel(1));   // CH1
-    ci.pitch   = normalizeStick(radio.getChannel(2));   // CH2
-    ci.yaw     = normalizeStick(radio.getChannel(4));   // CH4
-
-    // Velocity: stick range [-1, 1] → [0, 1] (matches BridgeOps convention)
-    float stick_v  = normalizeStick(radio.getChannel(3)); // CH3
-    ci.velocity    = (stick_v + 1.0f) * 0.5f;
-
-    ci.armed_switch   = radio.getChannel(5) > 1500 ? 1 : -1;    // CH5  SA
-    ci.posture_switch = normalize3Pos(radio.getChannel(7));      // CH7  SB
-    ci.gear_switch    = normalize3Pos(radio.getChannel(8));      // CH8  SC
-    ci.oe_kill_button = radio.getChannel(9) > 1500;              // CH9  SE
-
-    ci.trim_coxa  = normalizeStick(radio.getChannel(11));        // CH11
-    ci.trim_femur = normalizeStick(radio.getChannel(12));        // CH12
-    ci.trim_tibia = normalizeStick(radio.getChannel(13));        // CH13
-    ci.leg_selector = (int)((normalizeStick(radio.getChannel(14)) + 1.0f) * 3.0f + 1.0f); // CH14 → 1-6
-
-    return ci;
-}
 
 // --- Timing ---
 
@@ -73,41 +31,84 @@ static float getDt()
 void setup()
 {
     Serial.begin(DEBUG_BAUD);
+    Serial.setTimeout(10); // Set to 10ms so it doesn't freeze the loop
     Wire.begin(SDA_CUSTOM, SCL_CUSTOM);
 
-    power.begin();
+    Blackbox.begin();
+
+    power.begin(); // INA228 has to be initialized first
     comms.begin(WIFI_SSID, WIFI_PASS);
     radio.begin();
     servo.begin();
 
     _lastLoopTime = millis();
 
-    Serial.println("Hexadrone Initialized.");
+    Blackbox.println("[SYSTEM] Hexadrone Initialized.");
 }
 
 void loop()
 {
-    comms.update();
+    // 1. DATA ACQUISITION: Get the latest radio packets and timing
     radio.update();
-    power.update(radio.getRSSI(), radio.getLQ());
+    float dt = getDt();
+    if (dt > 0.025f)
+    { // If a loop takes longer than 25ms
+        Blackbox.printf("[SYSTEM] Loop Time Spike detected: %.3f sec\n", dt);
+    }
+    Hexadrone::ControllerInput input = radio.buildInput();
 
-    // Hardware kill: disable PWM output immediately and stop processing
-    if (radio.isKillTriggered())
+    // 2. FLY-BY-WIRE INTERCEPT: Battery Soft Cutoff
+    static bool soft_cutoff_latched = false;
+    if (soft_cutoff_latched)
+    {
+        // Force the Brain to think the physical switch is disarmed
+        input.armed_switch = -1;
+    }
+
+    // 3. PROCESSING: Let the Brain decide the new state and angles
+    std::vector<float> angles = brain.update(dt, input);
+    Hexadrone::DroneState current_state = brain.getState();
+
+    // 4. BATTERY EVALUATION: Handle cuttoffs
+    BatteryState batt_state = power.update(radio.getRSSI(), radio.getLQ());
+
+    static bool hard_cutoff_triggered = false;
+    if (batt_state == BatteryState::HARD_CUTOFF && !hard_cutoff_triggered)
+    {
+        Blackbox.println("[POWER] Hard Cutoff! Pulling power instantly.");
+        hard_cutoff_triggered = true;
+    }
+    else if (batt_state == BatteryState::SOFT_CUTOFF && !soft_cutoff_latched)
+    {
+        Blackbox.println("[POWER] Soft Cutoff! Forcing Disarm sequence.");
+        soft_cutoff_latched = true;
+    }
+
+    // 5. SUBSYSTEM UPDATE: React to the new state
+    comms.update(current_state);
+
+    // 6. SAFETY GATE: Check the NEW state immediately
+    if (current_state == Hexadrone::DroneState::DRONE_OE_KILLED || hard_cutoff_triggered)
     {
         servo.rapidKill();
         return;
     }
 
-    float dt = getDt();
-    Hexadrone::ControllerInput input = buildInput();
-    std::vector<float> angles = brain.update(dt, input);
+    // 7. ACTUATION: Send angles to hardware
+    servo.update(current_state);
     servo.applyAngles(angles);
 
-    // Debug commands over Serial
+    // 8. DEBUG COMMANDS
     if (Serial.available())
     {
-        char c = Serial.read();
-        if (c == 'd') power.dumpLog();
-        if (c == 'w') power.wipeLog();
+        String cmd = Serial.readStringUntil('\n');
+        cmd.trim();
+
+        if (cmd == "xxdumplogxx")
+            Blackbox.dumpLog();
+        else if (cmd == "xxwipelogxx")
+            Blackbox.wipeLog();
+        else if (cmd == "flush")
+            Blackbox.flush();
     }
 }

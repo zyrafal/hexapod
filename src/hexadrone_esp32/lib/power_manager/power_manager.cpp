@@ -4,21 +4,23 @@ void PowerManager::begin()
 {
     if (_ina.begin())
     {
-        _ina.setMaxCurrentShunt(60, 0.0005);
-        _ina.setAverage(INA228_64_SAMPLES); // Options: 1, 4, 16, 64, 128, 256, 512, 1024
-        _ina.setAccumulation(1);            // Reset mAh
+        _ina.setMaxCurrentShunt(60, 0.0005); // Configured for 60A/0.5mOhm
+        _ina.setAverage(INA228_64_SAMPLES);  // Options: 1, 4, 16, 64, 128, 256, 512, 1024
+        _ina.setAccumulation(1);             // Reset mAh
     }
-    LittleFS.begin(true);
 }
 
-void PowerManager::update(int8_t rssi, int lq)
+BatteryState PowerManager::update(int8_t rssi, int lq)
 {
+    PowerStats currentStats = read();
+
     if (millis() - _lastLogTime >= LOG_INTERVAL)
     {
-        PowerStats currentStats = read();
-        logToFile(currentStats, rssi, lq);
+        logPowerStats(currentStats, rssi, lq);
         _lastLogTime = millis();
     }
+
+    return evaluateHealth(currentStats.voltage);
 }
 
 PowerStats PowerManager::read()
@@ -27,49 +29,77 @@ PowerStats PowerManager::read()
     stats.voltage = _ina.getBusVoltage();
     stats.current = _ina.getAmpere();
     stats.power = _ina.getPower();
-    stats.mah = _ina.getCharge() / 3.6;
+    stats.mah = _ina.getCharge() / 3.6; // Coulombs to mAh
     stats.avgCell = (stats.voltage > 1.0f) ? (stats.voltage / 6.0f) : 0.0f;
 
     return stats;
 }
 
-void PowerManager::logToFile(PowerStats stats, int8_t rssi, int lq)
+void PowerManager::logPowerStats(PowerStats stats, int8_t rssi, int lq)
 {
-    File file = LittleFS.open("/log.txt", FILE_APPEND);
-    if (file)
-    {
-        file.printf("%.1fV | %.1fV/c\n", stats.voltage, stats.avgCell);
-        file.printf("%.1fA | %.1fW\n", stats.current, stats.power);
-        file.printf("%.0f mAh\n", stats.mah);
-        file.printf("%ddBm | %d:100\n", (int)rssi, lq);
-        file.printf("%s\n", getTimestamp().c_str());
-        file.println("-----------------------");
-        file.close();
-    }
+    Blackbox.printf(
+        "%s\n%.1fV | %.1fV/c\n%.1fA | %.1fW\n%.0f mAh\n%ddBm | %d:100\n-----------------------\n",
+        Blackbox.getTimestamp().c_str(),
+        stats.voltage, stats.avgCell,
+        stats.current, stats.power,
+        stats.mah,
+        (int)rssi, lq);
 }
 
-void PowerManager::dumpLog()
+BatteryState PowerManager::evaluateHealth(float voltage)
 {
-    File file = LittleFS.open("/log.txt", FILE_READ);
-    if (file)
+    // 1. USB/No-Battery Gate: Ignore logic if voltage is below 6V.
+    if (voltage < 6.0f)
     {
-        while (file.available())
-            Serial.write(file.read());
-        file.close();
+        _isSoft = false;
+        _isWarning = false;
+        _warningLogged = false;
+        return BatteryState::NORMAL;
     }
-}
 
-void PowerManager::wipeLog() { LittleFS.remove("/log.txt"); }
+    // 2. Immediate Hard Cutoff
+    if (voltage < HARD_CUTOFF_VOLTAGE)
+        return BatteryState::HARD_CUTOFF;
 
-String PowerManager::getTimestamp()
-{
-    long seconds = millis() / 1000;
-    char buffer[25];
-    // Formats: [HH:MM:SS.mmm]
-    sprintf(buffer, "[%02d:%02d:%02d.%03d]",
-            (int)(seconds / 3600),
-            (int)((seconds % 3600) / 60),
-            (int)(seconds % 60),
-            (int)(millis() % 1000));
-    return String(buffer);
+    // 3. Soft Cutoff (Delayed)
+    if (voltage < SOFT_CUTOFF_VOLTAGE)
+    {
+        if (!_isSoft)
+        {
+            _isSoft = true;
+            _softStartTime = millis();
+        }
+        if (millis() - _softStartTime >= SOFT_CUTOFF_INTERVAL)
+            return BatteryState::SOFT_CUTOFF;
+    }
+    else
+    {
+        _isSoft = false;
+    }
+
+    // 4. Warning (Delayed)
+    if (voltage < WARNING_VOLTAGE)
+    {
+        if (!_isWarning)
+        {
+            _isWarning = true;
+            _warningStartTime = millis();
+        }
+        if (millis() - _warningStartTime >= WARNING_INTERVAL)
+        {
+            if (!_warningLogged)
+            {
+                Blackbox.printf("[POWER] Low Battery! Sagging below %.1fV (%.2fV)\n", WARNING_VOLTAGE, voltage);
+                _warningLogged = true;
+            }
+            return BatteryState::WARNING;
+        }
+    }
+    else
+    {
+        _isWarning = false;
+        _warningLogged = false;
+    }
+
+    return BatteryState::NORMAL;
 }

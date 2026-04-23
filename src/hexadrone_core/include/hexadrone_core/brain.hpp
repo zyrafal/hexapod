@@ -16,6 +16,9 @@ namespace Hexadrone
         // The single entry point for ROS2 and ESP32
         std::vector<float> update(float dt, const ControllerInput &input);
 
+        // Getter for the ESP32 hardware layer
+        DroneState getState() const { return droneState; }
+
     private:
         // Internal State Tracking
         DroneState droneState;
@@ -51,7 +54,7 @@ namespace Hexadrone
         GaitEngine gait;
 
         // Brain Tuning Constants
-        static constexpr float STAND_UP_SPEED = 0.75f;    // LERP smoothing factor
+        static constexpr float STAND_UP_SPEED = 0.75f;   // LERP smoothing factor
         static constexpr float TRIM_SENSITIVITY = 30.0f; // Deg/sec for manual control
         static constexpr float OE_KILL_TIMEOUT = 1.0f;   // Hold duration for SE (s)
     };

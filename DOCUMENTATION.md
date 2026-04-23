@@ -19,7 +19,11 @@ The workspace is strictly divided to ensure the core mathematics remain perfectl
   * Holds the Webots `hexaworld.wbt` testing ground, generated `.proto` nodes, and the ROS 2 `launch.py` scripts.
 * **⚡ `hexadrone_esp32/` (The Physical Hardware)**
   * PlatformIO project that symlinks to `hexadrone_core`.
-  * Manages ESP32 specifics: WiFi/OTA (`comms_manager`), CRSF decoding (`radio_manager`), PCA9685 PWM (`servo_manager`), and INA228 Telemetry (`power_manager`).
+  * Manages ESP32 specifics: WiFi/OTA (`comms_manager`), CRSF decoding (`radio_manager`), PCA9685 PWM (`servo_manager`), INA228 Telemetry (`power_manager`), and Buffered File-System IO (`logger`).
+* **📻 `Radiomaster/` (Transmitter Profiles)**
+  * Contains the EdgeTX backup and configuration files specifically tuned for the RadioMaster Pocket. By copying these to the radio's SD card, you can instantly clone the exact control scheme without manual programming.
+  * **`MODELS/`**: Houses the Hexadrone model profile. It pre-configures all 14 channels, including the custom logical switches for the trim-based Leg Selector (CH14) and the EdgeTX telemetry alarms (e.g., haptic warnings for low cell voltage).
+  * **`RADIO/`**: Contains the global radio settings, UI layout, and hardware calibrations required to map the physical layout of the Pocket to the Hexadrone's expected inputs.
 
 ---
 
@@ -164,12 +168,12 @@ The **Cyclone ELRS Nano** receiver utilizes a bidirectional link to push critica
 * **Discovery:** All telemetry sensors (Vbat, Curr, RxBt) are discovered via the CRSF protocol, allowing for custom telemetry scripts (e.g., Yaapu) on the EdgeTX display.
 
 ### 3. Wireless Debugging & Data Logging (Local Network)
-The Hexadrone features an internal `CommsManager` utilizing an ESP32 Async WebServer and LittleFS for untethered diagnostics. 
+The Hexadrone features a state-aware `CommsManager` and a dual-output `Logger` system designed to balance high-speed radio performance with robust diagnostic capabilities.
 
-* **Background Network:** On boot, the drone connects non-blockingly to a designated WiFi hotspot (e.g., a mobile phone) and broadcasts its IP via mDNS (`http://hexadrone.local`).
-* **Blackbox Logging:** `PowerManager` continuously writes telemetry (Voltage, Current, Watts, mAh, RSSI, and LQ) alongside internal `millis()` timestamps to the ESP32's flash memory. 
-* **Remote Retrieval:** While the drone is active, the operator can navigate to `http://hexadrone.local/log` on any connected device to instantly download the `log.txt` file for analysis without plugging in a USB cable.
-* **OTA Firmware:** Supports Arduino Over-The-Air (OTA) updates, allowing complete firmware rewrites wirelessly.
+* **Radio-Priority WiFi:** To prevent 2.4GHz signal interference, WiFi is strictly suppressed while the drone is `ARMED`. The network stack only initializes upon entering a `DISARMED` state (or an Emergency `OE-KILL` state), allowing the drone to connect...
+* **Buffered Blackbox Logging:** A dedicated `Logger` class (aliased as `Blackbox`) manages all system telemetry and status messages. To protect flash memory longevity, logs are held in a 1KB RAM buffer and flushed to LittleFS only when the buffer is full or a critical safety event (like an OE-Kill) occurs.
+* **Remote Retrieval:** While `DISARMED`, operators can navigate to `http://hexadrone.local/blackbox` to instantly download the `blackbox.txt` file for analysis.
+* **Maintenance & Safety:** The system supports wireless firmware deployment via Arduino OTA. For secure local management, the Serial interface requires full-word commands (`xxdumplogxx`, `xxwipelogxx`, `flush`) to prevent accidental log triggers during operation.
 
 ## 🛠 Engineering Notes & Safety
 
@@ -192,9 +196,16 @@ The Hexadrone features an internal `CommsManager` utilizing an ESP32 Async WebSe
 - **Cell Safety:** The Partizan Li-ion pack (10C rating) is capable of 40A continuous discharge. While the drone's average draw is lower (≈5–10A), the BMS is capable of handling 40A peaks.
 - **Telemetry Monitoring:** The Holybro PM02D is used to feed real-time voltage data to the ESP32 via I2C.
 - **Firmware Thresholds:**
-    - **Warning (< 21.0V | 3.5V/c for 2 seconds):**
-    - **Soft Cutoff (< 20.4V | 3.4V/c for 5 seconds)**
-    - **Immediate Hard Cutoff (< 18.0V / 3.0V per cell**)
+    - **Warning (< 21.6V | 3.6V/c for 2 seconds):**
+    - **Soft Cutoff (< 20.4V | 3.4V/c for 5 seconds):** Forcibly intercepts the Radio controller's ARM switch to trigger a graceful landing.
+    - **Immediate Hard Cutoff (< 18.0V | 3.0V/c):** Instantly triggers the Hardware OE-Kill gate.
+    - **USB Bench Mode (< 6.0V):** If the voltage reads below 6V, the system assumes it is being powered via USB (5V logic rail) without a battery attached. All cutoff logic is bypassed to allow safe desktop debugging.
+
+## 🎛️ Configuration & Tuning (`config.h`)
+To ensure maintainability, all critical tuning parameters are centralized in `config.h`. You do not need to modify the C++ manager classes to adjust drone behavior.
+* **Battery:** Adjustable float thresholds for Warning, Soft, and Hard cutoffs, allowing quick swaps to different battery chemistries (e.g., standard LiPo vs. Li-ion).
+* **Logging Limits:** Configurable RAM `BUFFER_SIZE` (default 1024 bytes) and `MAX_FLUSHES` (default 500) to safely balance flash-memory wear-leveling with mission duration.
+* **Timings:** Adjustments for the `SERVO_ARM_INTERVAL` (sequential motor wake-up speed) and `LOG_INTERVAL` (telemetry frequency).
 
 ## 🚀 Future Roadmap & Design Iterations (V2.0)
 
