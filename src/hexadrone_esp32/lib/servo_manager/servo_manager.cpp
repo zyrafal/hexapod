@@ -8,14 +8,37 @@ void ServoManager::begin()
     pinMode(OE_CUSTOM, OUTPUT);
     digitalWrite(OE_CUSTOM, LOW);
 
+    // Initialize the logic regardless
     _board1.begin();
     _board1.setPWMFreq(PWM_FREQ);
     _board2.begin();
     _board2.setPWMFreq(PWM_FREQ);
+
+    // Ping the specific hardware addresses
+    Wire.beginTransmission(ADDR_SERVO_1);
+    byte err1 = Wire.endTransmission();
+
+    Wire.beginTransmission(ADDR_SERVO_2);
+    byte err2 = Wire.endTransmission();
+
+    // Only log success if BOTH boards reply
+    if (err1 == 0 && err2 == 0)
+    {
+        _pcaPresent = true;
+        Blackbox.logSystem("[SERVOS] 2x PCA9685 Initialized Successfully.");
+    }
+    else
+    {
+        _pcaPresent = false;
+        Blackbox.logSystem("[SERVOS] ERROR: PCA9685 Hardware Missing! (Err1:%d, Err2:%d)", err1, err2);
+    }
 }
 
 void ServoManager::applyAngles(const std::vector<float> &angles_deg)
 {
+    if (!_pcaPresent)
+        return;
+
     int count = std::min({(int)angles_deg.size(), 18, _currentActive});
     for (int i = 0; i < count; i++)
     {
@@ -30,7 +53,7 @@ void ServoManager::applyAngles(const std::vector<float> &angles_deg)
 
 void ServoManager::update(Hexadrone::DroneState currentState)
 {
-    if (_killed)
+    if (_killed || !_pcaPresent)
         return;
 
     // --- Arming/Disarming powering sequence ---
@@ -39,13 +62,13 @@ void ServoManager::update(Hexadrone::DroneState currentState)
     {
         if (currentState == Hexadrone::DroneState::DRONE_ARMED)
         {
-            Blackbox.println("[SERVOS] System ARMED: Beginning sequential power up.");
+            Blackbox.logSystem("[SERVOS] System ARMED: Beginning sequential power up.");
             _targetActive = 18;
             _isDisarming = false;
         }
         else if (currentState == Hexadrone::DroneState::DRONE_DISARMED)
         {
-            Blackbox.println("[SERVOS] System DISARMED: Lowering to prone posture...");
+            Blackbox.logSystem("[SERVOS] System DISARMED: Lowering to prone posture...");
             _isDisarming = true;
             _disarmTriggerTime = millis();
         }
@@ -55,9 +78,14 @@ void ServoManager::update(Hexadrone::DroneState currentState)
     // 2. Soft Cutoff Delay
     if (_isDisarming && (millis() - _disarmTriggerTime >= DISARM_TRIGGER_INTERVAL))
     {
-        Blackbox.println("[SERVOS] Prone posture complete. De-energizing...");
         _targetActive = 0;
         _isDisarming = false;
+
+        Blackbox.logSystem("[SERVOS] Prone posture complete. De-energizing...");
+
+        // Save all data now that the drone is stationary and safe
+        Blackbox.flushSystem();
+        Blackbox.flushPower();
     }
 
     // 3. Sequential Power Logic
@@ -86,8 +114,9 @@ void ServoManager::rapidKill()
 
     _killed = true;
     digitalWrite(OE_CUSTOM, HIGH);
-    Blackbox.println("[SERVOS] OE-Kill-switch condition met. Hardware reset required.");
-    Blackbox.flush();
+    Blackbox.logSystem("[SERVOS] OE-Kill-switch condition met. Hardware reset required.");
+    Blackbox.flushSystem();
+    Blackbox.flushPower();
 }
 
 void ServoManager::setRawPWM(int index, int pulse)

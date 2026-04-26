@@ -2,8 +2,13 @@
 
 void RadioManager::begin()
 {
+    // Manually set a much larger RX buffer (2KB) before calling begin
+    Serial2.setRxBufferSize(2048);
+
     Serial2.begin(RADIO_BAUD, SERIAL_8N1, CRSF_RX_PIN, CRSF_TX_PIN);
     _crsf.begin(Serial2);
+
+    Blackbox.logSystem("[RADIO] UART Port Open. Buffer expanded to 2KB.");
 }
 
 void RadioManager::update()
@@ -12,16 +17,37 @@ void RadioManager::update()
 
     bool currentlyConnected = isConnected();
 
+    // If we aren't connected, the buffer might be full of "garbage"
+    // from the time the controller was off. Flush it to start fresh.
+    if (!currentlyConnected)
+    {
+        static uint32_t lastFlush = 0;
+        if (millis() - lastFlush > 500)
+        { // Every 500ms while disconnected
+            while (Serial2.available() > 0)
+            {
+                Serial2.read(); // Clear the junk
+            }
+            lastFlush = millis();
+        }
+    }
+
     if (currentlyConnected && !_wasConnected)
     {
-        Blackbox.println("[RADIO] Connection Acquired.");
+        Blackbox.logSystem("[RADIO] Connection Acquired.");
         _wasConnected = true;
     }
     else if (!currentlyConnected && _wasConnected)
     {
-        Blackbox.println("[RADIO] Connection Lost.");
+        Blackbox.logSystem("[RADIO] Connection Lost: Force Disarming.");
         _wasConnected = false;
     }
+}
+
+void RadioManager::end()
+{
+    Blackbox.logSystem("[RADIO] UART Port Closed for OTA.");
+    Serial2.end(); // Completely shuts down the UART hardware and interrupts
 }
 
 int RadioManager::getChannel(int ch) { return _crsf.getChannel(ch); }

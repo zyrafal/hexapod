@@ -7,20 +7,42 @@ void PowerManager::begin()
         _ina.setMaxCurrentShunt(60, 0.0005); // Configured for 60A/0.5mOhm
         _ina.setAverage(INA228_64_SAMPLES);  // Options: 1, 4, 16, 64, 128, 256, 512, 1024
         _ina.setAccumulation(1);             // Reset mAh
+
+        Blackbox.logSystem("[POWER] INA228 Initialized.");
     }
 }
 
 BatteryState PowerManager::update(int8_t rssi, int lq)
 {
-    PowerStats currentStats = read();
+    PowerStats stats = read();
 
-    if (millis() - _lastLogTime >= LOG_INTERVAL)
+    // 1. Delta Evaluation
+    bool shouldLog = false;
+
+    if (abs(stats.voltage - _lastLoggedV) >= LOG_VOLTAGE_THRESH)
     {
-        logPowerStats(currentStats, rssi, lq);
-        _lastLogTime = millis();
+        shouldLog = true;
+    }
+    else if (abs(stats.current - _lastLoggedI) >= LOG_CURRENT_THRESH)
+    {
+        shouldLog = true;
+    }
+    else if (stats.mah > _lastLoggedMah)
+    {
+        shouldLog = true;
     }
 
-    return evaluateHealth(currentStats.voltage);
+    // 2. Write if triggered
+    if (shouldLog)
+    {
+        Blackbox.logPower(stats.avgCell, stats.voltage, stats.current, stats.power, stats.mah);
+
+        _lastLoggedV = stats.voltage;
+        _lastLoggedI = stats.current;
+        _lastLoggedMah = stats.mah;
+    }
+
+    return evaluateHealth(stats.voltage);
 }
 
 PowerStats PowerManager::read()
@@ -35,7 +57,7 @@ PowerStats PowerManager::read()
     return stats;
 }
 
-void PowerManager::logPowerStats(PowerStats stats, int8_t rssi, int lq)
+/* void PowerManager::logPowerStats(PowerStats stats, int8_t rssi, int lq)
 {
     Blackbox.printf(
         "%s\n%.1fV | %.1fV/c\n%.1fA | %.1fW\n%.0f mAh\n%ddBm | %d:100\n-----------------------\n",
@@ -44,7 +66,8 @@ void PowerManager::logPowerStats(PowerStats stats, int8_t rssi, int lq)
         stats.current, stats.power,
         stats.mah,
         (int)rssi, lq);
-}
+} */
+// TODO: use for the display output, implement the function there or somewhere else
 
 BatteryState PowerManager::evaluateHealth(float voltage)
 {
@@ -89,7 +112,7 @@ BatteryState PowerManager::evaluateHealth(float voltage)
         {
             if (!_warningLogged)
             {
-                Blackbox.printf("[POWER] Low Battery! Sagging below %.1fV (%.2fV)\n", WARNING_VOLTAGE, voltage);
+                Blackbox.logSystem("[POWER] Low Battery! Sagging below %.1fV (%.2fV)", WARNING_VOLTAGE, voltage);
                 _warningLogged = true;
             }
             return BatteryState::WARNING;

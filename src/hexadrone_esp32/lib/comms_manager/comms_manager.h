@@ -23,14 +23,14 @@ public:
 
     void enableWiFi(const char *ssid, const char *password);
     void disableWiFi();
+    bool isOTALockdown() const { return _otaLockdown; }
 
 private:
     CommsState _state = CommsState::DISCONNECTED;
-    // Initialize to ARMED so the first boot forces a state transition check
     Hexadrone::DroneState _lastDroneState = Hexadrone::DroneState::DRONE_ARMED;
 
-    const char *_ssid;
-    const char *_password;
+    String _ssid;
+    String _password;
 
     unsigned long _lastDotTime = 0;
     const unsigned long _dotInterval = 500;
@@ -38,4 +38,5 @@ private:
     AsyncWebServer _server{80};
     bool _wifiEnabled = false;
     bool _serversStarted = false;
+    bool _otaLockdown = false;
 };

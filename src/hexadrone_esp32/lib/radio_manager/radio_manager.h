@@ -9,6 +9,7 @@ class RadioManager
 public:
     void begin();
     void update();
+    void end();
 
     int getChannel(int ch);
     bool isConnected();

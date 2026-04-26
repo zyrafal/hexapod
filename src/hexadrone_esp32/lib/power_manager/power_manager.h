@@ -27,7 +27,6 @@ public:
     BatteryState update(int8_t rssi, int lq);
 
 private:
-    unsigned long _lastLogTime = 0;
     INA228 _ina = INA228(ADDR_POWER);
 
     // Battery Cutoff Trackers
@@ -37,7 +36,12 @@ private:
     bool _isSoft = false;
     bool _warningLogged = false;
 
+    // State trackers for delta logging
+    float _lastLoggedV = 0.0f;
+    float _lastLoggedI = 0.0f;
+    uint32_t _lastLoggedMah = 0;
+
     PowerStats read();
-    void logPowerStats(PowerStats stats, int8_t rssi, int lq);
+    // void logPowerStats(PowerStats stats); TODO: use for the display output, implement the function there or somewhere else
     BatteryState evaluateHealth(float voltage);
 };

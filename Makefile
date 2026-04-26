@@ -18,9 +18,6 @@ run:
 stop:
 	podman-compose down -t0
 
-deploy:
-	cd src/hexadrone_esp32 && pio run --target upload
-
 # Outdated but for the backup:
 # Posture Aliases (in degrees)
 # **Group A (Power Group 1):** LF (0-2), RM (3-5), LB (6-8)

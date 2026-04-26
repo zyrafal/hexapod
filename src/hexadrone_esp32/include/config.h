@@ -29,11 +29,8 @@ constexpr int LEG_REMAP[6] = {1, 4, 3, 0, 5, 2};
 // Logging & Blackbox Configuration
 #define BLACKBOX_BUFFER_SIZE 1024 // RAM buffer before flushing (bytes)
 #define BLACKBOX_MAX_FLUSHES 500
-
-// Intervals (ms)
-#define LOG_INTERVAL 100
-#define SERVO_ARM_INTERVAL 100
-#define DISARM_TRIGGER_INTERVAL 2000
+#define LOG_VOLTAGE_THRESH 0.2f
+#define LOG_CURRENT_THRESH 0.5f
 
 // Battery voltages (V) and intervals (ms)
 #define HARD_CUTOFF_VOLTAGE 18.0f // 3.0V per cell
@@ -41,6 +38,10 @@ constexpr int LEG_REMAP[6] = {1, 4, 3, 0, 5, 2};
 #define SOFT_CUTOFF_INTERVAL 5000
 #define WARNING_VOLTAGE 21.6f // 3.6V per cell
 #define WARNING_INTERVAL 2000
+
+// Arming Intervals (ms)
+#define SERVO_ARM_INTERVAL 100
+#define DISARM_TRIGGER_INTERVAL 2000
 
 // Baud rates
 #define DEBUG_BAUD 115200

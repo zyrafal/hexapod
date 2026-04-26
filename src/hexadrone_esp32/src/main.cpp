@@ -33,6 +33,8 @@ void setup()
     Serial.begin(DEBUG_BAUD);
     Serial.setTimeout(10); // Set to 10ms so it doesn't freeze the loop
     Wire.begin(SDA_CUSTOM, SCL_CUSTOM);
+    Wire.setClock(400000); // 400kHz I2C speed
+    Wire.setTimeOut(10);   // Set timeout to 10ms (default is much higher)
 
     Blackbox.begin();
 
@@ -43,60 +45,105 @@ void setup()
 
     _lastLoopTime = millis();
 
-    Blackbox.println("[SYSTEM] Hexadrone Initialized.");
+    Blackbox.logSystem("[SYSTEM] Hexadrone Initialized.");
 }
 
 void loop()
 {
-    // 1. DATA ACQUISITION: Get the latest radio packets and timing
-    radio.update();
+    static Hexadrone::DroneState lastNormalState = Hexadrone::DroneState::DRONE_DISARMED;
+    static bool radio_link_active = false;
+    static bool arm_switch_released_since_link = false;
+    static bool soft_cutoff_latched = false;
+    static bool hard_cutoff_triggered = false;
+
     float dt = getDt();
     if (dt > 0.025f)
     { // If a loop takes longer than 25ms
-        Blackbox.printf("[SYSTEM] Loop Time Spike detected: %.3f sec\n", dt);
+        Blackbox.logSystem("[SYSTEM] Loop Time Spike detected: %.3f sec", dt);
     }
-    Hexadrone::ControllerInput input = radio.buildInput();
 
-    // 2. FLY-BY-WIRE INTERCEPT: Battery Soft Cutoff
-    static bool soft_cutoff_latched = false;
-    if (soft_cutoff_latched)
+    bool otaLockdown = comms.isOTALockdown();
+    if (otaLockdown)
     {
-        // Force the Brain to think the physical switch is disarmed
-        input.armed_switch = -1;
+        // OTA mode: freeze legs, ignore radio, skip I2C sensors, keep WiFi alive
+        Hexadrone::DroneState current_state = lastNormalState;
+        comms.update(current_state);
+
+        // Skip all other subsystems while OTA upload is in progress.
     }
-
-    // 3. PROCESSING: Let the Brain decide the new state and angles
-    std::vector<float> angles = brain.update(dt, input);
-    Hexadrone::DroneState current_state = brain.getState();
-
-    // 4. BATTERY EVALUATION: Handle cuttoffs
-    BatteryState batt_state = power.update(radio.getRSSI(), radio.getLQ());
-
-    static bool hard_cutoff_triggered = false;
-    if (batt_state == BatteryState::HARD_CUTOFF && !hard_cutoff_triggered)
+    else
     {
-        Blackbox.println("[POWER] Hard Cutoff! Pulling power instantly.");
-        hard_cutoff_triggered = true;
-    }
-    else if (batt_state == BatteryState::SOFT_CUTOFF && !soft_cutoff_latched)
-    {
-        Blackbox.println("[POWER] Soft Cutoff! Forcing Disarm sequence.");
-        soft_cutoff_latched = true;
-    }
+        // 1. DATA ACQUISITION: Get the latest radio packets and timing
+        radio.update();
+        Hexadrone::ControllerInput input = radio.buildInput();
 
-    // 5. SUBSYSTEM UPDATE: React to the new state
-    comms.update(current_state);
+        // 2. FLY-BY-WIRE INTERCEPT: Radio connection and battery soft cutoff
+        if (!radio.isConnected())
+        {
+            // If no radio link is present, always disarm the drone
+            input.armed_switch = -1;
+            radio_link_active = false;
+            arm_switch_released_since_link = false;
+        }
+        else
+        {
+            // On first connect, require the ARM switch to be moved to DISARM before allowing ARMED state
+            if (!radio_link_active)
+            {
+                radio_link_active = true;
+                arm_switch_released_since_link = false;
+            }
 
-    // 6. SAFETY GATE: Check the NEW state immediately
-    if (current_state == Hexadrone::DroneState::DRONE_OE_KILLED || hard_cutoff_triggered)
-    {
-        servo.rapidKill();
-        return;
+            if (input.armed_switch == -1)
+            {
+                arm_switch_released_since_link = true;
+            }
+
+            if (!arm_switch_released_since_link)
+            {
+                input.armed_switch = -1;
+            }
+        }
+
+        if (soft_cutoff_latched)
+        {
+            // Force the Brain to think the physical switch is disarmed
+            input.armed_switch = -1;
+        }
+
+        // 3. PROCESSING: Let the Brain decide the new state and angles
+        std::vector<float> angles = brain.update(dt, input);
+        Hexadrone::DroneState current_state = brain.getState();
+        lastNormalState = current_state;
+
+        // 4. BATTERY EVALUATION: Handle cuttoffs
+        BatteryState batt_state = power.update(radio.getRSSI(), radio.getLQ());
+        if (batt_state == BatteryState::HARD_CUTOFF && !hard_cutoff_triggered)
+        {
+            Blackbox.logSystem("[POWER] Hard Cutoff! Pulling power instantly.");
+            hard_cutoff_triggered = true;
+        }
+        else if (batt_state == BatteryState::SOFT_CUTOFF && !soft_cutoff_latched)
+        {
+            Blackbox.logSystem("[POWER] Soft Cutoff! Forcing Disarm sequence.");
+            soft_cutoff_latched = true;
+        }
+
+        // 5. SUBSYSTEM UPDATE: React to the new state
+        comms.update(current_state);
+
+        // 6. SAFETY GATE: Check the NEW state immediately
+        if (current_state == Hexadrone::DroneState::DRONE_OE_KILLED || hard_cutoff_triggered)
+        {
+            servo.rapidKill();
+        }
+        else
+        {
+            // 7. ACTUATION: Send angles to hardware ONLY if safe
+            servo.update(current_state);
+            servo.applyAngles(angles);
+        }
     }
-
-    // 7. ACTUATION: Send angles to hardware
-    servo.update(current_state);
-    servo.applyAngles(angles);
 
     // 8. DEBUG COMMANDS
     if (Serial.available())
@@ -104,11 +151,9 @@ void loop()
         String cmd = Serial.readStringUntil('\n');
         cmd.trim();
 
-        if (cmd == "xxdumplogxx")
-            Blackbox.dumpLog();
-        else if (cmd == "xxwipelogxx")
+        if (cmd == "xxwipelogxx")
             Blackbox.wipeLog();
         else if (cmd == "flush")
-            Blackbox.flush();
+            Blackbox.flushSystem(), Blackbox.flushPower();
     }
 }

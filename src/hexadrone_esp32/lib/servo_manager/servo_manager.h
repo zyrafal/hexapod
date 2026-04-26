@@ -19,6 +19,7 @@ private:
     Adafruit_PWMServoDriver _board2 = Adafruit_PWMServoDriver(ADDR_SERVO_2);
 
     bool _killed = false;
+    bool _pcaPresent = false;
 
     // Sequential Arming Trackers
     int _currentActive = 0;

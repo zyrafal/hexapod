@@ -9,23 +9,28 @@ class Logger
 public:
     void begin();
 
-    void printf(const char *format, ...);
-    void println(const String &msg);
-    void print(const String &msg);
+    void logSystem(const char *format, ...);
+    void logPower(float avgCell, float voltage, float current, float power, uint32_t mah);
 
-    void flush();
-
-    void dumpLog();
+    void flushSystem();
+    void flushPower();
     void wipeLog();
-    String getTimestamp();
 
 private:
+    void formatTimestamp(char *buffer, size_t len);
+
+    void print(const String &msg);
+    void println(const String &msg);
+    void printf(const char *format, ...);
+
     bool _fsReady = false;
 
     String _fileBuffer;
+    String _powerBuffer;
     const unsigned int MAX_BUFFER_SIZE = BLACKBOX_BUFFER_SIZE; // Write to flash every ~1KB
 
     unsigned int _flushCount = 0;
+    unsigned int _powerFlushCount = 0;
     const unsigned int MAX_FLUSHES = BLACKBOX_MAX_FLUSHES; // Wipe/Rotate file after n writes
 };
 

@@ -25,7 +25,6 @@ Execute these from your host terminal to manage the containerized ROS 2 Jazzy en
 | **`make up`**     | **Start** the Podman container in the background.                      |
 | **`make build`**  | **Compile** C++ logic for `hexadrone_core` and `hexadrone_controller`. |
 | **`make run`**    | **Launch** Webots and ROS 2 nodes. Press **Ctrl+C** to exit.           |
-| **`make deploy`** | **Upload** firmware directly to the physical ESP32 hardware.           |
 | **`make stop`**   | **Kill** all container processes and stop the environment.             |
 | **`make shell`**  | **Enter** the interactive **fish** shell inside the container.         |
 
@@ -55,31 +54,16 @@ The Hexadrone features a state-aware WiFi manager designed to prioritize radio c
 3. **Power On:** Boot the drone. The ESP32 will automatically connect to your designated WiFi network.
 4. **Access the Network:** Make sure your PC or mobile device is connected to the same WiFi network. The drone will broadcast its presence via mDNS.
 
-### 2. Downloading Blackbox Logs
+### 2. The Gunslinger Web Terminal
 You do not need a USB cable to retrieve crash or walking data. While the drone is disarmed and connected to WiFi:
 * Open any web browser on your connected device.
-* Navigate to: `http://hexadrone.local/blackbox`
-* The latest telemetry and system logs will display as plain text, which you can save for analysis.
+* Navigate to: `http://hexadrone.local/` (or use the direct IP address, e.g., `10.46.34.101`).
+* You will be greeted by the **Maintenance Protocol** terminal. From here, you can download the `system.log`, retrieve the `power.csv` telemetry data, or wipe all internal logs from the LittleFS partition.
 
 ### 3. Over-The-Air (OTA) Firmware Updates
-You can completely rewrite the ESP32's firmware wirelessly using PlatformIO's built-in ArduinoOTA support. 
+You can completely rewrite the ESP32's firmware wirelessly using PlatformIO's built-in ArduinoOTA support.
+- To ensure maximum network stability and prevent hardware timeouts during Over-The-Air (OTA) updates, it is highly recommended to use the raw PlatformIO Command Line Interface (CLI) rather than the built-in VS Code "Upload" button.
 
-**Setup `platformio.ini`:**
-Add the following two lines to your environment configuration in `platformio.ini`:
 ```ini
-[env:esp32doit-devkit-v1]
-; ... existing configurations ...
-
-upload_protocol = espota
-upload_port = hexadrone.local  ; You can also use the exact IP address if mDNS fails
+~/.platformio/penv/bin/pio run -t upload
 ```
-
-## Flashing the Code:
-
-- Ensure the drone is powered on and DISARMED.
-
-- Click the standard Upload button in PlatformIO (or run pio run -t upload).
-
-- PlatformIO will automatically compile the code, locate the drone on your local network, and push the update.
-
-- The ESP32 will restart automatically with the new firmware.

@@ -161,19 +161,44 @@ A dedicated 0.91" OLED is mounted to the logic board for "at-a-glance" diagnosti
 | **4** | `-45dBm \| 9:100` | **Link Health:** ELRS signal strength (RSSI) and Link Quality (LQ) for connection monitoring. |
 
 ### 2. RadioMaster Pocket (Remote Telemetry)
-The **Cyclone ELRS Nano** receiver utilizes a bidirectional link to push critical "Life-Support" data directly to the RadioMaster Pocket interface.
+The **Cyclone ELRS Nano** receiver pushes a high-density telemetry stream to the RadioMaster Pocket. The primary telemetry screen (Screen 1) is configured as a **4x2 Nums** grid to monitor the "Gunslinger" mission status in real-time.
 
-* **Link Health:** Real-time RSSI and Link Quality (LQ) are displayed on the radio's home screen to prevent out-of-range failures.
-* **Battery Alarms:** The RadioMaster is configured to trigger haptic and voice alerts ("Battery Low") when the Holybro sensor reports a cell voltage below **3.5V (21.0V total)**.
-* **Discovery:** All telemetry sensors (Vbat, Curr, RxBt) are discovered via the CRSF protocol, allowing for custom telemetry scripts (e.g., Yaapu) on the EdgeTX display.
+#### **Radiomaster Telemetry Layout**
+
+| Position  | Left Column                        | Right Column                      |
+|-----------|------------------------------------|-----------------------------------|
+| **Row 1** | **`Vbat`**: Total Pack Voltage     | **`V/c`**: Average Cell Voltage   |
+| **Row 2** | **`Curr`**: Total Current Draw     | **`mAh`**: Capacity Consumed      |
+| **Row 3** | **`TPWR`**: Transmitter Power      | **`RSNR`**: Signal-to-Noise Ratio |
+| **Row 4** | **`1RSS`**: Uplink Signal Strength | **`RQly`**: Link Quality (Health) |
+
+#### **Telemetry Thresholds & Diagnostics**
+
+| Sensor   | Unit | Good / Nominal     | Warning / Bad | Description                                                                 |
+|----------|------|--------------------|---------------|-----------------------------------------------------------------------------|
+| **Vbat** | V    | **22.2V – 24.6V**  | **< 21.0V**   | Main battery voltage. Triggers **Soft Cutoff** landing sequence at 21.0V.   |
+| **V/c**  | V    | **3.7V – 4.1V**    | **< 3.5V**    | Average cell voltage ($Vbat / 6$). Essential for monitoring Li-ion health.  |
+| **Curr** | A    | **0.1A – 8A**      | **> 8A**      | Total current draw. Spikes indicate motor jams or mechanical load.          |
+| **mAh**  | mAh  | **0mAh – 3000mAh** | **> 3400mAh** | Total "fuel" gauge. Based on 85% usable capacity of the 4000mAh pack.       |
+| **TPWR** | mW   | **10mW – 100mW**   | **250mW**     | Current TX output. 250mW indicates the radio is compensating for obstacles. |
+| **RSNR** | dB   | **> 5dB**          | **< -15dB**   | Signal cleanness. Lower values indicate high WiFi noise or interference.    |
+| **1RSS** | dBm  | **-30 to -80**     | **< -105**    | Raw uplink signal strength. -105dBm is the physical limit for the link.     |
+| **RQly** | %    | **100%**           | **< 80%**     | **Critical Metric.** Percentage of packets successfully reaching the drone. |
 
 ### 3. Wireless Debugging & Data Logging (Local Network)
 The Hexadrone features a state-aware `CommsManager` and a dual-output `Logger` system designed to balance high-speed radio performance with robust diagnostic capabilities.
 
-* **Radio-Priority WiFi:** To prevent 2.4GHz signal interference, WiFi is strictly suppressed while the drone is `ARMED`. The network stack only initializes upon entering a `DISARMED` state (or an Emergency `OE-KILL` state), allowing the drone to connect...
-* **Buffered Blackbox Logging:** A dedicated `Logger` class (aliased as `Blackbox`) manages all system telemetry and status messages. To protect flash memory longevity, logs are held in a 1KB RAM buffer and flushed to LittleFS only when the buffer is full or a critical safety event (like an OE-Kill) occurs.
-* **Remote Retrieval:** While `DISARMED`, operators can navigate to `http://hexadrone.local/blackbox` to instantly download the `blackbox.txt` file for analysis.
-* **Maintenance & Safety:** The system supports wireless firmware deployment via Arduino OTA. For secure local management, the Serial interface requires full-word commands (`xxdumplogxx`, `xxwipelogxx`, `flush`) to prevent accidental log triggers during operation.
+* **Radio-Priority WiFi:** To prevent 2.4GHz signal interference, WiFi is strictly suppressed while the drone is `ARMED`. The network stack only initializes upon entering a `DISARMED` state (or an Emergency `OE-KILL` state), allowing the drone to connect cleanly to the local network.
+* **Buffered Blackbox Logging:** A dedicated `Logger` class (aliased as `Blackbox`) manages two separate data streams: `system.log` and `power.csv`. To protect flash memory longevity and prevent heap fragmentation, strings are handled using `std::string::clear()` to maintain static memory allocation within a 1KB RAM buffer. Data is only flushed to the LittleFS partition when the buffer aligns with the flash sector size or during critical safety events (like an OE-Kill or OTA error).
+* **The Gunslinger Web Terminal:** While `DISARMED`, operators can navigate to `http://hexadrone.local/` to access the "Maintenance Protocol" UI. From this interface, you can instantly download the system logs, retrieve the telemetry CSV, or wirelessly purge the internal flash storage. 
+* **Maintenance & OTA Updates:** The system supports wireless firmware deployment via Arduino OTA.
+
+#### 4. ELRS Receiver "Auto-WiFi" State
+To facilitate wireless firmware updates, the Cyclone ELRS receiver is programmed with an automatic timeout.
+* **Behavior:** If the receiver does not establish a link with the RadioMaster Pocket within **60 seconds** of power-on, it enters **Auto-WiFi Mode**.
+* **Visual Indicator:** The receiver LED will begin **blinking rapidly** (Double-blink pattern).
+* **Lockout:** While in WiFi mode, the receiver's radio hardware is disabled. It will not respond to the controller until it is rebooted.
+* **Resolution:** Power-cycle the drone with the RadioMaster Pocket already turned on, or adjust the `WiFi Auto On Interval` in the ELRS Lua script on the transmitter.
 
 ## 🛠 Engineering Notes & Safety
 
