@@ -1665,7 +1665,7 @@ PROTO robot [
     }
     physics Physics {
       density -1
-      mass 1.579410
+      mass 3.579410
       centerOfMass [ -0.000000 0.000000 0.031749 ]
       inertiaMatrix [
         1.383090e-02 9.927230e-03 2.197380e-02
