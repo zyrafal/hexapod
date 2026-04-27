@@ -107,10 +107,10 @@ Hexadrone::ControllerInput RadioManager::buildInput()
     // 3. Manual Trims ([-1.0, 1.0] for fine-tuning)
     ci.trim_coxa = normalizeStick(getChannel(11));  // CH11
     ci.trim_femur = normalizeStick(getChannel(12)); // CH12
-    ci.trim_tibia = normalizeStick(getChannel(13)); // CH13
+    ci.trim_tibia = normalizeStick(getChannel(8)); // CH13
 
     // 4. Leg Selector (Digital Trim Mapping)
-    int raw_selector = getChannel(14);
+    int raw_selector = getChannel(10);
     ci.btn_prev_leg = (raw_selector < 1300); // Left push
     ci.btn_next_leg = (raw_selector > 1700); // Right push
 

@@ -18,6 +18,7 @@ namespace Hexadrone
 
         // Getter for the ESP32 hardware layer
         DroneState getState() const { return droneState; }
+        PostureState getPostureState() const { return postureState; }
 
     private:
         // Internal State Tracking

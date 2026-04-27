@@ -33,7 +33,7 @@ void Logger::begin()
         File newCsv = LittleFS.open("/power.csv", FILE_APPEND);
         if (newCsv)
         {
-            newCsv.println("Timestamp,Voltage(V),AvgCell(V),Current(A),Power(W),Capacity(mAh)");
+            newCsv.println("Timestamp,AvgCell(V),Voltage(V),Current(A),Power(W),Capacity(mAh)");
             newCsv.close();
         }
     }
@@ -83,26 +83,28 @@ void Logger::flushSystem()
     if (!_fsReady || _fileBuffer.length() == 0)
         return;
 
-    // Rotate log if it hits max flushes
-    if (_flushCount >= MAX_FLUSHES)
+    File file = LittleFS.open("/system.log", FILE_APPEND);
+    if (!file)
     {
-        LittleFS.remove("/system.log");
-        _flushCount = 0;
-        _fileBuffer = "[LOGGER] --- System Log Rotated: Max file size reached ---\n" + _fileBuffer;
+        Serial.println("[LOGGER] Failed to open system.log for flush");
+        return;
     }
 
-    // Write the buffer to the file
-    File file = LittleFS.open("/system.log", FILE_APPEND);
+    // Check actual file size on disk (200 KB limit)
+    if (file.size() > 200000)
+    {
+        file.close();
+        LittleFS.remove("/system.log");
+        file = LittleFS.open("/system.log", FILE_WRITE); // Recreate fresh
+        if (file)
+            file.println("[LOGGER] --- System Log Rotated: Max file size reached ---");
+    }
+
     if (file)
     {
         file.print(_fileBuffer);
         file.close();
         _fileBuffer.clear();
-        _flushCount++;
-    }
-    else
-    {
-        Serial.println("[LOGGER] Failed to flush to system.log");
     }
 }
 
@@ -111,26 +113,28 @@ void Logger::flushPower()
     if (!_fsReady || _powerBuffer.length() == 0)
         return;
 
-    // Rotate CSV if it hits max flushes
-    if (_powerFlushCount >= MAX_FLUSHES)
+    File file = LittleFS.open("/power.csv", FILE_APPEND);
+    if (!file)
     {
-        LittleFS.remove("/power.csv");
-        _powerFlushCount = 0;
-        _powerBuffer = "Timestamp,Voltage(V),AvgCell(V),Current(A),Power(W),Capacity(mAh)\n" + _powerBuffer;
+        Serial.println("[LOGGER] Failed to open power.csv for flush");
+        return;
     }
 
-    // Write the buffer to the file
-    File file = LittleFS.open("/power.csv", FILE_APPEND);
+    // Check actual file size on disk (200 KB limit)
+    if (file.size() > 200000)
+    {
+        file.close();
+        LittleFS.remove("/power.csv");
+        file = LittleFS.open("/power.csv", FILE_WRITE); // Recreate fresh
+        if (file)
+            file.println("Timestamp,AvgCell(V),Voltage(V),Current(A),Power(W),Capacity(mAh)");
+    }
+
     if (file)
     {
         file.print(_powerBuffer);
         file.close();
         _powerBuffer.clear();
-        _powerFlushCount++;
-    }
-    else
-    {
-        Serial.println("[LOGGER] Failed to flush to power.csv");
     }
 }
 
@@ -158,11 +162,64 @@ void Logger::wipeLog()
     File newCsv = LittleFS.open("/power.csv", FILE_WRITE);
     if (newCsv)
     {
-        newCsv.println("Timestamp,Voltage(V),AvgCell(V),Current(A),Power(W),Capacity(mAh)");
+        newCsv.println("Timestamp,AvgCell(V),Voltage(V),Current(A),Power(W),Capacity(mAh)");
         newCsv.close();
     }
 
     Serial.println("[LOGGER] Files wiped and headers recreated.");
+}
+
+void Logger::dumpLog()
+{
+    if (!_fsReady)
+    {
+        Serial.println("[LOGGER] Cannot dump logs: File system not ready.");
+        return;
+    }
+
+    // 1. Force flush any pending data in RAM to ensure the dump is perfectly up-to-date
+    flushSystem();
+    flushPower();
+
+    // 2. Dump the System Log
+    Serial.println("\n=== START OF SYSTEM LOG DUMP ===");
+    File sysFile = LittleFS.open("/system.log", FILE_READ);
+    if (sysFile)
+    {
+        uint8_t buffer[128]; // Chunk buffer for faster reads
+        while (sysFile.available())
+        {
+            size_t bytesRead = sysFile.read(buffer, sizeof(buffer));
+            Serial.write(buffer, bytesRead);
+        }
+        sysFile.close();
+        Serial.println(); // Ensure it ends on a new line
+    }
+    else
+    {
+        Serial.println("[LOGGER] Error: Could not open /system.log");
+    }
+    Serial.println("=== END OF SYSTEM LOG DUMP ===\n");
+
+    // 3. Dump the Power CSV
+    Serial.println("=== START OF POWER CSV DUMP ===");
+    File pwrFile = LittleFS.open("/power.csv", FILE_READ);
+    if (pwrFile)
+    {
+        uint8_t buffer[128]; // Chunk buffer for faster reads
+        while (pwrFile.available())
+        {
+            size_t bytesRead = pwrFile.read(buffer, sizeof(buffer));
+            Serial.write(buffer, bytesRead);
+        }
+        pwrFile.close();
+        Serial.println(); // Ensure it ends on a new line
+    }
+    else
+    {
+        Serial.println("[LOGGER] Error: Could not open /power.csv");
+    }
+    Serial.println("=== END OF POWER CSV DUMP ===\n");
 }
 
 void Logger::formatTimestamp(char *buffer, size_t len)

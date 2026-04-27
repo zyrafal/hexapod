@@ -139,21 +139,54 @@ void loop()
         }
         else
         {
-            // 7. ACTUATION: Send angles to hardware ONLY if safe
+            // 7. ACTUATION: Send angles to hardware ONLY if safe and ARMED (or Prone)
             servo.update(current_state);
-            servo.applyAngles(angles);
+
+            // The gate now allows angles if ARMED *OR* if it is currently lowering to the ground
+            // Set posture state for servo manager
+            servo.setPostureState(brain.getPostureState());
+            if (current_state == Hexadrone::DroneState::DRONE_ARMED || servo.isDisarming())
+            {
+                servo.applyAngles(angles);
+            }
+            else
+            {
+                // When fully disarmed and the timer has expired, this safely blocks
+                // applyAngles so servo.update() can turn the chips off sequentially!
+            }
         }
     }
 
     // 8. DEBUG COMMANDS
     if (Serial.available())
     {
-        String cmd = Serial.readStringUntil('\n');
-        cmd.trim();
+        static String inputBuffer = ""; // Static keeps the memory alive between loops
+        char c = Serial.read();
 
-        if (cmd == "xxwipelogxx")
-            Blackbox.wipeLog();
-        else if (cmd == "flush")
-            Blackbox.flushSystem(), Blackbox.flushPower();
+        // If it's a newline or carriage return, we are done typing
+        if (c == '\n' || c == '\r')
+        {
+            if (inputBuffer.length() > 0)
+            {
+                inputBuffer.trim();
+
+                if (inputBuffer == "xxwipelogxx")
+                    Blackbox.wipeLog();
+                else if (inputBuffer == "flush")
+                {
+                    Blackbox.flushSystem();
+                    Blackbox.flushPower();
+                }
+                else if (inputBuffer == "dump")
+                    Blackbox.dumpLog();
+
+                inputBuffer = ""; // Clear the buffer for the next command
+            }
+        }
+        else
+        {
+            // Add the letter to the buffer
+            inputBuffer += c;
+        }
     }
 }

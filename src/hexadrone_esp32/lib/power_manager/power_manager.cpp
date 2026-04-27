@@ -27,7 +27,7 @@ BatteryState PowerManager::update(int8_t rssi, int lq)
     {
         shouldLog = true;
     }
-    else if (stats.mah > _lastLoggedMah)
+    else if ((stats.mah - _lastLoggedMah) >= 1.0f)
     {
         shouldLog = true;
     }

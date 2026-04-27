@@ -15,6 +15,7 @@ public:
     void flushSystem();
     void flushPower();
     void wipeLog();
+    void dumpLog();
 
 private:
     void formatTimestamp(char *buffer, size_t len);

@@ -2,6 +2,7 @@
 #include <Arduino.h>
 #include <math.h>
 #include <algorithm>
+#include <hexadrone_core/state_machine.hpp>
 
 void ServoManager::begin()
 {
@@ -34,20 +35,47 @@ void ServoManager::begin()
     }
 }
 
-void ServoManager::applyAngles(const std::vector<float> &angles_deg)
+void ServoManager::setPostureState(Hexadrone::PostureState posture) {
+    _currentPosture = posture;
+}
+
+void ServoManager::applyAngles(const std::vector<float> &angles)
 {
-    if (!_pcaPresent)
+    if (angles.size() != 18 || !_pcaPresent)
         return;
 
-    int count = std::min({(int)angles_deg.size(), 18, _currentActive});
-    for (int i = 0; i < count; i++)
+    for (int logical_leg = 0; logical_leg < 6; ++logical_leg)
     {
-        int physLeg = i / 3;
-        int joint = i % 3;
-        int logicLeg = LEG_REMAP[physLeg];
+        int phys_block = LOGICAL_TO_PHYSICAL[logical_leg];
+        bool is_board_2 = (phys_block >= 4);
+        int base_pin = (phys_block % 4) * 4;
 
-        float angle_deg = angles_deg[logicLeg * 3 + joint];
-        setRawPWM(i, degreesToTicks(angle_deg));
+        for (int joint = 0; joint < 3; ++joint)
+        {
+            int logical_idx = (logical_leg * 3) + joint;
+
+            // 1. POWER GATE: Prevent fighting during disarm sequence
+            if (logical_idx >= _currentActive)
+                continue;
+
+            float corrected_angle;
+            if (_currentPosture == Hexadrone::PostureState::POSTURE_PRONE) {
+                corrected_angle = angles[logical_idx] * -SERVO_SIGNS[logical_idx];
+            } else {
+                corrected_angle = angles[logical_idx] * SERVO_SIGNS[logical_idx];
+            }
+
+            uint16_t pwm_value = degreesToTicks(corrected_angle);
+
+            if (is_board_2)
+            {
+                _board2.setPWM(base_pin + joint, 0, pwm_value);
+            }
+            else
+            {
+                _board1.setPWM(base_pin + joint, 0, pwm_value);
+            }
+        }
     }
 }
 
@@ -119,12 +147,26 @@ void ServoManager::rapidKill()
     Blackbox.flushPower();
 }
 
-void ServoManager::setRawPWM(int index, int pulse)
+void ServoManager::setRawPWM(int global_servo_idx, int pulse)
 {
-    if (index < 16)
-        _board1.setPWM(index, 0, pulse);
+    // 1. Figure out which leg (0-5) and joint (0-2) this global index (0-17) refers to
+    int logical_leg = global_servo_idx / 3;
+    int joint = global_servo_idx % 3;
+
+    // 2. Use the same logic as applyAngles to find the physical hardware
+    int phys_block = LOGICAL_TO_PHYSICAL[logical_leg];
+    bool is_board_2 = (phys_block >= 4);
+    int target_pin = ((phys_block % 4) * 4) + joint;
+
+    // 3. Send the command to the correct chip
+    if (is_board_2)
+    {
+        _board2.setPWM(target_pin, 0, pulse);
+    }
     else
-        _board2.setPWM(index - 16, 0, pulse);
+    {
+        _board1.setPWM(target_pin, 0, pulse);
+    }
 }
 
 int ServoManager::degreesToTicks(float degrees)

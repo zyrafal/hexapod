@@ -14,6 +14,9 @@ public:
     void applyAngles(const std::vector<float> &angles_deg);
     void rapidKill();
 
+    bool isDisarming() const { return _isDisarming; }
+    void setPostureState(Hexadrone::PostureState posture);
+
 private:
     Adafruit_PWMServoDriver _board1 = Adafruit_PWMServoDriver(ADDR_SERVO_1);
     Adafruit_PWMServoDriver _board2 = Adafruit_PWMServoDriver(ADDR_SERVO_2);
@@ -30,6 +33,8 @@ private:
     Hexadrone::DroneState _lastDroneState = Hexadrone::DroneState::DRONE_DISARMED;
     unsigned long _disarmTriggerTime = 0;
     bool _isDisarming = false;
+
+    Hexadrone::PostureState _currentPosture = Hexadrone::PostureState::POSTURE_STANDARD;
 
     void setRawPWM(int index, int pulse);
     int degreesToTicks(float degrees);

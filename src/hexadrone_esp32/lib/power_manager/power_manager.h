@@ -39,7 +39,7 @@ private:
     // State trackers for delta logging
     float _lastLoggedV = 0.0f;
     float _lastLoggedI = 0.0f;
-    uint32_t _lastLoggedMah = 0;
+    float _lastLoggedMah = 0.0f;
 
     PowerStats read();
     // void logPowerStats(PowerStats stats); TODO: use for the display output, implement the function there or somewhere else

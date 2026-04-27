@@ -44,17 +44,11 @@ void CommsManager::begin(const char *ssid, const char *password)
     // 1. Download System Log
     _server.on("/logs", HTTP_GET, [](AsyncWebServerRequest *request)
                {
-    // Check if file exists BEFORE calling flush to prevent unnecessary locks
     if (!LittleFS.exists("/system.log")) {
         request->send(200, "text/plain", "Log file not initialized yet. Reboot or trigger an event.");
         return;
     }
-
-    // Force flush both system and power data before download
-    Blackbox.flushSystem();
-    Blackbox.flushPower();
     
-    // Use a specific MIME type and check size
     File file = LittleFS.open("/system.log", "r");
     if (file && file.size() > 0) {
         file.close();
@@ -68,9 +62,7 @@ void CommsManager::begin(const char *ssid, const char *password)
     _server.on("/telemetry", HTTP_GET, [](AsyncWebServerRequest *request)
                { 
     if (LittleFS.exists("/power.csv")) {
-        // Force flush both system and power data before download
-        Blackbox.flushSystem();
-        Blackbox.flushPower();
+        // Removed the flush commands!
         request->send(LittleFS, "/power.csv", "text/csv", true); 
     } else {
         request->send(200, "text/plain", "Telemetry data not available yet.");
