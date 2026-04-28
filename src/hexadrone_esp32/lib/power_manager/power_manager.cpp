@@ -1,4 +1,8 @@
 #include "power_manager.h"
+#include "radio_manager.h"
+
+// Access the global radio object defined in main.cpp
+extern RadioManager radio;
 
 void PowerManager::begin()
 {
@@ -40,6 +44,23 @@ BatteryState PowerManager::update(int8_t rssi, int lq)
         _lastLoggedV = stats.voltage;
         _lastLoggedI = stats.current;
         _lastLoggedMah = stats.mah;
+    }
+
+    // 3. Telemetry Downlink (Send to Radio at 5Hz)
+    static unsigned long _lastTelemetryTime = 0;
+    if (millis() - _lastTelemetryTime >= 200)
+    {
+        _lastTelemetryTime = millis();
+
+        // Calculate remaining battery percentage
+        float clampedV = stats.voltage;
+        if (clampedV > 24.6f)
+            clampedV = 24.6f;
+        if (clampedV < 20.4f)
+            clampedV = 20.4f;
+        uint8_t remaining_percent = (uint8_t)(((clampedV - 20.4f) / 5.2f) * 100.0f);
+
+        radio.sendBatteryTelemetry(stats.voltage, stats.current, stats.mah, remaining_percent);
     }
 
     return evaluateHealth(stats.voltage);

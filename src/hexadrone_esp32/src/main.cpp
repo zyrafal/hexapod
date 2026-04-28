@@ -190,3 +190,17 @@ void loop()
         }
     }
 }
+
+//
+// In main.cpp loop()
+// static unsigned long last_servo_update = 0;
+// unsigned long now = millis();
+
+// 1. Math is always updated for maximum precision
+// std::vector<float> angles = brain.update(dt, input);
+
+// 2. Physical hardware is updated only at the PWM frequency
+// if (now - last_servo_update >= 20) { // 20ms = 50Hz
+//    last_servo_update = now;
+//    servo.applyAngles(angles);
+//}

@@ -28,9 +28,9 @@ constexpr int LOGICAL_TO_PHYSICAL[6] = {
 // Order: [Coxa, Femur, Tibia] for each leg (0-5)
 constexpr float SERVO_SIGNS[18] = {
     // Group A (LF, RM, LB) - Swapped to POSITIVE
-     1.0f,  -1.0f,  1.0f, // Leg 0 (LF)
-     1.0f,  -1.0f,  1.0f, // Leg 1 (RM)
-     1.0f,  -1.0f,  1.0f, // Leg 2 (LB)
+    1.0f, -1.0f, 1.0f, // Leg 0 (LF)
+    1.0f, -1.0f, 1.0f, // Leg 1 (RM)
+    1.0f, -1.0f, 1.0f, // Leg 2 (LB)
 
     // Group B (RF, LM, RB) - Swapped to NEGATIVE
     -1.0f, 1.0f, -1.0f, // Leg 3 (RF)
@@ -64,7 +64,7 @@ constexpr float SERVO_SIGNS[18] = {
 #define HARD_CUTOFF_VOLTAGE 18.0f // 3.0V per cell
 #define SOFT_CUTOFF_VOLTAGE 20.4f // 3.4V per cell
 #define SOFT_CUTOFF_INTERVAL 5000
-#define WARNING_VOLTAGE 21.6f // 3.6V per cell
+#define WARNING_VOLTAGE 21.0f // 3.5V per cell
 #define WARNING_INTERVAL 2000
 
 // Arming Intervals (ms)
@@ -77,5 +77,5 @@ constexpr float SERVO_SIGNS[18] = {
 
 // Servo PWM Ticks (Standard 0.5ms - 2.5ms range)
 #define PWM_FREQ 50
-#define SERVOMIN 105    // Usually the 0 degree limit
-#define SERVOMAX 515    // Usually the 180 degree limit
+#define SERVOMIN 105 // Usually the 0 degree limit
+#define SERVOMAX 515 // Usually the 180 degree limit

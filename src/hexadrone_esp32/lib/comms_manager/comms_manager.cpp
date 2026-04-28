@@ -128,13 +128,8 @@ void CommsManager::update(Hexadrone::DroneState currentState)
 
     if (_state == CommsState::CONNECTING)
     {
-        if (millis() - _lastDotTime >= _dotInterval)
-        {
-            _lastDotTime = millis();
-            Serial.print(".");
-        }
-
-        if (WiFi.status() == WL_CONNECTED)
+        // Check if we are connected AND have a real IP address
+        if (WiFi.status() == WL_CONNECTED && WiFi.localIP().toString() != "0.0.0.0")
         {
             _state = CommsState::CONNECTED;
 
@@ -143,17 +138,36 @@ void CommsManager::update(Hexadrone::DroneState currentState)
                 _server.begin();
                 ArduinoOTA.begin();
                 _serversStarted = true;
+
+                if (MDNS.begin("hexadrone"))
+                {
+                    // 1. Advertise the Web Server so PCs/Phones can "see" it
+                    MDNS.addService("http", "tcp", 80);
+
+                    // 2. Announce the name to the network immediately
+                    Blackbox.logSystem("[COMMS] mDNS active: http://hexadrone.local");
+                }
+                else
+                {
+                    Blackbox.logSystem("[COMMS] mDNS Failed to start.");
+                }
             }
-
-            Blackbox.logSystem("[COMMS] WiFi Connected Successfully.");
-            Blackbox.logSystem("[COMMS] ESP32 IP Address: %s", WiFi.localIP().toString().c_str());
-
-            if (MDNS.begin("hexadrone"))
-                Blackbox.logSystem("[COMMS] mDNS started at: http://hexadrone.local");
-            else
-                Blackbox.logSystem("[COMMS] Error starting mDNS.");
         }
     }
+
+    else if (_state == CommsState::CONNECTED)
+    {
+        ArduinoOTA.handle();
+
+        // If we lose connection, don't just 'reconnect'—restart the whole attempt
+        if (WiFi.status() != WL_CONNECTED)
+        {
+            _state = CommsState::CONNECTING;
+            Blackbox.logSystem("[COMMS] Connection lost. Re-initializing...");
+            WiFi.begin(_ssid.c_str(), _password.c_str()); // Hard restart of the connection
+        }
+    }
+
     else if (_state == CommsState::CONNECTED)
     {
         ArduinoOTA.handle();
@@ -172,11 +186,11 @@ void CommsManager::enableWiFi(const char *ssid, const char *password)
 {
     if (!_wifiEnabled)
     {
-        Blackbox.logSystem("[COMMS] Connecting to %s.", ssid);
+        Blackbox.logSystem("[COMMS] Initializing WiFi for %s...", ssid);
 
         WiFi.mode(WIFI_STA);
-        WiFi.begin(ssid, password);
         WiFi.setSleep(false);
+        WiFi.begin(ssid, password); // Start the connection
 
         _wifiEnabled = true;
         _state = CommsState::CONNECTING;

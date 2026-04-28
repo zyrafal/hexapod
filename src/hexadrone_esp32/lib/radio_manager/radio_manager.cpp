@@ -107,7 +107,7 @@ Hexadrone::ControllerInput RadioManager::buildInput()
     // 3. Manual Trims ([-1.0, 1.0] for fine-tuning)
     ci.trim_coxa = normalizeStick(getChannel(11));  // CH11
     ci.trim_femur = normalizeStick(getChannel(12)); // CH12
-    ci.trim_tibia = normalizeStick(getChannel(8)); // CH13
+    ci.trim_tibia = normalizeStick(getChannel(8));  // CH13
 
     // 4. Leg Selector (Digital Trim Mapping)
     int raw_selector = getChannel(10);
@@ -116,3 +116,62 @@ Hexadrone::ControllerInput RadioManager::buildInput()
 
     return ci;
 }
+
+// --- CRSF TELEMETRY DOWNLINK ---
+
+uint8_t RadioManager::crsf_crc8(uint8_t *data, uint8_t len)
+{
+    // Standard CRSF CRC8 calculation using polynomial 0xD5
+    uint8_t crc = 0;
+    for (uint8_t i = 0; i < len; i++)
+    {
+        crc ^= data[i];
+        for (uint8_t j = 0; j < 8; j++)
+        {
+            if (crc & 0x80)
+            {
+                crc = (crc << 1) ^ 0xD5;
+            }
+            else
+            {
+                crc <<= 1;
+            }
+        }
+    }
+    return crc;
+}
+
+void RadioManager::sendBatteryTelemetry(float voltage, float current, float mah, uint8_t remaining_percent)
+{
+    // Frame Structure: [Sync] [Length] [Type] [Payload...] [CRC]
+    uint8_t frame[12];
+
+    frame[0] = 0xC8; // Sync byte: Flight Controller to Receiver
+    frame[1] = 10;   // Length: Type(1) + Payload(8) + CRC(1)
+    frame[2] = 0x08; // Frame Type: Battery Sensor
+
+    // Payload 1: Voltage (2 bytes, 0.1V steps, Big-Endian)
+    uint16_t v = (uint16_t)(voltage * 10.0f);
+    frame[3] = (v >> 8) & 0xFF;
+    frame[4] = v & 0xFF;
+
+    // Payload 2: Current (2 bytes, 0.1A steps, Big-Endian)
+    uint16_t c = (uint16_t)(current * 10.0f);
+    frame[5] = (c >> 8) & 0xFF;
+    frame[6] = c & 0xFF;
+
+    // Payload 3: Capacity (3 bytes, mAh, Big-Endian)
+    uint32_t cap = (uint32_t)mah;
+    frame[7] = (cap >> 16) & 0xFF;
+    frame[8] = (cap >> 8) & 0xFF;
+    frame[9] = cap & 0xFF;
+
+    // Payload 4: Remaining Battery Percentage (1 byte)
+    frame[10] = remaining_percent;
+
+    // Calculate CRC over the Type and Payload bytes (Bytes 2 through 10)
+    frame[11] = crsf_crc8(&frame[2], 9);
+
+    // Send the frame out over the UART directly to the Receiver
+    Serial2.write(frame, 12);
+}   

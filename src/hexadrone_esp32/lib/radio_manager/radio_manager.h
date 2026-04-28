@@ -19,6 +19,8 @@ public:
     // Public builder method
     Hexadrone::ControllerInput buildInput();
 
+    void sendBatteryTelemetry(float voltage, float current, float mah, uint8_t remaining_percent);
+
 private:
     AlfredoCRSF _crsf;
 
@@ -27,4 +29,6 @@ private:
     // Private helpers
     float normalizeStick(int raw);
     int normalize3Pos(int raw);
+
+    uint8_t crsf_crc8(uint8_t *data, uint8_t len);
 };

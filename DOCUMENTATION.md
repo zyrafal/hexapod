@@ -221,7 +221,7 @@ To facilitate wireless firmware updates, the Cyclone ELRS receiver is programmed
 - **Cell Safety:** The Partizan Li-ion pack (10C rating) is capable of 40A continuous discharge. While the drone's average draw is lower (≈5–10A), the BMS is capable of handling 40A peaks.
 - **Telemetry Monitoring:** The Holybro PM02D is used to feed real-time voltage data to the ESP32 via I2C.
 - **Firmware Thresholds:**
-    - **Warning (< 21.6V | 3.6V/c for 2 seconds):**
+    - **Warning (< 21.0V | 3.5V/c for 2 seconds):**
     - **Soft Cutoff (< 20.4V | 3.4V/c for 5 seconds):** Forcibly intercepts the Radio controller's ARM switch to trigger a graceful landing.
     - **Immediate Hard Cutoff (< 18.0V | 3.0V/c):** Instantly triggers the Hardware OE-Kill gate.
     - **USB Bench Mode (< 6.0V):** If the voltage reads below 6V, the system assumes it is being powered via USB (5V logic rail) without a battery attached. All cutoff logic is bypassed to allow safe desktop debugging.
