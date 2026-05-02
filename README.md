@@ -57,7 +57,7 @@ The Hexadrone features a state-aware WiFi manager designed to prioritize radio c
 ### 2. The Gunslinger Web Terminal
 You do not need a USB cable to retrieve crash or walking data. While the drone is disarmed and connected to WiFi:
 * Open any web browser on your connected device.
-* Navigate to: `http://hexadrone.local/` (or use the direct IP address, e.g., `10.46.34.101`).
+* Navigate to: `http://hexadrone.local/` (or use the direct IP address).
 * You will be greeted by the **Maintenance Protocol** terminal. From here, you can download the `system.log`, retrieve the `power.csv` telemetry data, or wipe all internal logs from the LittleFS partition.
 
 ### 3. Over-The-Air (OTA) Firmware Updates
