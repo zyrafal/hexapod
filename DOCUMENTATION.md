@@ -1,4 +1,5 @@
-# 🤖 Hexadrone
+# 🤖 M1A1-GUNSLINGER
+> **System Class:** Tactical Hexadrone (V1.0)
 
 ## 🏗️ Project Architecture
 
@@ -198,7 +199,18 @@ To facilitate wireless firmware updates, the Cyclone ELRS receiver is programmed
 * **Lockout:** While in WiFi mode, the receiver's radio hardware is disabled. It will not respond to the controller until it is rebooted.
 * **Resolution:** Power-cycle the drone with the RadioMaster Pocket already turned on, or adjust the `WiFi Auto On Interval` in the ELRS Lua script on the transmitter.
 
-## 🛠 Redundant Power Architecture & Thermal Management
+## 📈 Real-World Power Profiling
+
+![4kg Power Telemetry](documentation_assets/4kg_test_power.svg)
+
+To validate the theoretical endurance limits, the Gunslinger was tested in its heaviest 4 kg configuration. The telemetry data above illustrates the critical difference between continuous average draw and transient dynamic loads:
+
+- **Quiescent Efficiency:** While standing still and actively holding the 4 kg mass, the current drops to approximately **0.20A per servo** (~30W total). This confirms that the resting posture effectively shifts the physical load through the mechanical frame rather than forcing the servos to constantly stall against gravity.
+- **Mission Average:** During a standard continuous walking gait, the total system averages just **51.5W** (0.36A per servo). This high efficiency allows the servos to remain cool and yields an estimated continuous walking time of over **80 minutes**.
+- **Dynamic Transients:** The sharp peaks reaching up to **140W** represent brief fractions of a second under extreme mechanical leverage—such as initiating a heavy step, overcoming momentum, or rapid directional changes.
+- **Safety Integration:** These 140W spikes naturally cause momentary voltage sag across the 6S Li-ion battery.
+
+### 🛠 Redundant Power Architecture & Thermal Management
 
 - **Interleaved Fail-Safe Design:** The system utilizes two independent 300W step-down converters. Rather than a simple left/right split, the servos are organized in two interleaved groups to ensure static stability.
     - **Group A:** Left-Front (LF), Right-Middle (RM), Left-Back (LB)
@@ -207,7 +219,18 @@ To facilitate wireless firmware updates, the Cyclone ELRS receiver is programmed
 - **Current Overhead:** Each group of 9 servos pulls a peak stall current of 10.8A (@ 6.8V). Accounting for 90% converter efficiency, the input draw per converter is ≈11.88A.
     - *Safety Margin:* Operating at 11.88A stays well within the **15A recommended limit**, providing a 20% buffer. This "under-clocking" significantly reduces the risk of thermal shutdown compared to a single-converter setup.
 
-## ⚙️ Hardware Components
+## 📐 Detailed Wiring Schematic
+
+[Hexadrone Detailed Schematic](documentation_assets/HEXADRONE_SCHEMATIC.svg)
+
+This schematic details the exact pinouts, communication buses, and logic pathways for the Gunslinger:
+* **Dual Power Rails:** Illustrates the physical split between the 5.2V logic rail (regulated by the Holybro PM02D) and the dual 6.8V high-current servo rails (driven by the 20A Buck Converters).
+* **I2C Communication Bus:** Maps the shared SDA/SCL lines connecting the ESP32 to the power telemetry sensor and both PCA9685 servo drivers.
+* **Hardware OE-Kill:** Shows the GPIO routing for the Output Enable (OE) pin, demonstrating how the ESP32 can physically cut the PWM signals to the servos during an emergency soft-cutoff or kill-switch event.
+* **Actuator Mapping (Orientation Only):** This section provides the physical wiring guide for the 18 servos. Note that the schematic correctly illustrates the electrical grouping—**2 groups on address `0x40`** and **4 groups on address `0x41`**. 
+    * **Note on Implementation:** This physical layout is for hardware orientation only. The functional joint assignments, pulse-width limits, and kinematic offsets are abstracted and further defined within the software architecture, specifically inside `config.h` and the `ServoManager` class.
+
+### ⚙️ Hardware Components
 
 - **Microcontroller (ESP32-WROOM):** The central brain of the hexadrone, featuring a convenient USB-C port for programming and a CH340 USB-to-Serial chip. It processes the core kinematics, state machine, WiFi/OTA networking, and I2C/UART data streams.
 - **Radio Receiver (Cyclone ELRS 2.4G Nano):** Provides a robust, low-latency control link with a dedicated antenna. It pushes a continuous, high-density telemetry stream back to the operator.
