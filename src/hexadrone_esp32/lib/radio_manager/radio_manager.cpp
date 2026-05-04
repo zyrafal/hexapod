@@ -54,7 +54,15 @@ int RadioManager::getChannel(int ch) { return _crsf.getChannel(ch); }
 
 bool RadioManager::isConnected()
 {
-    return _crsf.isLinkUp();
+    static unsigned long lastValidPacketTime = 0;
+
+    if (_crsf.isLinkUp())
+    {
+        lastValidPacketTime = millis();
+    }
+
+    // Only declare connection LOST if no packets arrive for 5000ms
+    return (millis() - lastValidPacketTime < 5000);
 }
 
 int8_t RadioManager::getRSSI()
@@ -174,4 +182,4 @@ void RadioManager::sendBatteryTelemetry(float voltage, float current, float mah,
 
     // Send the frame out over the UART directly to the Receiver
     Serial2.write(frame, 12);
-}   
+}

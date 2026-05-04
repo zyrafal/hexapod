@@ -137,11 +137,20 @@ void ServoManager::update(Hexadrone::DroneState currentState)
 
 void ServoManager::rapidKill()
 {
-    if (_killed)
-        return;
-
+    if (_killed) return;
+    
     _killed = true;
-    digitalWrite(OE_CUSTOM, HIGH);
+    digitalWrite(OE_CUSTOM, HIGH); // Primary Hardware Kill
+
+    // SECONDARY SOFTWARE KILL: Broadcast Full-Off (4096) to all channels
+    // just in case the physical OE wire is disconnected.
+    if (_pcaPresent) {
+        for(int i = 0; i < 16; i++) {
+            _board1.setPWM(i, 0, 4096);
+            _board2.setPWM(i, 0, 4096);
+        }
+    }
+
     Blackbox.logSystem("[SERVOS] OE-Kill-switch condition met. Hardware reset required.");
     Blackbox.flushSystem();
     Blackbox.flushPower();
@@ -149,23 +158,20 @@ void ServoManager::rapidKill()
 
 void ServoManager::setRawPWM(int global_servo_idx, int pulse)
 {
-    // 1. Figure out which leg (0-5) and joint (0-2) this global index (0-17) refers to
     int logical_leg = global_servo_idx / 3;
     int joint = global_servo_idx % 3;
 
-    // 2. Use the same logic as applyAngles to find the physical hardware
     int phys_block = LOGICAL_TO_PHYSICAL[logical_leg];
     bool is_board_2 = (phys_block >= 4);
     int target_pin = ((phys_block % 4) * 4) + joint;
 
-    // 3. Send the command to the correct chip
-    if (is_board_2)
-    {
-        _board2.setPWM(target_pin, 0, pulse);
-    }
-    else
-    {
-        _board1.setPWM(target_pin, 0, pulse);
+    // PCA9685 Magic Number: 4096 triggers the "Full OFF" register bit
+    int off_value = (pulse == 0) ? 4096 : pulse;
+
+    if (is_board_2) {
+        _board2.setPWM(target_pin, 0, off_value);
+    } else {
+        _board1.setPWM(target_pin, 0, off_value);
     }
 }
 
